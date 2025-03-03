@@ -1,0 +1,94 @@
+== New Properties
+
+=== COMP-ID Property
+
+Property name:: COMP-ID
+
+Purpose:: This property uniquely identifies a component among all its siblings of the same
+type.
+
+Value type:: TEXT, also see Format Definition for value restrictions.
+
+Conformance:: The property can be specified once in a calendar component.
+
+Property parameters:: IANA and non-standard property parameters can be specified on this
+property.
+
+Description::
+A calendar component may embed multiple components of the same type. For example, a VEVENT
+component may embed multiple VALARM components. To distinguish these VALARMs among all global
+instances of VALARM calendar components, an application may choose to assign a uniquely
+global UID to each of them. However, some applications or formats such as JSCalendar, do not
+require globally uniqueness. Instead, they only require uniqueness among all instances of
+calendar components within one parent component. This is what the COMP-ID property is for.
++
+The COMP-ID property identifies a component among all of its siblings of the same type. A
+valid COMP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only
+contain the ASCII alphanumeric characters (`A-Za-z0-9`), hyphen (`-`), and underscore (`_`).
+The identifier only has the purpose to uniquely identify siblings, its value has no other
+meaning. If an application makes use of COMP-ID it SHOULD assign a unique identifier to each
+sibling component of the same type within their parent component. The same identifier MAY be
+used for components of a different type, and it MAY also be assigned to a same-typed
+component that is not a sibling.
++
+Resolving duplicate identifier conflicts is specific to the application. Similarly, handling
+components where some but not all siblings have a COMP-ID is assigned, is
+application-specific.
+
+Format definition:: This property is defined by the following notation:
++
+[source%unnumbered]
+----
+comp-id  = "COMP-ID" comp-id-param ":" comp-id-value CRLF
+
+comp-id-value  = 1*255(ALPHA / DIGIT / "-"/ "_")
+
+comp-id-param  = *(";" other-param)
+----
+
+Example(s)::
++
+[source%unnumbered]
+----
+COMP-ID:m2398
+----
+
+=== SHOW-WITHOUT-TIME Property
+
+Property name:: SHOW-WITHOUT-TIME
+
+Purpose:: This property indicates if an event or task should be displayed with time
+information.
+
+Value type:: BOOLEAN
+
+Conformance:: The property can be specified once in the `VEVENT`, `VTODO` or `VJOURNAL`
+calendar components.
+
+Property parameters:: IANA and non-standard property parameters can be specified on this
+property.
+
+Description::
+This indicates that the time is not important to display to the user when rendering this
+calendar object. An example of this is an event that conceptually occurs all day or across
+multiple days, such as "New Year's Day" or "Italy Vacation". While the time component is
+important for free-busy calculations and checking for scheduling clashes, calendars may
+choose to omit displaying it and/or display the object separately to other objects to enhance
+the user's view of their schedule.
+
+Format definition:: This property is defined by the following notation:
++
+[source%unnumbered]
+----
+show-without-time  = "SHOW-WITHOUT-TIME" show-without-time-param
+                     ":" boolean CRLF
+
+show-without-time-param  = *(";" other-param)
+----
+
+Example(s)::
++
+[source%unnumbered]
+----
+SHOW-WITHOUT-TIME:TRUE
+----

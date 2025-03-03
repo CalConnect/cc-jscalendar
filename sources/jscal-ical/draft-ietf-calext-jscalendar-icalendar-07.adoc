@@ -1,0 +1,66 @@
+= JSCalendar: Converting from and to iCalendar
+:doctype: internet-draft
+:name: draft-ietf-calext-jscalendar-icalendar-07
+:abbrev: JSCalendar
+:status: standard
+:ipr: trust200902
+:area: Applications
+:intended-series: full-standard
+:workgroup: Calendaring Extensions
+:published-date: 2022-07-11
+:fullname: Robert Stepanek
+:lastname: Stepanek
+:forename_initials: R.
+:affiliation: FastMail
+:address: PO Box 234 + \
+Collins St West + \
+Melbourne, VIC 8007 + \
+Australia
+:email: rsto@fastmailteam.com
+:contributor-uri: https://www.fastmail.com
+:fullname_2: Michael Douglass
+:lastname_2: Douglass
+:forename_initials_2: M.
+:affiliation_2: Bedework Commercial Services
+:address_2: 226 3rd Street + \
+Troy, NY 12180 + \
+United States of America
+:email_2: mdouglass@bedework.com
+:contributor-uri_2: http://bedework.com
+:keywords: JSON, iCalendar, calendar, events, date, time
+:mn-document-class: ietf
+:mn-output-extensions: xml,rfc,txt,html,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/04-icalendar-preprocessing.adoc[]
+
+include::sections/05-translate-icalendar-components.adoc[]
+
+include::sections/06-translate-icalendar-properties.adoc[]
+
+include::sections/07-translate-icalendar-non-standard.adoc[]
+
+include::sections/08-translate-icalendar-recurrences.adoc[]
+
+include::sections/09-translate-icalendar-further-examples.adoc[]
+
+include::sections/10-translate-jscalendar-components.adoc[]
+
+include::sections/11-translate-jscalendar-properties.adoc[]
+
+include::sections/12-translate-jscalendar-non-standard.adoc[]
+
+include::sections/13-jscalendar-spec-updates.adoc[]
+
+include::sections/14-security-considerations.adoc[]
+
+include::sections/15-iana-considerations.adoc[]
+
+include::sections/99-acknowledgements.adoc[]
+
+include::sections-ietf/99-references.adoc[]

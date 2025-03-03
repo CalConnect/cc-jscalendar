@@ -1,0 +1,46 @@
+= iCalendar Format Extension for JSCalendar
+:docnumber: 51015
+:copyright-year: 2022
+:language: en
+:doctype: standard
+:edition: 1
+:status: working-draft
+:revdate: 2022-07-11
+:published-date: 2022-07-11
+:technical-committee: CALENDAR
+:fullname: Robert Stepanek
+:surname: Stepanek
+:givenname: Robert
+:affiliation: Fastmail
+:fullname_2: Michael Douglass
+:surname_2: Douglass
+:givenname_2: Michael
+:affiliation_2: Fastmail
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/00-preface.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normative-references.adoc[]
+
+include::sections/03-terms.adoc[]
+
+include::sections/04-new-properties.adoc[]
+
+include::sections/05-updated-properties.adoc[]
+
+include::sections/06-new-parameters.adoc[]
+
+include::sections/10-security.adoc[]
+
+include::sections/11-iana.adoc[]
+
+include::sections/99-bibliography.adoc[]

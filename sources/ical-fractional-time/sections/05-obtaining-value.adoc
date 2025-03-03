@@ -1,0 +1,32 @@
+[[obtaining-value]]
+== Obtaining a Property Value
+
+If the property has a FRACTIONAL parameter first check that it is a valid value using the
+criteria specified in <<fractional-parameter>>. If valid, use that value for the iCalendar
+property.
+
+If the property has no FRACTIONAL parameter or the value of that parameter is invalid then
+use the normal property value.
+
+For example:
+
+[source%unnumbered]
+----
+...
+ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT18H
+...
+
+The value here is "PT18H" because the FRACTIONAL parameter is not valid.
+
+...
+ESTIMATED-DURATION:PT18H
+...
+
+The value here is "PT18H" because there is no FRACTIONAL parameter.
+
+...
+ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT17H15M24S
+...
+
+The value here is "PT17H15M23.5S" because the FRACTIONAL parameter is valid.
+----

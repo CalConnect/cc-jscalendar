@@ -1,0 +1,4 @@
+[[security-considerations]]
+== Security Considerations
+
+The same security considerations as for <<RFC8984>> apply.

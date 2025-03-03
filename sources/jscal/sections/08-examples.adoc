@@ -1,0 +1,381 @@
+[[examples]]
+== Examples
+
+The following examples illustrate several aspects of the JSCalendar data model and format.
+The examples may omit mandatory or additional properties, which is indicated by a placeholder
+property with key `...`. While most of the examples use calendar event objects, they are also
+illustrative for tasks.
+
+[[example-simple-event]]
+=== Simple event
+
+This example illustrates a simple one-time event. It specifies a one-time event that begins
+on January 15, 2020 at 1pm New York local time and ends after 1 hour.
+
+[source%unnumbered,json]
+----
+{
+  "@type": "Event",
+  "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+  "updated": "2020-01-02T18:23:04Z",
+  "title": "Some event",
+  "start": "2020-01-15T13:00:00",
+  "timeZone": "America/New_York",
+  "duration": "PT1H"
+}
+----
+
+[[example-simple-task]]
+=== Simple task
+
+This example illustrates a simple task for a plain to-do item.
+
+[source%unnumbered,json]
+----
+{
+  "@type": "Task",
+  "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+  "updated": "2020-01-09T14:32:01Z",
+  "title": "Do something"
+}
+----
+
+[[example-simple-group]]
+=== Simple group
+
+This example illustrates a simple calendar object group that contains an event and a task.
+
+[source%unnumbered,json]
+----
+{
+  "@type": "Group",
+  "uid": "bf0ac22b-4989-4caf-9ebd-54301b4ee51a",
+  "updated": "2020-01-15T18:00:00Z",
+  "name": "A simple group",
+  "entries": [{
+    "@type": "Event",
+    "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+    "updated": "2020-01-02T18:23:04Z",
+    "title": "Some event",
+    "start": "2020-01-15T13:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+  },
+  {
+    "@type": "Task",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+    "updated": "2020-01-09T14:32:01Z",
+    "title": "Do something"
+  }]
+}
+----
+
+[[example-all-day-event]]
+=== All-day event
+
+This example illustrates an event for an international holiday. It specifies an all-day event
+on April 1 that occurs every year since the year 1900.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "April Fool's Day",
+  "showWithoutTime": true,
+  "start": "1900-04-01T00:00:00",
+  "duration": "P1D",
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "yearly"
+  }]
+}
+----
+
+[[example-due-task]]
+=== Task with a due date
+
+This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm
+Vienna local time on January 19, 2020. The calendar user expects to need 1 hour for shopping.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "Buy groceries",
+  "due": "2020-01-19T18:00:00",
+  "timeZone": "Europe/Vienna",
+  "estimatedDuration": "PT1H"
+}
+----
+
+[[example-zoned-event-endtz]]
+=== Event with end time zone
+
+This example illustrates the use of end time zones by use of an international flight. The
+flight starts on April 1, 2020 at 9am in Berlin local time. The duration of the flight is
+scheduled at 10 hours 30 minutes. The time at the flight's destination is in the same time
+zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in
+Tokyo local time and highlight the time zone difference of the flight. The location names can
+serve as input for navigation systems.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "Flight XY51 to Tokyo",
+  "start": "2020-04-01T09:00:00",
+  "timeZone": "Europe/Berlin",
+  "duration": "PT10H30M",
+  "locations": {
+    "1": {
+      "@type": "Location",
+      "rel": "start",
+      "name": "Frankfurt Airport (FRA)"
+    },
+    "2": {
+      "@type": "Location",
+      "rel": "end",
+      "name": "Narita International Airport (NRT)",
+      "timeZone": "Asia/Tokyo"
+    }
+  }
+}
+----
+
+[[example-floating-event]]
+=== Floating-time event (with recurrence)
+
+This example illustrates the use of floating time. Since January 1, 2020, a calendar user
+blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the
+user is located on that date.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "Yoga",
+  "start": "2020-01-01T07:00:00",
+  "duration": "PT30M",
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "daily"
+  }]
+}
+----
+
+[[example-multi-location-event]]
+=== Event with multiple locations and localization
+
+This example illustrates an event that happens at both a physical and a virtual location.
+Fans can see a live concert on premises or online. The event title and descriptions are
+localized.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "Live from Music Bowl: The Band",
+  "description": "Go see the biggest music event ever!",
+  "locale": "en",
+  "start": "2020-07-04T17:00:00",
+  "timeZone": "America/New_York",
+  "duration": "PT3H",
+  "locations": {
+    "loc1": {
+      "@type": "Location",
+      "name": "The Music Bowl",
+      "description": "Music Bowl, Central Park, New York",
+      "coordinates": "geo:40.7829,-73.9654"
+    }
+  },
+  "virtualLocations": {
+    "vloc1": {
+      "@type": "VirtualLocation",
+      "name": "Free live Stream from Music Bowl",
+      "uri": "https://stream.example.com/the_band_2020"
+    }
+  },
+  "localizations": {
+    "de": {
+      "title": "Live von der Music Bowl: The Band!",
+      "description": "Schau dir das größte Musikereignis an!",
+      "virtualLocations/vloc1/name": "Gratis Live-Stream aus der Music Bowl"
+    }
+  }
+}
+----
+
+[[example-recurring-overrides]]
+=== Recurring event with overrides
+
+This example illustrates the use of recurrence overrides. A math course at a University is
+held for the first time on January 8, 2020 at 9am London time and occurs every week until
+June 24, 2020. Each lecture lasts for one hour and 30 minutes and is located at the
+Mathematics department. This event has exceptional occurrences: at the last occurrence of the
+course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam
+differs from the usual location. On April 1 no course is held. On January 7 at 2pm is an
+optional introduction course, that occurs before the first regular lecture.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "Calculus I",
+  "start": "2020-01-08T09:00:00",
+  "timeZone": "Europe/London",
+  "duration": "PT1H30M",
+  "locations": {
+    "mlab": {
+      "@type": "Location",
+      "title": "Math lab room 1",
+      "description": "Math Lab I, Department of Mathematics"
+    }
+  },
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "weekly",
+    "until": "2020-06-24T09:00:00"
+  }],
+  "recurrenceOverrides": {
+    "2020-01-07T14:00:00": {
+      "title": "Introduction to Calculus I (optional)"
+    },
+    "2020-04-01T09:00:00": {
+      "excluded": true
+    },
+    "2020-06-25T09:00:00": {
+      "title": "Calculus I Exam",
+      "start": "2020-06-25T10:00:00",
+      "duration": "PT2H",
+      "locations": {
+        "auditorium": {
+          "@type": "Location",
+          "title": "Big Auditorium",
+          "description": "Big Auditorium, Other Road"
+        }
+      }
+    }
+  }
+}
+----
+
+[[example-recurring-participants]]
+=== Recurring event with participants
+
+This example illustrates scheduled events. A team meeting occurs every week since January 8,
+2020 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a
+virtual meeting room. An attendee has accepted the invitation, but on March 4, 2020 he is
+unavailable and declined participation for this occurrence.
+
+[source%unnumbered,json]
+----
+{
+  "...": "",
+  "title": "FooBar team meeting",
+  "start": "2020-01-08T09:00:00",
+  "timeZone": "Africa/Johannesburg",
+  "duration": "PT1H",
+  "virtualLocations": {
+    "1": {
+      "@type": "VirtualLocation",
+      "name": "ChatMe meeting room",
+      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
+    }
+  },
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "weekly"
+  }],
+  "replyTo": {
+    "imip": "mailto:f245f875-7f63-4a5e-a2c8@schedule.example.com"
+  },
+  "participants": {
+    "dG9tQGZvb2Jhci5xlLmNvbQ": {
+      "@type": "Participant",
+      "name": "Tom Tool",
+      "email": "tom@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:tom@calendar.example.com"
+      },
+      "participationStatus": "accepted",
+      "roles": {
+        "attendee": true
+      }
+    },
+    "em9lQGZvb2GFtcGxlLmNvbQ": {
+      "@type": "Participant",
+      "name": "Zoe Zelda",
+      "email": "zoe@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:zoe@foobar.example.com"
+      },
+      "participationStatus": "accepted",
+      "roles": {
+        "owner": true,
+        "attendee": true,
+        "chair": true
+      }
+    }
+  },
+  "recurrenceOverrides": {
+    "2020-03-04T09:00:00": {
+      "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus":
+                                                          "declined"
+    }
+  }
+}{
+  "...": "",
+  "title": "FooBar team meeting",
+  "start": "2020-01-08T09:00:00",
+  "timeZone": "Africa/Johannesburg",
+  "duration": "PT1H",
+  "virtualLocations": {
+    "1": {
+      "@type": "VirtualLocation",
+      "name": "ChatMe meeting room",
+      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
+    }
+  },
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "weekly"
+  }],
+  "replyTo": {
+    "imip": "mailto:f245f875-7f63-4a5e-a2c8@schedule.example.com"
+  },
+  "participants": {
+    "dG9tQGZvb2Jhci5xlLmNvbQ": {
+      "@type": "Participant",
+      "name": "Tom Tool",
+      "email": "tom@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:tom@calendar.example.com"
+      },
+      "participationStatus": "accepted",
+      "roles": {
+        "attendee": true
+      }
+    },
+    "em9lQGZvb2GFtcGxlLmNvbQ": {
+      "@type": "Participant",
+      "name": "Zoe Zelda",
+      "email": "zoe@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:zoe@foobar.example.com"
+      },
+      "participationStatus": "accepted",
+      "roles": {
+        "owner": true,
+        "attendee": true,
+        "chair": true
+      }
+    }
+  },
+  "recurrenceOverrides": {
+    "2020-03-04T09:00:00": {
+      "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus":
+                                                          "declined"
+    }
+  }
+}
+----

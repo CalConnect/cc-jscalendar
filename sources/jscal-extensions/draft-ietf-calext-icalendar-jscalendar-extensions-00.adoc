@@ -1,0 +1,52 @@
+= iCalendar Format Extension for JSCalendar
+:doctype: internet-draft
+:name: draft-ietf-calext-icalendar-jscalendar-extensions-00
+:abbrev: iCalendar JSCalendar Extensions
+:status: standard
+:ipr: trust200902
+:area: Applications
+:intended-series: full-standard
+:workgroup: Calendaring Extensions
+:published-date: 2022-07-11
+:fullname: Robert Stepanek
+:lastname: Stepanek
+:forename_initials: R.
+:affiliation: FastMail
+:address: PO Box 234 + \
+Collins St West + \
+Melbourne, VIC 8007 + \
+Australia
+:email: rsto@fastmailteam.com
+:contributor-uri: https://www.fastmail.com
+:fullname_2: Michael Douglass
+:lastname_2: Douglass
+:forename_initials_2: M.
+:affiliation_2: Bedework Commercial Services
+:address_2: 226 3rd Street + \
+Troy, NY 12180 + \
+United States of America
+:email_2: mdouglass@bedework.com
+:contributor-uri_2: http://bedework.com
+:keywords: addressbook, contacts, cards, ICALENDAR, JSCalendar
+:mn-document-class: ietf
+:mn-output-extensions: xml,rfc,txt,html,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/00-preface.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/04-new-properties.adoc[]
+
+include::sections/05-updated-properties.adoc[]
+
+include::sections/06-new-parameters.adoc[]
+
+include::sections/10-security.adoc[]
+
+include::sections/11-iana.adoc[]
+
+include::sections-ietf/99-references.adoc[]

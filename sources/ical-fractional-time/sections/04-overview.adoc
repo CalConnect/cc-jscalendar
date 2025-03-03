@@ -1,0 +1,30 @@
+[[overview]]
+== Overview
+
+=== Current iCalendar Time Format
+
+The current iCalendar specification (<<RFC5545>>) defines time values with second-level
+precision using the format "HHMMSS". While this format has served well for most calendar
+applications, there are use cases that require greater precision.
+
+=== Need for Fractional Time
+
+Several scenarios require time precision beyond seconds:
+
+* Scientific observations and measurements
+* High-precision event scheduling
+* Integration with external time-sensitive systems
+* Precise synchronization between calendar systems
+
+=== Proposed Extension
+
+This specification extends the iCalendar time format to support fractional seconds using the
+format "HHMMSS.fff", where:
+
+* HH represents hours (00-23)
+* MM represents minutes (00-59)
+* SS represents seconds (00-60)
+* .fff represents fractional seconds (1-3 decimal places)
+
+This extension maintains backward compatibility while providing enhanced precision where
+needed.

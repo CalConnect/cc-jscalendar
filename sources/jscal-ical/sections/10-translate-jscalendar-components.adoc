@@ -1,0 +1,93 @@
+[[translate-jscalendar-components]]
+== Translating JSCalendar objects to iCalendar
+
+This section lists the JSCalendar objects that map to <<RFC5545>> components.
+
+=== Event
+
+A JSCalendar object with a type of "Event" is mapped on to a <<RFC5545>> VEVENT component.
+
+If it is a single VEVENT then a <<RFC5545>> VCALENDAR component must surround it and the
+JSCalendar "prodid" property will be converted to a <<RFC5545>> PRODID.
+
+[source%unnumbered]
+----
+{
+  "@type": "Event",
+  "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+  ...
+}
+
+maps to
+
+BEGIN: VCALENDAR
+PRODID:-//ABC Corporation//NONSGML My Product//EN
+BEGIN:VEVENT
+...
+END:VEVENT
+END: VCALENDAR
+----
+
+When converting multiple Event or Task objects the surrounding <<RFC5545>> VCALENDAR object
+must have a <<RFC5545>> PRODID set from either the Group "prodid" or generated.
+
+=== Group
+
+A JSCalendar object with a type of "Group" is mapped on to a <<RFC5545>> VCALENDAR component.
+
+[source%unnumbered]
+----
+{
+  "@type": "Group",
+  "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+  ...
+  {
+    "@type": "Event",
+    ...
+  }
+  {
+    "@type": "Event",
+    ...
+  }
+}
+
+maps to
+
+BEGIN: VCALENDAR
+PRODID:-//ABC Corporation//NONSGML My Product//EN
+BEGIN:VEVENT
+...
+END:VEVENT
+BEGIN:VEVENT
+...
+END:VEVENT
+END: VCALENDAR
+----
+
+=== Task
+
+A JSCalendar object with a type of "Task" is mapped on to a <<RFC5545>> VTODO component.
+
+If it is a single VTODO then a <<RFC5545>> VCALENDAR component must surround it and the
+JSCalendar "prodid" property will be converted to a <<RFC5545>> PRODID.
+
+[source%unnumbered]
+----
+{
+  "@type": "Task",
+  "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+  ...
+}
+
+maps to
+
+BEGIN: VCALENDAR
+PRODID:-//ABC Corporation//NONSGML My Product//EN
+BEGIN:VTODO
+...
+END:VTODO
+END: VCALENDAR
+----
+
+When converting multiple Event or Task objects the surrounding <<RFC5545>> VCALENDAR object
+must have a <<RFC5545>> PRODID set from either the Group "prodid" or generated.

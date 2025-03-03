@@ -1,0 +1,6 @@
+[abstract]
+== Abstract
+
+This document defines a set of new properties for iCalendar and extends the use of existing ones.
+Their primary purpose is to align the same set of features between the JSCalendar and iCalendar formats,
+but the new definitions also aim to be useful within just the iCalendar format.
