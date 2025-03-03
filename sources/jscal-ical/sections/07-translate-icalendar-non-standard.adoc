@@ -1,0 +1,145 @@
+[[translate-icalendar-non-standard]]
+== Translating non-standard iCalendar to JSCalendar
+
+iCalendar data may contain entries for which no standard property or object type exists in
+JSCalendar. This mainly occurs for experimental properties, parameter and components in
+iCalendar (_X_-extensions, see <<RFC5545,section=3.8.8.2>>), but may be the case for other
+iCalendar data, too. Typically, the semantics or value types of such entries are unknown.
+
+This section defines new properties, by which implementations SHOULD map such data.
+Applications that have more insight into the semantics of such iCalendar entries MAY choose
+to map differently.
+
+NOTE: The verbatim `XXXX` values in this section will be replaced with the RFC number of this
+document before publication. Also, the following properties require a redefinition of
+vendor-extension properties for JSCalendar. Currently, only domain names are allowed as
+prefix for vendor extensions. This document assumes that also URIs with the `urn` scheme are
+allowed.
+
+=== `urn:ietf:rfcXXXX#components`
+
+Type: `JCalComp[]` where `JCalComp` denotes a jCal-encoded component as defined in
+<<RFC7265,section=3.3>>
+
+This property is set on a JSCalendar object for which a standard mapping from an iCalendar
+component is defined. If set, it contains one or more iCalendar components that are direct
+children of the iCalendar component represented by the JSCalendar object.
+
+[source%unnumbered]
+----
+BEGIN:VEVENT
+UID:c2236fe3-4dc9-4b3b-8a18-cd8f29eca594
+DTSTART:20220711T104800
+BEGIN:X-COMP
+UID:6dcff59c-d251-44c9-9010-a62cab390df0
+END:X-COMP
+END:VEVENT
+
+maps to
+
+{
+  "@type": "Event",
+  "uid": "c2236fe3-4dc9-4b3b-8a18-cd8f29eca594",
+  "start": "2022-07-11T10:48:00",
+  "urn:ietf:rfcXXXX#components": [
+    ["x-comp", [
+      ["uid", {}, "text", "6dcff59c-d251-44c9-9010-a62cab390df0"]
+    ]
+  ]
+}
+----
+
+[[translate-non-standard-extension-properties]]
+=== `urn:ietf:rfcXXXX#properties`
+
+Type: `JCalProp[]` where `JCalProp` denotes a jCal-encoded property as defined in
+<<RFC7265,section=3.4>>
+
+This property is set on a JSCalendar object for which a standard mapping from an iCalendar
+component is defined. If set, it contains one or more iCalendar properties that are set in
+the iCalendar component represented by the JSCalendar object.
+
+[source%unnumbered]
+----
+BEGIN:VEVENT
+UID:c2236fe3-4dc9-4b3b-8a18-cd8f29eca594
+DTSTART:20220711T104800
+X-PROP;X-PARAM=Bar:Foo
+END:VEVENT
+
+maps to
+
+{
+  "@type": "Event",
+  "uid": "c2236fe3-4dc9-4b3b-8a18-cd8f29eca594",
+  "start": "2022-07-11T10:48:00",
+  "urn:ietf:rfcXXXX#properties": [
+    ["x-prop", {
+      "x-param": "Bar"
+    }, "unknown", "Foo"]
+  ]
+}
+----
+
+=== `urn:ietf:rfcXXXX#parameters`
+
+Type: `String[String]` denotes a JSON object encoding iCalendar parameters as defined in
+<<RFC7265,section=3.5>>
+
+This property is set on a JSCalendar object for which a standard mapping from an iCalendar
+property is defined. If set, it contains one or more iCalendar parameters that are set on the
+iCalendar property represented by the JSCalendar object.
+
+[source%unnumbered]
+----
+...
+ATTACH;X-PARAM=Bar;VALUE=URI:https://example.com/foo.zip
+...
+
+maps to
+
+...
+{
+  "@type": "Link",
+  "href": "https://example.com/foo.zip",
+  "urn:ietf:rfcXXXX#parameters": {
+    "x-param": "Bar"
+  }
+}
+...
+----
+
+=== `urn:ietf:rfcXXXX#prop`
+
+A short-form variant of the `properties` property defined in
+<<translate-non-standard-extension-properties>> MAY be used to map a single property from
+iCalendar. This aims to provide a compact representation for mapping an iCalendar property
+without parameters and for which no value type is known. It is defined as follows:
+
+Name: `urn:ietf:rfcXXXX#prop/_propname_` where _propname_ denotes the ASCII lower-case `name`
+(<<RFC5545,section=3.1>>) of the mapped property.
+
+Type: `String` where the string must adhere to the definitions of <<RFC7265,section=5>>.
+
+The following example contains both the long-form and short-form mapping for illustration:
+
+[source%unnumbered]
+----
+...
+X-Foo:Bar
+...
+
+maps to short-form
+
+...
+"urn:ietf:rfcXXXX#prop/x-foo": "Bar"
+...
+
+or long-form
+
+...
+"urn:ietf:rfcXXXX#properties": [
+    ["x-foo", { }, "unknown", "Bar"]
+]
+...
+----

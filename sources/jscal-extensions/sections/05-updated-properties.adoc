@@ -1,0 +1,41 @@
+== Updated Properties
+
+=== GEO Property
+
+This specification modifies the definition of the `GEO` property to allow storing spatial
+positions in form of URIs using the `geo:` scheme <<RFC5870>>. The following additions are
+made to the definition of this property, original specified in <<RFC5545,section=3.8.1.6>>.
+
+Value type:: The default value type is FLOAT, where the value MUST be two SEMICOLON-separated
+FLOAT values. The value type can also be set to URI to indicate `geo:` encoded coordinates.
+
+Property parameters:: VALUE
+
+Description::
+When the property value is a URI in the `geo:` scheme, then the `VALUE` property parameter
+MUST be set to `URI`.
+
+Format definition:: This property is defined by the following notation:
++
+[source%unnumbered]
+----
+geo   = "GEO" geoparam ( ":" geovalue ) /
+                       (
+                         ";" "VALUE" "=" "URI"
+                         ":"  uri ; uri MUST be in the geo: scheme
+                       )
+                       CRLF
+
+geoparam   = *(";" other-param)
+
+geovalue   = float ";" float
+       ;Latitude and Longitude components
+----
+
+Example(s)::
++
+[source%unnumbered]
+----
+GEO:37.386013;-122.082932
+GEO;VALUE=URI:geo:48.198634,16.371648;crs=wgs84;u=40
+----

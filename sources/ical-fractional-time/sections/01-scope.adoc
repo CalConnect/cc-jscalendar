@@ -1,0 +1,12 @@
+[[scope]]
+== Scope
+
+//This document specifies an extension to the Internet Calendaring and Scheduling Core Object
+//Specification (iCalendar) to support fractional time values. It defines:
+
+//* The format for expressing fractional time values in iCalendar properties
+//* Rules for handling fractional time values in calendar operations
+//* Compatibility considerations with existing iCalendar implementations
+
+//This specification is designed to be backward compatible with existing iCalendar implementations
+//while providing enhanced precision where needed.

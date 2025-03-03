@@ -1,0 +1,34 @@
+[bibliography]
+== Normative References
+
+* [[[RFC2119,IETF RFC 2119]]]
+
+* [[[RFC2397,IETF RFC 2397]]]
+
+* [[[RFC4648,IETF RFC 4648]]]
+
+* [[[RFC5545,IETF RFC 5545]]]
+
+* [[[RFC5546,IETF RFC 5546]]]
+
+* [[[RFC6638,IETF RFC 6638]]]
+
+* [[[RFC6868,IETF RFC 6868]]]
+
+* [[[RFC7265,IETF RFC 7265]]]
+
+* [[[RFC7493,IETF RFC 7493]]]
+
+* [[[RFC7986,IETF RFC 7986]]]
+
+* [[[RFC8259,IETF RFC 8259]]]
+
+* [[[RFC8984,IETF RFC 8984]]]
+
+* [[[RFC9073,IETF RFC 9073]]]
+
+* [[[RFC9074,IETF RFC 9074]]]
+
+* [[[draft-ietf-calext-ical-relations,IETF I-D draft-ietf-calext-ical-relations]]]
+
+* [[[draft-ietf-calext-jscalendarbis,IETF I-D draft-ietf-calext-jscalendarbis]]]

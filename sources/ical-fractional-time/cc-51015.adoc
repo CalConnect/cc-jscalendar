@@ -1,0 +1,40 @@
+= iCalendar: Representing fractional seconds in iCalendar
+:docnumber: 51015
+:copyright-year: 2021
+:language: en
+:doctype: standard
+:edition: 1
+:status: working-draft
+:revdate: 2021-07-07
+:published-date: 2021-07-07
+:technical-committee: CALENDAR
+:fullname: Neil Jenkins
+:surname: Jenkins
+:givenname: Neil
+:affiliation: FastMail
+:fullname_2: Robert Stepanek
+:surname_2: Stepanek
+:givenname_2: Robert
+:affiliation_2: FastMail
+:fullname_3: Michael Douglass
+:surname_3: Douglass
+:givenname_3: Michael
+:affiliation_3: Bedework Commercial Services
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/01-intro.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normative-references.adoc[]
+
+include::sections/03-terms.adoc[]
+
+include::sections/04-new-parameters.adoc[]
+
+include::sections/05-obtaining-value.adoc[]
+
+include::sections/06-mapping.adoc[]

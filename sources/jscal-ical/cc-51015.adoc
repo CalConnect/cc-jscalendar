@@ -1,0 +1,60 @@
+= JSCalendar: Converting from and to iCalendar
+:docnumber: 51015
+:copyright-year: 2022
+:language: en
+:doctype: standard
+:edition: 1
+:status: working-draft
+:revdate: 2022-07-11
+:published-date: 2022-07-11
+:technical-committee: CALENDAR
+:fullname: Robert Stepanek
+:surname: Stepanek
+:givenname: Robert
+:affiliation: Fastmail
+:fullname_2: Michael Douglass
+:surname_2: Douglass
+:givenname_2: Michael
+:affiliation_2: Fastmail
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normative-references.adoc[]
+
+include::sections/03-terms.adoc[]
+
+include::sections/04-icalendar-preprocessing.adoc[]
+
+include::sections/05-translate-icalendar-components.adoc[]
+
+include::sections/06-translate-icalendar-properties.adoc[]
+
+include::sections/07-translate-icalendar-non-standard.adoc[]
+
+include::sections/08-translate-icalendar-recurrences.adoc[]
+
+include::sections/09-translate-icalendar-further-examples.adoc[]
+
+include::sections/10-translate-jscalendar-components.adoc[]
+
+include::sections/11-translate-jscalendar-properties.adoc[]
+
+include::sections/12-translate-jscalendar-non-standard.adoc[]
+
+include::sections/13-jscalendar-spec-updates.adoc[]
+
+include::sections/14-security-considerations.adoc[]
+
+include::sections/15-iana-considerations.adoc[]
+
+include::sections/99-acknowledgements.adoc[]
+
+include::sections/99-bibliography.adoc[]

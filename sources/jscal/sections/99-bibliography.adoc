@@ -1,0 +1,16 @@
+[bibliography]
+== Bibliography
+
+* [[[RFC6376, IETF RFC 6376]]]
+
+* [[[RFC7265, IETF RFC 7265]]]
+
+* [[[RFC7986, IETF RFC 7986]]]
+
+* [[[LOCATIONTYPES,LOCATIONTYPES]]], IANA Location Types Registry, https://www.iana.org/assignments/location-type-registry/location-type-registry.xhtml
+
+* [[[LINKRELS,LINKRELS]]], IANA Link Relation Types, https://www.iana.org/assignments/link-relations/link-relations.xhtml
+
+* [[[MEDIATYPES,MEDIATYPES]]], IANA Media Types, https://www.iana.org/assignments/media-types/media-types.xhtml
+
+* [[[ISO8601,hidden(ISO 8601)]]]

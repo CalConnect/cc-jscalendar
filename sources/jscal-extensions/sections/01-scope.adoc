@@ -1,0 +1,5 @@
+== Scope
+
+//This document defines a set of new properties and parameters for iCalendar and extends the use
+//of existing ones to align the feature set between the JSCalendar and iCalendar formats. The new
+//definitions are also designed to be useful within just the iCalendar format.

@@ -1,0 +1,4 @@
+[bibliography]
+== Bibliography
+
+* [[[TZDB,TZDB]]], IANA, "Time Zone Database", https://www.iana.org/time-zones.

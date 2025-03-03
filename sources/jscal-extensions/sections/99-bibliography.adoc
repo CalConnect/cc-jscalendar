@@ -1,0 +1,4 @@
+[bibliography]
+== Bibliography
+
+* [[[ref-jscalendar-icalendar,IETF I-D draft-ietf-calext-jscalendar-icalendar]]]

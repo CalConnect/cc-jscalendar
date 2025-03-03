@@ -1,0 +1,54 @@
+[bibliography]
+== Normative References
+
+* [[[RFC2119,IETF RFC 2119]]]
+
+* [[[RFC2392,IETF RFC 2392]]]
+
+* [[[RFC2397,IETF RFC 2397]]]
+
+* [[[RFC3339,IETF RFC 3339]]]
+
+* [[[RFC3986,IETF RFC 3986]]]
+
+* [[[RFC4122,IETF RFC 4122]]]
+
+* [[[RFC4589,IETF RFC 4589]]]
+
+* [[[RFC4648,IETF RFC 4648]]]
+
+* [[[RFC5234,IETF RFC 5234]]]
+
+* [[[RFC5545,IETF RFC 5545]]]
+
+* [[[RFC5546,IETF RFC 5546]]]
+
+* [[[RFC5646,IETF RFC 5646]]]
+
+* [[[RFC5870,IETF RFC 5870]]]
+
+* [[[RFC6047,IETF RFC 6047]]]
+
+* [[[RFC6838,IETF RFC 6838]]]
+
+* [[[RFC6901,IETF RFC 6901]]]
+
+* [[[RFC7493,IETF RFC 7493]]]
+
+* [[[RFC7529,IETF RFC 7529]]]
+
+* [[[RFC7808,IETF RFC 7808]]]
+
+* [[[RFC8126,IETF RFC 8126]]]
+
+* [[[RFC8174,IETF RFC 8174]]]
+
+* [[[RFC8259,IETF RFC 8259]]]
+
+* [[[RFC8288,IETF RFC 8288]]]
+
+* [[[CLDR,CLDR]]], "Unicode Common Locale Data Repository", http://cldr.unicode.org/
+
+* [[[TZDB,TZDB]]], "IANA Time Zone Database", https://www.iana.org/time-zones
+
+* [[[COLORS,COLORS]]], "CSS Color Module", https://www.w3.org/TR/css-color-3/

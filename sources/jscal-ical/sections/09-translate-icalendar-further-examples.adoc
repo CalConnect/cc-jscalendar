@@ -1,0 +1,335 @@
+[[translate-icalendar-further-examples]]
+== Translating iCalendar: Further examples
+
+This section provides more complete examples of translating from <<RFC5545>> to JSCalendar.
+
+As usual note that json string values may be split because of line width limits. This is not
+legal json.
+
+[[example-recurring-attach]]
+=== Recurring event with ATTACH
+
+This is an example of a recurring event with overrides. The first override removes an ATTACH
+property and adds an ATTACH property. The second override removes all ATTACH properties.
+
+[source%unnumbered]
+----
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+PRODID:-//example.org//EN
+VERSION:2.0
+BEGIN:VEVENT
+DTSTAMP:20200522T142047Z
+DTSTART;TZID=America/New_York:20200522T120000
+DURATION:PT1H
+RRULE:FREQ=DAILY;COUNT=8
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBDErecur-1
+ATTACH;FMTTYPE=text/plain:http://example.org/doc1.txt
+ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20200522T142047Z
+DTSTART;TZID=America/New_York:20200523T120000
+DURATION:PT1H
+RECURRENCE-ID;TZID=America/New_York:20200523T120000
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBDErecur-1
+ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+ATTACH;FMTTYPE=text/plain:http://example.org/doc4.txt
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20200522T142047Z
+DTSTART;TZID=America/New_York:20200524T120000
+DURATION:PT1H
+RECURRENCE-ID;TZID=America/New_York:20200524T120000
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBDErecur-1
+END:VEVENT
+END:VCALENDAR
+
+maps to
+
+{
+  "prodId": "//example.org//EN",
+  "entries": [
+    {
+      "links": {
+        "1": {
+          "@type": "Link",
+          "rel": "enclosure",
+          "contentType": "text/plain",
+          "href": "http://example.org/doc1.txt"
+        },
+        "2": {
+          "@type": "Link",
+          "rel": "enclosure",
+          "contentType": "text/plain",
+          "href": "http://example.org/doc2.txt"
+        },
+        "3": {
+          "@type": "Link",
+          "rel": "enclosure",
+          "contentType": "text/plain",
+          "href": "http://example.org/doc3.txt"
+        }
+      },
+      "created ": "2020-05-23T17:04:50Z",
+      "start": "2020-05-22T12:00:00",
+      "timeZone": "America/New_York",
+      "duration": "PT1H",
+      "title": "recurring daily 8 times",
+      "uid": "6252D6C40A8308BFE25BBDErecur-1",
+      "recurrenceRules": [
+        {
+          "@type": "RecurrenceRule",
+          "frequency": "daily",
+          "count": 8
+        }
+      ],
+      "recurrenceOverrides": {
+        "2020-05-23T12:00:00": {
+          "recurrenceId": "2020-05-23T12:00:00",
+          "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+          "links/fb75b76a-a159-4a86-bd3d-7ace6b39c6c3": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc4.txt"
+          }
+        },
+        "2020-05-24T12:00:00": {
+          "recurrenceId": "2020-05-24T12:00:00",
+          "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+          "links/6c54e72e-3413-487c-ae14-fb318a90db43": null,
+          "links/44087e9a-132c-4a5d-b25d-4ce580edb004": null
+        }
+      }
+    }
+  ]
+}
+----
+
+[[example-simple-contact]]
+=== Simple event with CONTACT
+
+This example shows the conversion of a simple event with a single CONTACT property in
+JSCalendar.
+
+[source%unnumbered]
+----
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+PRODID:-//Example//EN
+VERSION:2.0
+BEGIN:VEVENT
+DTSTAMP:20200522T142047Z
+DTSTART;TZID=America/New_York:20200622T120000
+DURATION:PT1H
+SUMMARY:event with contact
+UID:6252D6C40A8308BFE25BBEFcontact-1
+CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
+ c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
+ +1-919-555-XXXX
+END:VEVENT
+END:VCALENDAR
+
+translates to
+
+{
+  "@type": "Group",
+  "prodId": "//Example.org//Example V3.13.2//EN",
+  "entries": [
+    {
+      "@type": "Event",
+      "participants": {
+        "40288108-733187c1-0173-3188007b-00000001": {
+          "@type": "Participant",
+          "roles": {
+            "contact": true
+          },
+          "description": "Jim Dolittle, ABC Industries,\
+                         +1-919-555-XXXX",
+          "links": {
+            "1": {
+              "@type": "Link",
+              "href": "ldap://example.com:6666/o=ABC%20Industries,\
+                             c=US???(cn=Jim%20Dolittle)",
+              "rel": "alternate"
+            }
+          }
+        }
+      },
+      "created ": "2020-07-09T03:04:23Z",
+      "start": "2020-06-22T12:00:00",
+      "timeZone": "America/New_York",
+      "duration": "PT1H",
+      "title": "event with contact",
+      "uid": "6252D6C40A8308BFE25BBEFcontact-1"
+    }
+  ]
+}
+----
+
+[[example-simple-resource]]
+=== Simple event with RESOURCES
+
+TBD
+
+=== Recurring event. Attendees only in overrides
+
+In this more complex example there is no ORGANIZER or ATTENDEEs in the master event. There
+are overrides which invite one or more attendees.
+
+For one overrride the ORGANIZER is also an ATTENDEE. In the other that is not the case. This
+is reflected in the "roles" property for the organizer.
+
+Note that each override has its own "participants" property and the first has a links
+property to handle the DIR parameter on one attendee.
+
+[source%unnumbered]
+----
+BEGIN:VCALENDAR
+PRODID://Example.org//Example V3.13.2//EN
+VERSION:2.0
+BEGIN:VEVENT
+CREATED:20200704T035515Z
+DURATION:PT1H
+DTSTAMP:20200704T035706Z
+DTSTART;TZID=America/New_York:20200522T120000
+LAST-MODIFIED:20200704T035706Z
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBEFrecur1-1
+RRULE:FREQ=DAILY;COUNT=8
+END:VEVENT
+BEGIN:VEVENT
+RECURRENCE-ID;TZID=America/New_York:20200523T120000
+ATTENDEE:mailto:douglm@example.org
+ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2;DIR="http://example.org/
+ vcards/vbede.vcf":mailto:vbede@example.org
+CREATED:20200704T035515Z
+DURATION:PT1H
+DTSTAMP:20200704T035706Z
+DTSTART;TZID=America/New_York:20200523T120000
+LAST-MODIFIED:20200704T035706Z
+ORGANIZER:mailto:douglm@example.org
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBEFrecur1-1
+END:VEVENT
+BEGIN:VEVENT
+RECURRENCE-ID;TZID=America/New_York:20200524T120000
+ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2:mailto:user01@example.org
+ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2:mailto:vbede@example.org
+CREATED:20200704T035515Z
+DURATION:PT1H
+DTSTAMP:20200704T035706Z
+DTSTART;TZID=America/New_York:20200524T120000
+LAST-MODIFIED:20200704T035706Z
+ORGANIZER:mailto:douglm@example.org
+SUMMARY:recurring daily 8 times
+UID:6252D6C40A8308BFE25BBEFrecur1-1
+END:VEVENT
+END:VCALENDAR
+
+translates to
+
+{
+  "@type": "Group",
+  "prodId": "//Example.org//Example V3.13.2//EN",
+  "entries": [
+    {
+      "@type": "Event",
+      "created ": "2020-07-04T03:57:06Z",
+      "start": "2020-05-22T12:00:00",
+      "timeZone": "America/New_York",
+      "duration": "PT1H",
+      "title": "recurring daily 8 times",
+      "uid": "6252D6C40A8308BFE25BBEFrecur1-1",
+      "recurrenceRules": [
+        {
+          "@type": "RecurrenceRule",
+          "frequency": "daily",
+          "count": 8
+        }
+      ],
+      "recurrenceOverrides": {
+        "2020-05-23T12:00:00": {
+          "participants": {
+            "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
+              "@type": "Participant",
+              "sendTo": {
+                "imip": "mailto:douglm@example.org"
+              },
+              "roles": {
+                "attendee": true,
+                "owner": true
+              }
+            },
+            "a539dfe3-4463-4f28-b9de-17d3a0e99faf": {
+              "@type": "Participant",
+              "sendTo": {
+                "imip": "mailto:vbede@example.org"
+              },
+              "expectReply": true,
+              "links": {
+                "1": {
+                  "@type": "Link",
+                  "href": "http://example.org/vcards/vbede.vcf",
+                  "rel": "alternate"
+                }
+              },
+              "roles": {
+                "attendee": true
+              },
+              "scheduleStatus": "1.2"
+            }
+          },
+          "replyTo": {
+            "imip": "mailto:douglm@example.org"
+          }
+        },
+        "2020-05-24T12:00:00": {
+          "participants": {
+            "daeae4cf-6f6a-4ce3-9f4d-6bd884650d3d": {
+              "@type": "Participant",
+              "sendTo": {
+                "imip": "mailto:user01@example.org"
+              },
+              "expectReply": true,
+              "roles": {
+                "attendee": true
+              },
+              "scheduleStatus": "1.2"
+            },
+            "a6de6de3-271f-4679-9241-1b3bca6b602d": {
+              "@type": "Participant",
+              "sendTo": {
+                "imip": "mailto:vbede@example.org"
+              },
+              "expectReply": true,
+              "roles": {
+                "attendee": true
+              },
+              "scheduleStatus": "1.2"
+            },
+            "aaa8483b-b18b-4dbd-b218-77d8db027d35": {
+              "@type": "Participant",
+              "sendTo": {
+                "imip": "mailto:douglm@example.org"
+              },
+              "roles": {
+                "owner": true
+              }
+            }
+          },
+          "replyTo": {
+            "imip": "mailto:douglm@example.org"
+          }
+        }
+      }
+    }
+  ]
+}
+----

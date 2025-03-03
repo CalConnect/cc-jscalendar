@@ -1,0 +1,79 @@
+[[mapping-icalendar-jscalendar]]
+== Mapping from iCalendar to JSCalendar
+
+When mapping properties possibly containing time, use the iCalendar property value obtained
+as specified in <<obtaining-value>>.
+
+For example:
+
+[source%unnumbered]
+----
+...
+ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT18H
+...
+
+maps to
+
+...
+"estimatedDuration": "PT18H"
+...
+
+because the FRACTIONAL parameter is not valid.
+
+...
+ESTIMATED-DURATION:PT18H
+...
+
+maps to
+
+...
+"estimatedDuration": "PT18H"
+...
+
+and
+...
+ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT17H15M24S
+...
+
+maps to
+
+...
+"estimatedDuration": "PT17H15M23.5S"
+...
+
+because the FRACTIONAL parameter is valid.
+----
+
+[[mapping-jscalendar-icalendar]]
+== Mapping from JSCalendar to iCalendar
+
+If the JSCalendar property value has fractional seconds then the <<RFC5545>> value is set to the
+JSCalendar property value rounded up to the next non-fractional value and a FRACTIONAL
+parameter is added with the full unrounded value.
+
+For example:
+
+[source%unnumbered]
+----
+...
+"duration": "PT0.5S"
+...
+
+maps to
+
+...
+DURATION;FRACTIONAL="PT0.5S":PT1S
+...
+
+and
+
+...
+"duration": "PT1H"
+...
+
+maps to
+
+...
+DURATION:PT1H
+...
+----

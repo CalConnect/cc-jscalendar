@@ -1,0 +1,17 @@
+[[scope-section]]
+== Scope
+
+//This document defines a canonical translation between iCalendar and JSCalendar, and
+//implementations MUST follow the approaches specified here when iCalendar data is represented in
+//JSCalendar and vice-versa.
+
+//This document defines mappings for the following specifications:
+
+//* <<RFC5545,Internet Calendaring and Scheduling Core Object Specification (iCalendar)>>
+//* <<RFC5546,iCalendar Transport-Independent Interoperability Protocol (iTIP)>>
+//* <<RFC7986,New Properties for iCalendar>>
+//* <<RFC9073,Event Publishing Extensions to iCalendar>>
+//* <<draft-ietf-calext-ical-relations,Support for iCalendar Relationships>>
+//* <<RFC9074,VALARM Extensions for iCalendar>>
+
+//Therefore all of these specifications MUST be implemented to follow this specification.

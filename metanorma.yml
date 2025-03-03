@@ -2,10 +2,15 @@
 metanorma:
   source:
     files:
-      - sources/cc-51008/document.adoc
-      - sources/ietf/document.adoc
-      - sources/iso-51008/document.adoc
+      - sources/ical-fractional-time/cc-51015.adoc
+      - sources/ical-fractional-time/draft-douglass-icalendar-fractional-time.adoc
+      - sources/jscal/cc-51015.adoc
+      - sources/jscal/draft-ietf-calext-jscalendar-32.adoc
+      - sources/jscal-extensions/cc-51015.adoc
+      - sources/jscal-extensions/draft-ietf-calext-icalendar-jscalendar-extensions-00.adoc
+      - sources/jscal-ical/cc-51015.adoc
+      - sources/jscal-ical/draft-ietf-calext-jscalendar-icalendar-07.adoc
 
   collection:
-    name: vObject and vFormat
+    name: JSCalendar
     organization: CalConnect

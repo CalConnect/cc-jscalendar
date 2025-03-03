@@ -1,0 +1,120 @@
+== New Parameters
+
+=== CONTENT-ID Parameter
+
+Parameter name:: CONTENT-ID
+
+Purpose:: This parameter identifies an attachment contents for use with styled descriptions.
+
+Format definition::
++
+[source%unnumbered]
+----
+cid-param  = "CONTENT-ID" "=" DQUOTE uri DQUOTE
+               ; uri must be a cid-url defined in <<RFC8288>>
+----
+
+Description::
+This parameter MAY be set on an "ATTACH" or "IMAGE" property. It assigns the property an
+identifier that MUST be unique within the calendar component. A calendar component MAY
+include a `STYLED-DESCRIPTION` property as specified in <<RFC9073,Section 6.5>>, and MAY
+contain HTML text. URLs in the "cid:" scheme referred to by images and other data within that
+HTML description can be resolved to calendar component attachments having that content-id.
+
+Example(s)::
++
+[source%unnumbered]
+----
+IMAGE;CONTENT-ID="cid:foo@bar.net":
+ data:image/jpeg;base64,SGVsbG8sIFdvcmxk..
+
+STYLED-DESCRIPTION;VALUE=TEXT;FMTTYPE=text/html:
+  <html><body><img src="cid:foo@bar.net" alt="foo"/></body></html>
+----
+
+=== INVITED-BY Parameter
+
+Parameter name:: INVITED-BY
+
+Purpose:: This parameter specifies which calendar address user invited another.
+
+Format definition::
++
+[source%unnumbered]
+----
+inviteby-param  = "INVITED-BY" "=" DQUOTE cal-address DQUOTE
+----
+
+Description::
+This parameter MAY be set on an "ATTENDEE" property, specified in
+<<RFC5545,section=3.8.4.1>>. If set, it identifies the participant that invited the calendar
+user represented by the `ATTENDEE` property to the calendar component.
+
+Example(s)::
++
+[source%unnumbered]
+----
+ATTENDEE;INVITED-BY="inviter@example.com":invitee@example.com
+----
+
+=== LINK-REL Parameter
+
+Parameter name:: LINK-REL
+
+Purpose:: This parameter defines how an attachment relates to calendar component.
+
+Format definition::
++
+[source%unnumbered]
+----
+linkrel-param  = "LINK-REL" "=" paramtext
+                   ; one of Link Relation Types registered in
+                   ; the IANA Link Relations Registry (<<RFC8288>>)
+----
+
+Description::
+This parameter MAY be set on an "ATTACH" or "IMAGE" property. It indicates how the contents
+of the attachment or image relate to the calendar component this property is part of. For the
+list of available relations, see the Link Relation Types in the IANA Link Relations Registry
+<<RFC8288>>.
+
+Example(s)::
++
+[source%unnumbered]
+----
+ATTACH;LINK-REL=payment:https://example.com/donate
+----
+
+=== PROP-ID Parameter
+
+Parameter name:: PROP-ID
+
+Purpose:: This parameter identifies a property among all its siblings of the same type.
+
+Format definition::
++
+[source%unnumbered]
+----
+prop-id-param  = "PROP-ID" "=" 1*255(ALPHA / DIGIT / "-"/ "_")
+----
+
+Description::
+This parameter uniquely identifies a property among all of its siblings with the same name
+within a calendar component. A valid PROP-ID value must be of 1 and a maximum of 255 octets
+in size, and it MUST only contain the ASCII alphanumeric characters (`A-Za-z0-9`), hyphen
+(`-`), and underscore (`_`). The identifier only has the purpose to uniquely identify
+siblings, its value has no other meaning. If an application makes use of PROP-ID it SHOULD
+assign a unique identifier to each sibling property of the same name within their embedding
+component. The same identifier MAY be used for properties of a different name, and it MAY
+also be assigned to a same-named property that is not a sibling.
++
+Resolving duplicate identifier conflicts is specific to the application. Similarly, handling
+properties where some but not all siblings have a PROP-ID is assigned, is
+application-specific.
+
+Example(s)::
++
+[source%unnumbered]
+----
+ATTACH;PROP-ID=a983:https://example.com/something
+----

@@ -1,0 +1,15 @@
+== Introduction
+
+The JSCalendar <<RFC8984>> format aims to be an alternative to the iCalendar <<RFC5545>> format
+for representation of calendar data. As such, it introduces new semantics that are not covered
+in the current definition of iCalendar and its extensions. Converting calendar data between the
+two formats is defined in <<ref-jscalendar-icalendar>> with the goal of not loosing any
+semantics during conversion. In order to do so, this document defines a new set of properties
+for iCalendar and extends existing definitions.
+
+=== Requirements Language
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
+"RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted
+as described in BCP 14 <<RFC2119>> <<RFC8174>> when, and only when, they appear in all capitals,
+as shown here.

@@ -1,0 +1,4 @@
+[abstract]
+== Abstract
+
+This document provides the required methods for converting JSCalendar from and to iCalendar.
