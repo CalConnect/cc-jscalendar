@@ -873,7 +873,7 @@ make changes to it that affect the other participants. Non-owner participants ma
 properties that just affect themselves (for example setting their own alerts or changing
 their rsvp status).
 ** `attendee`: The participant is expected to be present at the event.
-** *OPTIONAL*: The participant's involvement with the event is optional. This is expected to
+** `optional`: The participant's involvement with the event is optional. This is expected to
 be primarily combined with the "attendee" role.
 ** `informational`: The participant is copied for informational reasons, and is not expected
 to attend.
