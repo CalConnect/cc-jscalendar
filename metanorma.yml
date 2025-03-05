@@ -10,6 +10,8 @@ metanorma:
       - sources/jscal-extensions/draft-ietf-calext-icalendar-jscalendar-extensions-00.adoc
       - sources/jscal-ical/cc-51015.adoc
       - sources/jscal-ical/draft-ietf-calext-jscalendar-icalendar-07.adoc
+      - sources/jscalbis/cc-51015.adoc
+      - sources/jscalbis/draft-ietf-calext-jscalendarbis-01.adoc
 
   collection:
     name: JSCalendar

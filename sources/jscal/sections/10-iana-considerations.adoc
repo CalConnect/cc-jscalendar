@@ -372,7 +372,7 @@ Property Name:: action
 Context:: Alert
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -385,7 +385,7 @@ Property Name:: display
 Context:: Link
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -400,7 +400,7 @@ Property Name:: features
 Context:: VirtualLocation
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -418,7 +418,7 @@ Property Name:: freeBusyStatus
 Context:: Event, Task
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -431,7 +431,7 @@ Property Name:: kind
 Context:: Participant
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -446,7 +446,7 @@ Property Name:: participationStatus
 Context:: Participant
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -462,7 +462,7 @@ Property Name:: privacy
 Context:: Event, Task
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -476,7 +476,7 @@ Property Name:: progress
 Context:: Task, Participant
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -492,7 +492,7 @@ Property Name:: relation
 Context:: Relation
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -507,7 +507,7 @@ Property Name:: relativeTo
 Context:: OffsetTrigger, Location
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -520,7 +520,7 @@ Property Name:: roles
 Context:: Participant
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -537,7 +537,7 @@ Property Name:: scheduleAgent
 Context:: Participant
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description
@@ -551,7 +551,7 @@ Property Name:: status
 Context:: Event
 Change Controller:: IETF
 Initial Contents::
-
++
 [options=header,cols=2]
 |===
 | Enum Value | Reference or Description

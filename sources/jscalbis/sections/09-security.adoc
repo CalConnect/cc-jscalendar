@@ -1,0 +1,107 @@
+[[security-considerations]]
+== Security Considerations
+
+Calendaring and scheduling information is very privacy sensitive. It can reveal the social
+network of a user, location information of this user and those in their social network,
+identity and credentials information, and patterns of behavior of the user in both the
+physical and cyber realm. Additionally, calendar events and tasks can influence the physical
+location of a user or their cyber behavior within a known time window. Its transmission and
+storage must be done carefully to protect it from possible threats, such as eavesdropping,
+replay, message insertion, deletion, modification, and on-path attacks.
+
+The data being stored and transmitted may be used in systems with real-world consequences.
+For example, a home automation system may turn an alarm on and off or a coworking space may
+charge money to the organizer of an event that books one of their meeting rooms. Such systems
+must be careful to authenticate all data they receive to prevent them from being subverted
+and ensure the change comes from an authorized entity.
+
+This document only defines the data format; such considerations are primarily the concern of
+the API or method of storage and transmission of such files.
+
+=== Expanding Recurrences
+
+A recurrence rule may produce infinite occurrences of an event. Implementations *MUST* handle
+expansions carefully to prevent accidental or deliberate resource exhaustion.
+
+Conversely, a recurrence rule may be specified that does not expand to anything. It is not
+always possible to tell this through static analysis of the rule, so implementations *MUST*
+be careful to avoid getting stuck in infinite loops or otherwise exhausting resources while
+searching for the next occurrence.
+
+Events recur in the event's time zone. If the user is in a different time zone, daylight
+saving transitions may cause an event that normally occurs at, for example, 9 am to suddenly
+shift an hour earlier. This may be used in an attempt to cause a participant to miss an
+important meeting. User agents must be careful to translate date-times correctly between time
+zones and may wish to call out unexpected changes in the time of a recurring event.
+
+=== JSON Parsing
+
+The security considerations of <<RFC8259>> apply to the use of JSON as the data interchange
+format.
+
+As for any serialization format, parsers need to thoroughly check the syntax of the supplied
+data. JSON uses opening and closing tags for several types and structures, and it is possible
+that the end of the supplied data will be reached when scanning for a matching closing tag;
+this is an error condition, and implementations need to stop scanning at the end of the
+supplied data.
+
+JSON also uses a string encoding with some escape sequences to encode special characters
+within a string. Care is needed when processing these escape sequences to ensure that they
+are fully formed before the special processing is triggered, with special care taken when the
+escape sequences appear adjacent to other (non-escaped) special characters or adjacent to the
+end of data (as in the previous paragraph).
+
+If parsing JSON into a non-textual structured data format, implementations may need to
+allocate storage to hold JSON string elements. Since JSON does not use explicit string
+lengths, the risk of denial of service due to resource exhaustion is small, but
+implementations may still wish to place limits on the size of allocations they are willing to
+make in any given context, to avoid untrusted data causing excessive memory allocation.
+
+=== URI Values
+
+Several JSCalendar properties contain URIs as values, and processing these properties
+requires extra care. <<RFC3986,section=7>> discusses security risks related to URIs.
+
+Fetching remote resources carries inherent risks. Connections must only be allowed on
+well-known ports, using allowed protocols (generally, just HTTP/HTTPS on their default
+ports). The URL must be resolved externally and not allowed to access internal resources.
+Connecting to an external source reveals IP (and therefore often location) information.
+
+A maliciously constructed JSCalendar object may contain a very large number of URIs. In the
+case of published calendars with a large number of subscribers, such objects could be widely
+distributed. Implementations should be careful to limit the automatic fetching of linked
+resources to reduce the risk of this being an amplification vector for a denial-of-service
+attack.
+
+=== Spam
+
+Calendar systems may receive JSCalendar files from untrusted sources, in particular, as
+attachments to emails. This can be a vector for an attacker to inject spam into a user's
+calendar. This may confuse, annoy, and mislead users or overwhelm their calendar with bogus
+events, preventing them from seeing legitimate ones.
+
+Heuristic, statistical, or machine-learning-based filters can be effective in filtering out
+spam. Authentication mechanisms, such as DomainKeys Identified Mail (DKIM) <<RFC6376>>, can
+help establish the source of messages and associate the data with existing relationships
+(such as an address book contact). However, misclassifications are always possible and
+providing a mechanism for users to quickly correct this is advised.
+
+Confusable unicode characters may be used to trick a user into trusting a JSCalendar file
+that appears to come from a known contact but is actually from a similar-looking source
+controlled by an attacker.
+
+=== Duplication
+
+It is important for calendar systems to maintain the UID of an event when updating it to
+avoid an unexpected duplication of events. Consumers of the data may not remove the previous
+version of the event if it has a different UID. This can lead to a confusing situation for
+the user, with many variations of the event and no indication of which one is correct. Care
+must be taken by consumers of the data to remove old events where possible to avoid an
+accidental denial-of-service attack due to the volume of data.
+
+=== Time Zones
+
+Events recur in a particular time zone. When this differs from the user's current time zone,
+it may unexpectedly cause an occurrence to shift in time for that user due to a daylight
+savings change in the event's time zone. A maliciously crafted event could attempt to confuse
+users with such an event to ensure a meeting is missed.
