@@ -1,0 +1,44 @@
+== References
+
+[bibliography]
+=== Normative References
+
+* [[[RFC2119,IETF RFC 2119]]]
+* [[[RFC2392,IETF RFC 2392]]]
+* [[[RFC2397,IETF RFC 2397]]]
+* [[[RFC3339,IETF RFC 3339]]]
+* [[[RFC3986,IETF RFC 3986]]]
+* [[[RFC4122,IETF RFC 4122]]]
+* [[[RFC4589,IETF RFC 4589]]]
+* [[[RFC4648,IETF RFC 4648]]]
+* [[[RFC5234,IETF RFC 5234]]]
+* [[[RFC5322,IETF RFC 5322]]]
+* [[[RFC5545,IETF RFC 5545]]]
+* [[[RFC5546,IETF RFC 5546]]]
+* [[[BCP47,IETF RFC 5646]]]
+* [[[RFC5870,IETF RFC 5870]]]
+* [[[RFC6047,IETF RFC 6047]]]
+* [[[RFC6838,IETF RFC 6838]]]
+* [[[RFC6901,IETF RFC 6901]]]
+* [[[RFC7493,IETF RFC 7493]]]
+* [[[RFC7529,IETF RFC 7529]]]
+* [[[RFC7808,IETF RFC 7808]]]
+* [[[RFC8126,IETF RFC 8126]]]
+* [[[RFC8174,IETF RFC 8174]]]
+* [[[RFC8259,IETF RFC 8259]]]
+* [[[RFC8288,IETF RFC 8288]]]
+* [[[RFC8984,IETF RFC 8984]]]
+* [[[CLDR,CLDR]]], Unicode Common Locale Data Repository, http://cldr.unicode.org/
+* [[[TZDB,TZDB]]], IANA Time Zone Database, https://www.iana.org/time-zones
+* [[[COLORS,COLORS]]], Çelik, T., Lilley, C., and L. Baron, "CSS Color Module Level 3", W3C Recommendation, June 2018.
+
+[bibliography]
+=== Informative References
+
+* [[[ISO.9070.1991,ISO/IEC 9070:1991]]]
+* [[[RFC6376,IETF RFC 6376]]]
+* [[[RFC7265,IETF RFC 7265]]]
+* [[[RFC7986,IETF RFC 7986]]]
+* [[[LOCATIONTYPES,LOCATIONTYPES]]], IANA, "Location Types Registry", <https://www.iana.org/assignments/location-type-registry>.
+* [[[LINKRELS,LINKRELS]]], IANA, "Link Relations: Link Relation Types", <https://www.iana.org/assignments/link-relations>.
+* [[[MEDIATYPES,MEDIATYPES]]], IANA, "Media Types", <https://www.iana.org/assignments/media-types>.

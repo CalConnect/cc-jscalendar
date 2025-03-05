@@ -1,0 +1,228 @@
+[[jscalendar-object-props]]
+== Type-specific JSCalendar Properties
+
+[[jsevent-props]]
+=== Event Properties
+
+In addition to the common JSCalendar object properties <<jscalendar-props>>,
+an Event has the following properties:
+
+[[prop-start-jsevent]]
+===== start
+
+Type: `LocalDateTime` (mandatory)
+
+This is the date/time the event starts in the event's time zone (as specified in the
+`timeZone` property, see <<prop-timeZone>>.
+
+[[prop-duration]]
+===== duration
+
+Type: `Duration` (optional, default: `PT0S`)
+
+This is the zero or positive duration of the event in the event's start time zone.
+The end time of an event can be found by adding the duration to the event's start
+time.
+
+A Event *MAY* involve start and end locations that are in different time zones (e.g., a
+transcontinental flight). This can be expressed using the `relativeTo` and `timeZone`
+properties of the Event's Location objects (see <<prop-locations>>).
+
+[[prop-status-jsevent]]
+==== status
+
+Type: `String` (optional, default: `confirmed`).
+
+This is the scheduling status (<<sharing-scheduling-properties>>) of a Event. If set, it *MUST* be one
+of the following values, another value registered in the IANA "JSCalendar Enum Values"
+registry, or a vendor-specific value (see <<custom-properties>>):
+
+* `confirmed`: indicates the event is definitely happening.
+* `cancelled`: indicates the event has been cancelled.
+* `tentative`: indicates the event may happen.
+
+[[jstask-props]]
+=== Task Properties
+
+In addition to the common JSCalendar object properties <<jscalendar-props>>, a Task has the following properties:
+
+[[prop-due]]
+==== due
+
+Type: `LocalDateTime` (optional).
+
+This is the date/time the task is due in the task's time zone.
+
+[[prop-start-jstask]]
+==== start
+
+Type: `LocalDateTime` (optional).
+
+This is the date/time the task should start in the task's time zone.
+
+[[prop-estimatedDuration]]
+==== estimatedDuration
+
+Type: `Duration` (optional).
+
+This specifies the estimated positive duration of time the task takes to complete.
+
+[[prop-percentComplete]]
+==== percentComplete
+
+Type: `UnsignedInt` (optional).
+
+This represents the percent completion of the task overall. The property value *MUST* be a positive
+integer between 0 and 100.
+
+[[prop-progress]]
+==== progress
+
+Type: `String` (optional).
+
+This defines the progress of this task. If omitted, the default progress
+(<<sharing-scheduling-properties>>) of a Task is defined as follows (in order of evaluation):
+
+* `completed`: if the `progress` property value of all participants is `completed`.
+* `failed`: if at least one `progress` property value of a participant is `failed`.
+* `in-process`: if at least one `progress` property value of a participant is `in-process`.
+* `needs-action`: if none of the other criteria match.
+
+If set, it *MUST* be one of the following values, another value registered in the IANA
+"JSCalendar Enum Values" registry, or a vendor-specific value (see <<custom-properties>>):
+
+* `needs-action`: indicates the task needs action.
+* `in-process`: indicates the task is in process.
+* `completed`: indicates the task is completed.
+* `failed`: indicates the task failed.
+* `cancelled`: indicates the task was cancelled.
+
+[[prop-progressUpdated]]
+==== progressUpdated
+
+Type: `UTCDateTime` (optional).
+
+This specifies the date/time the `progress` property of either the task overall
+(<<prop-progress>>) or a specific participant (<<prop-participants>>) was last updated.
+
+If the task is recurring and has future instances, a client may want to keep track of the
+last progress update timestamp of a specific task recurrence, but leave other instances
+unchanged. One way to achieve this is by overriding the `progressUpdated` property in the task
+`recurrenceOverrides` property. However, this could produce a long list of timestamps for
+regularly recurring tasks. An alternative approach is to split the Task into a current,
+single instance of Task with this instance progress update time and a future recurring
+instance. See also <<prop-relatedTo>> on splitting.
+
+[[jsgroup-props]]
+=== Group Properties
+
+Group supports the following common JSCalendar <<jscalendar-props>> properties:
+
+* @type
+* uid
+* prodId
+* created
+* updated
+* title
+* description
+* descriptionContentType
+* links
+* locale
+* keywords
+* categories
+* color
+* timeZones
+
+In addition, the following Group-specific properties are supported:
+
+[[prop-entries]]
+==== entries
+
+Type: `(Task|Event)[]` (mandatory).
+
+This is a collection of group members. Implementations *MUST* ignore entries of unknown type.
+
+[[prop-source]]
+==== source
+
+Type: `String` (optional).
+
+This is the source from which updated versions of this group may be retrieved. The value *MUST* be
+a URI.
+
+[[prop-timeZones]]
+==== timeZones
+
+Type: `TimeZoneId[TimeZone]` (optional).
+
+This property defines custom time zones, in contrast to standard timezone
+definitions in the IANA Time Zone Database <<TZDB>>.
+Members of the group may refer to these time zones using the keys in this property.
+Each key in the map *MUST* start with the `/` (47) character, followed by the value
+of the TimeZone `tzId` property.
+
+A TimeZone object maps a VTIMEZONE component from iCalendar, and the semantics are as defined in <<RFC5545>>. A valid time zone *MUST* define at least one transition rule in the `standard` or `daylight` property. Its properties are:
+
+* @type: `String` (mandatory)
++
+This specifies the type of this object. This *MUST* be `TimeZone`.
+* tzId: `String` (mandatory)
++
+This is the TZID property from iCalendar. Note that this implies that the value
+*MUST* be a valid `paramtext` value as specified in <<RFC5545,section=3.1>>.
+* updated: `UTCDateTime` (optional)
++
+This is the LAST-MODIFIED property from iCalendar.
+* url: `String` (optional)
++
+This is the TZURL property from iCalendar.
+* validUntil: `UTCDateTime` (optional)
++
+This is the TZUNTIL property from iCalendar, specified in <<RFC7808>>.
+* aliases: `String[Boolean]` (optional)
++
+This maps the TZID-ALIAS-OF properties from iCalendar, specified in <<RFC7808>>,
+to a JSON set of aliases. The set is represented as an object, with the keys
+being the aliases. The value for each key in the map *MUST* be true.
+* standard: `TimeZoneRule[]` (optional)
++
+This the STANDARD sub-components from iCalendar. The order *MUST* be preserved
+during conversion.
+* daylight: `TimeZoneRule[]` (optional)
++
+This the DAYLIGHT sub-components from iCalendar. The order *MUST* be preserved
+during conversion.
+
+A TimeZoneRule object maps a STANDARD or DAYLIGHT sub-component from iCalendar, with the
+restriction that, at most, one recurrence rule is allowed per rule. It has the following
+properties:
+
+* @type: `String` (mandatory)
++
+This specifies the type of this object. This *MUST* be `TimeZoneRule`.
+* start: `LocalDateTime` (mandatory)
++
+This is the DTSTART property from iCalendar.
+* offsetFrom: `String` (mandatory)
++
+This is the TZOFFSETFROM property from iCalendar.
+* offsetTo: `String` (mandatory)
++
+This is the TZOFFSETTO property from iCalendar.
+* recurrenceRules: `RecurrenceRule[]` (optional)
++
+This is the RRULE property mapped, as specified in <<prop-recurrenceRules>>. During recurrence rule
+evaluation, the `until` property value *MUST* be interpreted as a local time in the UTC time
+zone.
+* recurrenceOverrides: `LocalDateTime[PatchObject]` (optional)
++
+This maps the RDATE properties from iCalendar. The set is represented as an object, with the keys
+being the recurrence dates. The patch object *MUST* be the empty JSON object ({}).
+* names: `String[Boolean]` (optional)
++
+This maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an
+object, with the keys being the names, excluding any `tznparam` component from iCalendar.
+The value for each key in the map *MUST* be true.
+* comments: `String[]` (optional).
++
+This maps the COMMENT properties from iCalendar. The order *MUST* be preserved during conversion.

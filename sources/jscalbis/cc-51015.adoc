@@ -1,0 +1,50 @@
+= JSCalendar: A JSON Representation of Calendar Data
+:docnumber: 51015
+:copyright-year: 2022
+:language: en
+:doctype: standard
+:edition: 1
+:status: working-draft
+:revdate: 2022-10-24
+:published-date: 2022-10-24
+:technical-committee: CALENDAR
+:fullname: Neil Jenkins
+:surname: Jenkins
+:givenname: Neil
+:affiliation: Fastmail
+:fullname_2: Robert Stepanek
+:surname_2: Stepanek
+:givenname_2: Robert
+:affiliation_2: Fastmail
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/01-scope.adoc[]
+
+include::sections/02-normative-references.adoc[]
+
+include::sections/03-terms.adoc[]
+
+include::sections/04-jscalendar-objects.adoc[]
+
+include::sections/05-structure.adoc[]
+
+include::sections/06-common-jscalendar-properties.adoc[]
+
+include::sections/07-type-specific-jscalendar-properties.adoc[]
+
+include::sections/08-examples.adoc[]
+
+include::sections/09-security.adoc[]
+
+include::sections/10-iana.adoc[]
+
+include::sections/99-acknowledgements.adoc[]
+
+include::sections/99-bibliography.adoc[]

@@ -1,0 +1,10 @@
+[bibliography]
+== Bibliography
+
+* [[[ISO.9070.1991,ISO/IEC 9070:1991]]]
+* [[[RFC6376,IETF RFC 6376]]]
+* [[[RFC7265,IETF RFC 7265]]]
+* [[[RFC7986,IETF RFC 7986]]]
+* [[[LOCATIONTYPES,LOCATIONTYPES]]], IANA, "Location Types Registry", <https://www.iana.org/assignments/location-type-registry>.
+* [[[LINKRELS,LINKRELS]]], IANA, "Link Relations: Link Relation Types", <https://www.iana.org/assignments/link-relations>.
+* [[[MEDIATYPES,MEDIATYPES]]], IANA, "Media Types", <https://www.iana.org/assignments/media-types>.

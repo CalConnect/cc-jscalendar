@@ -1,0 +1,36 @@
+== JSCalendar Objects
+
+This section describes the calendar object types specified by JSCalendar.
+
+[[jsevent]]
+=== Event
+
+Media type: `application/jscalendar+json;type=event`
+
+An Event represents a scheduled amount of time on a calendar, typically a meeting,
+appointment, reminder, or anniversary. It is required to start at a certain point in time and
+typically has a non-zero duration. Multiple participants may partake in the event at multiple
+locations.
+
+The @type <<prop-type>> property value *MUST* be `Event`.
+
+[[jstask]]
+=== Task
+
+Media type: `application/jscalendar+json;type=task`
+
+A Task represents an action item, assignment, to-do item, or work item. It may start and be
+due at certain points in time, take some estimated time to complete, and recur, none of which
+is required.
+
+The @type <<prop-type>> property value *MUST* be `Task`.
+
+[[jsgroup]]
+=== Group
+
+Media type: `application/jscalendar+json;type=group`
+
+A Group is a collection of <<jsevent,Event>> and/or <<jstask,Task>> objects. Typically,
+objects are grouped by topic (e.g., by keywords) or calendar membership.
+
+The @type <<prop-type>> property value *MUST* be `Group`.

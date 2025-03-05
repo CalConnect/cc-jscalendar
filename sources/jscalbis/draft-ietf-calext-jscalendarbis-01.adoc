@@ -1,0 +1,57 @@
+= JSCalendar: A JSON Representation of Calendar Data
+:doctype: internet-draft
+:name: draft-ietf-calext-jscalendarbis-01
+:abbrev: JSCalendar
+:status: standard
+:ipr: trust200902
+:area: Applications
+:intended-series: full-standard
+:workgroup: Calendaring Extensions
+:published-date: 2022-10-24
+:fullname: Neil Jenkins
+:lastname: Jenkins
+:forename_initials: N.M.
+:affiliation: FastMail
+:address: PO Box 234 + \
+Collins St West + \
+Melbourne, VIC 8007 + \
+Australia
+:email: neilj@fastmailteam.com
+:contributor-uri: https://www.fastmail.com
+:fullname_2: Robert Stepanek
+:lastname_2: Stepanek
+:forename_initials_2: R.
+:affiliation_2: Fastmail
+:address_2: PO Box 234 + \
+Collins St West + \
+Melbourne, VIC 8007 + \
+Australia
+:email_2: rsto@fastmailteam.com
+:contributor-uri_2: https://www.fastmail.com
+:keywords: JSON, iCalendar, calendar, events, date, time
+:mn-document-class: ietf
+:mn-output-extensions: xml,rfc,txt,html,rxl
+:local-cache-only:
+:data-uri-image:
+
+include::sections/00-abstract.adoc[]
+
+include::sections/01-intro.adoc[]
+
+include::sections/04-jscalendar-objects.adoc[]
+
+include::sections/05-structure.adoc[]
+
+include::sections/06-common-jscalendar-properties.adoc[]
+
+include::sections/07-type-specific-jscalendar-properties.adoc[]
+
+include::sections/08-examples.adoc[]
+
+include::sections/09-security.adoc[]
+
+include::sections/10-iana.adoc[]
+
+include::sections/99-acknowledgements.adoc[]
+
+include::sections-ietf/99-references.adoc[]
