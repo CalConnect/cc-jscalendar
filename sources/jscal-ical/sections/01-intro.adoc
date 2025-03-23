@@ -3,55 +3,60 @@
 
 [EDITOR]
 ====
-This is still very much a work in progress. There are implementations of the mapping but
-there may be changes over the coming weeks.
+This is still very much a work in progress. There are implementations of the
+mapping but there may be changes over the coming weeks.
 ====
 
 [[motivation]]
 === Motivation
 
-The JSCalendar <<RFC8984>> data format is used to represent calendar data, and is meant as an
-alternative to the widely deployed iCalendar <<RFC5545>> data format.
+The JSCalendar <<RFC8984>> data format is used to represent calendar data, and
+is meant as an alternative to the widely deployed iCalendar <<RFC5545>> data
+format.
 
-While new calendaring services and applications might use JSCalendar as their main data
-format to exchange calendaring data, they are likely to interoperate with services and
-clients that just support iCalendar. Similarly, existing calendaring data is stored in
-iCalendar format in databases and other calendar stores, and providers and users might want
-to represent this data also in JSCalendar. Lastly, there is a requirement to preserve custom
-iCalendar properties that have no equivalent in JSCalendar when converting between these
+While new calendaring services and applications might use JSCalendar as their
+main data format to exchange calendaring data, they are likely to interoperate
+with services and clients that just support iCalendar. Similarly, existing
+calendaring data is stored in iCalendar format in databases and other calendar
+stores, and providers and users might want to represent this data also in
+JSCalendar. Lastly, there is a requirement to preserve custom iCalendar
+properties that have no equivalent in JSCalendar when converting between these
 formats.
 
-To support these use cases, this document provides the required approach when converting
-JSCalendar data from and to iCalendar.
+To support these use cases, this document provides the required approach when
+converting JSCalendar data from and to iCalendar.
 
 [[scope]]
 === Scope and caveats
 
-JSCalendar and iCalendar have a lot of semantics in common, but they are not interchangeable
-formats:
+JSCalendar and iCalendar have a lot of semantics in common, but they are not
+interchangeable formats:
 
-* JSCalendar contains a richer data model to express calendar information such as event
-locations and participants. While future iCalendar extensions may allow a direct mapping, for
-now there may be no representation directly in iCalendar of some properties. These values may
-have to be extracted from a full copy of the iCalendar format provided as a property in the
-JSCalendar data.
+* JSCalendar contains a richer data model to express calendar information such
+as event locations and participants. While future iCalendar extensions may allow
+a direct mapping, for now there may be no representation directly in iCalendar
+of some properties. These values may have to be extracted from a full copy of
+the iCalendar format provided as a property in the JSCalendar data.
 
-* iCalendar may contain arbitrary, non-standardised data with custom properties/attributes.
-These will be translated using the same approach as jCal.
+* iCalendar may contain arbitrary, non-standardised data with custom
+properties/attributes. These will be translated using the same approach as jCal.
 
-* iCalendar has some obsolete features that have been removed from JSCalendar due to not
-being useful and/or supported in the real world (e.g. custom email alerts to send to random
-people). Translating these may lose some of the original fidelity.
+* iCalendar has some obsolete features that have been removed from JSCalendar
+due to not being useful and/or supported in the real world (e.g. custom email
+alerts to send to random people). Translating these may lose some of the
+original fidelity.
 
-* Implementations may use a custom property to store data that could not be mapped directly
-in either direction in the original or a custom format, however this is not interoperable.
+* Implementations may use a custom property to store data that could not be
+mapped directly in either direction in the original or a custom format, however
+this is not interoperable.
 
-* JSCalendar supports fractional seconds in time values whereas iCalendar does not. A
-subsequent specification will define how fractional seconds can be represented in iCalendar.
+* JSCalendar supports fractional seconds in time values whereas iCalendar does
+not. A subsequent specification will define how fractional seconds can be
+represented in iCalendar.
 
-Accordingly, this document defines a canonical translation between iCalendar and JSCalendar,
-and implementations MUST follow the approaches specified here when iCalendar data is
-represented in JSCalendar and vice-versa.
+Accordingly, this document defines a canonical translation between iCalendar and
+JSCalendar, and implementations MUST follow the approaches specified here when
+iCalendar data is represented in JSCalendar and vice-versa.
 
 This document defines mappings for the following specifications.
 
@@ -67,6 +72,6 @@ Therefore all of these specifications MUST be implemented to follow this specifi
 [[notational-conventions]]
 === Notational Conventions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
-"RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in
-<<RFC2119>>.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in <<RFC2119>>.

@@ -1,20 +1,20 @@
 [[translate-jscal-non-standard]]
 == Translating non-standard JSCalendar to iCalendar
 
-JSCalendar objects may contain properties for which no standard mapping to iCalendar is
-defined. This may occur for vendor-extension properties
-(<<draft-ietf-calext-jscalendarbis>>, Section 3.3) or any other property for which there no
-standard mapping is defined.
+JSCalendar objects may contain properties for which no standard mapping to
+iCalendar is defined. This may occur for vendor-extension properties
+(<<draft-ietf-calext-jscalendarbis>>, Section 3.3) or any other property for
+which there no standard mapping is defined.
 
-This section defines properties and parameters with which implementations SHOULD map such
-data. Applications that have more insight into the semantics of such iCalendar entries MAY
-choose to map differently.
+This section defines properties and parameters with which implementations SHOULD
+map such data. Applications that have more insight into the semantics of such
+iCalendar entries MAY choose to map differently.
 
-NOTE: The verbatim `XXXX` values in this section will be replaced with the RFC number of this
-document before publication. Also, the following properties require a redefinition of
-vendor-extension properties for JSCalendar. Currently, only domain names are allowed as
-prefix for vendor extensions. This document assumes that also URIs with the `urn` scheme are
-allowed.
+NOTE: The verbatim `XXXX` values in this section will be replaced with the RFC
+number of this document before publication. Also, the following properties
+require a redefinition of vendor-extension properties for JSCalendar. Currently,
+only domain names are allowed as prefix for vendor extensions. This document
+assumes that also URIs with the `urn` scheme are allowed.
 
 === New iCalendar properties
 
@@ -27,19 +27,23 @@ Purpose:: This property embeds JSCalendar properties in iCalendar.
 
 Value type:: URI, also see Format Definition for value restrictions.
 
-Conformance:: The property can be specified multiple times in a calendar component.
+Conformance:: The property can be specified multiple times in a calendar
+component.
 
-Property parameters:: The X-RFCXXXX-JSNAME parameter MUST be set exactly once for this
-property. The VALUE parameter MAY be set once, in which case its value MUST be URI. Other
-IANA and non-standard property parameters can be specified on this property.
+Property parameters:: The X-RFCXXXX-JSNAME parameter MUST be set exactly once
+for this property. The VALUE parameter MAY be set once, in which case its value
+MUST be URI. Other IANA and non-standard property parameters can be specified on
+this property.
 
 Description::
-This property maps a JSCalendar property to iCalendar. The property name is defined using the
-X-RFCXXXX-JSNAME parameter (<<translate-jscal-non-standard-param-jsname>>). The property
-value is encoded as a URL using the `data` scheme <<RFC2397>>. The media type MUST be
-specified as `application/json` and MUST NOT define parameters. The property value MAY be any
-<<RFC8259>> Javascript Object Notation (JSON) value restricted by the <<RFC7493>> I-JSON
-profile, be that a JSON object, array, string, number, `true` or `false`.
+This property maps a JSCalendar property to iCalendar. The property name is
+defined using the X-RFCXXXX-JSNAME parameter
+(<<translate-jscal-non-standard-param-jsname>>). The property value is encoded
+as a URL using the `data` scheme <<RFC2397>>. The media type MUST be specified
+as `application/json` and MUST NOT define parameters. The property value MAY be
+any <<RFC8259>> Javascript Object Notation (JSON) value restricted by the
+<<RFC7493>> I-JSON profile, be that a JSON object, array, string, number, `true`
+or `false`.
 
 Format definition:: This property is defined by the following notation:
 +
@@ -93,30 +97,38 @@ Value type:: Default is none. It MAY be set to BOOLEAN, FLOAT or INTEGER.
 
 Conformance:: The property can be specified multiple times in a calendar component.
 
-Property parameters:: The X-RFCXXXX-JSNAME parameter MUST be set exactly once for this
-property. The VALUE parameter MAY be set once, in which case its value MUST be BOOLEAN, FLOAT
-or INTEGER. Other IANA and non-standard property parameters can be specified on this property.
+Property parameters:: The X-RFCXXXX-JSNAME parameter MUST be set exactly once
+for this property. The VALUE parameter MAY be set once, in which case its value
+MUST be BOOLEAN, FLOAT or INTEGER. Other IANA and non-standard property
+parameters can be specified on this property.
 
 Description::
-This property maps a simple-valued JSCalendar property to iCalendar. The property name is
-defined using the X-RFCXXXX-JSNAME parameter.
-(<<translate-jscal-non-standard-param-jsname>>). The property value is set by the following
-rules:
-+
-* If the JSON property value is a string and its contents solely consists of characters
-defined in the `value` ABNF of <<RFC5545,section=3.1>>, then the iCalendar property value is
-a verbatim copy of the JSON property value. The VALUE parameter MUST NOT be set.
-* If the JSON property value is a number without fractional and exponent, then the iCalendar
-property value is a verbatim copy of the JSON property value. The VALUE parameter SHOULD be
-`INTEGER` if the JSON property is known to only allow integer values. Otherwise the parameter
-value MUST be `FLOAT`.
-* If the JSON property value is a number with fractional or exponent, then the iCalendar
-property value is the FLOAT representation of of the JSON property value (note that iCalendar
-FLOAT does not support exponents). The VALUE parameter MUST be `FLOAT`.
-* If the JSON property value is verbatim `true` then the iCalendar property value is `TRUE`,
-or `false` and `FALSE`, respectively. The VALUE parameter MUST be `BOOLEAN`.
-* If none of the above rules match, then the JSCalendar property MUST NOT map to the
-X-RFCXXXX-PROP property. Instead, it MAY map to the
+This property maps a simple-valued JSCalendar property to iCalendar. The
+property name is defined using the X-RFCXXXX-JSNAME parameter.
+(<<translate-jscal-non-standard-param-jsname>>). The property value is set by
+the following rules:
+
+** If the JSON property value is a string and its contents solely consists of
+characters defined in the `value` ABNF of <<RFC5545,section=3.1>>, then the
+iCalendar property value is a verbatim copy of the JSON property value. The
+VALUE parameter MUST NOT be set.
+
+** If the JSON property value is a number without fractional and exponent, then
+the iCalendar property value is a verbatim copy of the JSON property value. The
+VALUE parameter SHOULD be `INTEGER` if the JSON property is known to only allow
+integer values. Otherwise the parameter value MUST be `FLOAT`.
+
+** If the JSON property value is a number with fractional or exponent, then the
+iCalendar property value is the FLOAT representation of of the JSON property
+value (note that iCalendar FLOAT does not support exponents). The VALUE
+parameter MUST be `FLOAT`.
+
+** If the JSON property value is verbatim `true` then the iCalendar property
+value is `TRUE`, or `false` and `FALSE`, respectively. The VALUE parameter MUST
+be `BOOLEAN`.
+
+** If none of the above rules match, then the JSCalendar property MUST NOT map
+to the X-RFCXXXX-PROP property. Instead, it MAY map to the
 <<translate-jscal-non-standard-prop-jsprop,X-RFCXXXX-JSPROP>> property.
 
 Format definition:: This property is defined by the following notation:
@@ -213,8 +225,8 @@ X-RFCXXXX-PROP
 
 Parameter name:: X-RFCXXXX-JSNAME
 
-Purpose:: This parameter assigns a JSCalendar property name to JSCalendar data embedded in an
-iCalendar property.
+Purpose:: This parameter assigns a JSCalendar property name to JSCalendar data
+embedded in an iCalendar property.
 
 Format definition::
 +
@@ -223,10 +235,10 @@ Format definition::
 jsname-param  = "X-RFCXXXX-JSNAME" "=" DQUOTE *QSAFE-CHAR DQUOTE
 ----
 
-Description:: This parameter is set on a X-RFCXXXX-JSPROP or X-RFCXXXX-PROP property. It
-assigns the JSCalendar property name to the value embedded in the iCalendar property value.
-The parameter value contains the verbatim name of the JSCalendar property. It MUST be quoted
-to preserve case.
+Description:: This parameter is set on a X-RFCXXXX-JSPROP or X-RFCXXXX-PROP
+property. It assigns the JSCalendar property name to the value embedded in the
+iCalendar property value. The parameter value contains the verbatim name of the
+JSCalendar property. It MUST be quoted to preserve case.
 
 Example(s)::
 +

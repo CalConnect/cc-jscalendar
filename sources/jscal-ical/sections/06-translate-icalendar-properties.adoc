@@ -1,37 +1,40 @@
 [[translate-icalendar-properties]]
 == Translating iCalendar properties to JSCalendar
 
-This section is an alphabetic list of <<RFC5545>> and <<RFC7986>> properties and how they are
-mapped to JSCalendar.
+This section is an alphabetic list of <<RFC5545>> and <<RFC7986>> properties and
+how they are mapped to JSCalendar.
 
 === ATTACH
 
 A <<RFC5545>> ATTACH allows for two types of attachment:
 
 * A uri value
+
 * A binary value
 
-Both map to a JSCalendar "link" object with a "rel" of "enclosure" and the "href" set to the
-value of the property.
+Both map to a JSCalendar "link" object with a "rel" of "enclosure" and the
+"href" set to the value of the property.
 
-If the FMTTYPE parameter is set then add a JSCalendar "contentType" property to the link
-object.
+If the FMTTYPE parameter is set then add a JSCalendar "contentType" property to
+the link object.
 
 For a binary value use a base64 data uri.
 
-For an example of a recurring event with ATTACH see <<example-recurring-attach>>.
+For an example of a recurring event with ATTACH see
+<<example-recurring-attach>>.
 
 [[translate-ical-attendee]]
 === ATTENDEE
 
-An <<RFC5545>> ATTENDEE maps to the JSCalendar "participant" property with a JSCalendar
-"role" of "attendee". The value for role should always be set.
+An <<RFC5545>> ATTENDEE maps to the JSCalendar "participant" property with a
+JSCalendar "role" of "attendee". The value for role should always be set.
 
-In the simplest case a JSCalendar "participant" property will be created and added to the
-JSCalendar "participants" property.
+In the simplest case a JSCalendar "participant" property will be created and
+added to the JSCalendar "participants" property.
 
-The value of the ATTENDEE property is used to add an "imip" method to the JSCalendar "sendTo"
-property. The value of the entry will be the ATTENDEE property value.
+The value of the ATTENDEE property is used to add an "imip" method to the
+JSCalendar "sendTo" property. The value of the entry will be the ATTENDEE
+property value.
 
 For example:
 
@@ -55,7 +58,8 @@ maps to
 }
 ----
 
-The attendee parameters are mapped to JSCalendar "participant" properties as follows:
+The attendee parameters are mapped to JSCalendar "participant" properties as
+follows:
 
 CN:::
 The value of the CN parameter is used to set the JSCalendar "name" property.
@@ -69,8 +73,8 @@ RESOURCE::: "resource"
 ROOM::: "location"
 UNKNOWN::: No value
 +
-Any other value should be converted to lower case and assigned to the JSCalendar "kind"
-property.
+Any other value should be converted to lower case and assigned to the JSCalendar
+"kind" property.
 
 DELEGATED-FROM:::
 Split the value at any commas and add each resulting element to the JSCalendar
@@ -81,31 +85,33 @@ Split the value at any commas and add each resulting element to the JSCalendar
 "delegatedFrom" property
 
 DIR:::
-If non-null look in the participant "links" property for a JSCalendar "link" property with an
-href with the same value as the DIR parameter. You may need to search the current override
-and the master.
+If non-null look in the participant "links" property for a JSCalendar "link"
+property with an href with the same value as the DIR parameter. You may need to
+search the current override and the master.
 +
-If none is found create a new one with the JSCalendar "href" property set to the value of the
-DIR parameter and the JSCalendar "rel" property set to "alternate"
+If none is found create a new one with the JSCalendar "href" property set to the
+value of the DIR parameter and the JSCalendar "rel" property set to "alternate"
 
 LANG:::
 set the JSCalendar "language" property to the value of the LANG parameter.
 
 MEMBER:::
-If this is set there should be a corresponding ATTENDEE object with a value equal to the
-value of the member parameter. If not it is appropriate to skip this parameter.
+If this is set there should be a corresponding ATTENDEE object with a value
+equal to the value of the member parameter. If not it is appropriate to skip
+this parameter.
 +
-If there is a corresponding ATTENDEE then there should be a corresponding JSCalendar
-"participant" property. This suggests that CUTYPE=GROUP ATTENDEE properties should be
-processed ahead of the others.
+If there is a corresponding ATTENDEE then there should be a corresponding
+JSCalendar "participant" property. This suggests that CUTYPE=GROUP ATTENDEE
+properties should be processed ahead of the others.
 +
-Locate the JSCalendar "participant" property for the group. This may be in the current
-override or in the master. Add the id to the current participants JSCalendar "memberOf"
-property.
+Locate the JSCalendar "participant" property for the group. This may be in the
+current override or in the master. Add the id to the current participants
+JSCalendar "memberOf" property.
 
 PARTSTAT:::
-If the PARTSTAT parameter is set and is not "NEEDS-ACTION" then set the JSCalendar
-"participationStatus" property to the lower-cased value of the PARTSTAT.
+If the PARTSTAT parameter is set and is not "NEEDS-ACTION" then set the
+JSCalendar "participationStatus" property to the lower-cased value of the
+PARTSTAT.
 
 ROLE:::
 This is mapped to the JSCalendar "roles" property as follows:
@@ -115,27 +121,28 @@ REQ-PARTICIPANT::: "attendee"
 OPT-PARTICIPANT::: "attendee" and "optional"
 NON-PARTICIPANT::: "informational"
 +
-Any other value should be converted to lower case and added to the JSCalendar "roles"
-property.
+Any other value should be converted to lower case and added to the JSCalendar
+"roles" property.
 
 RSVP:::
-If the value of the RSVP parameter is TRUE set the JSCalendar "expectReply" property to
-"true" otherwise omit it.
+If the value of the RSVP parameter is TRUE set the JSCalendar "expectReply"
+property to "true" otherwise omit it.
 
 SCHEDULE-AGENT:::
-If the value is "CLIENT" (ignoring case) set the JSCalendar "scheduleAgent" property to
-"client" otherwise omit it.
+If the value is "CLIENT" (ignoring case) set the JSCalendar "scheduleAgent"
+property to "client" otherwise omit it.
 
 SCHEDULE-FORCE-SEND:::
-Set the JSCalendar "scheduleForceSend" property to the lower-cased value of the <<RFC6638>>
-SCHEDULE-FORCE-SEND parameter.
+Set the JSCalendar "scheduleForceSend" property to the lower-cased value of the
+<<RFC6638>> SCHEDULE-FORCE-SEND parameter.
 
 SCHEDULE-STATUS:::
 Split the value at any commas and add each resulting element to the JSCalendar
 "scheduleStatus" property.
 
 SENT-BY:::
-The value of the SENT-BY parameter is used to set the JSCalendar "invitedBy" property.
+The value of the SENT-BY parameter is used to set the JSCalendar "invitedBy"
+property.
 
 === CALSCALE
 
@@ -143,8 +150,8 @@ A <<RFC5545>> CALSCALE has no equivalence in JSCalendar. It is ignored.
 
 === CATEGORIES
 
-These map on to the JSCalendar "keywords" property with each category being the key to an
-entry.
+These map on to the JSCalendar "keywords" property with each category being the
+key to an entry.
 
 [source%unnumbered]
 ----
@@ -166,8 +173,8 @@ maps to
 
 === CLASS
 
-Maps to the "privacy" property. The iCalendar property value maps to the JSCalendar value as
-follows:
+Maps to the "privacy" property. The iCalendar property value maps to the
+JSCalendar value as follows:
 
 CONFIDENTIAL::: "secret"
 PRIVATE::: "private"
@@ -176,20 +183,22 @@ iana-token and x-name::: verbatim copy
 
 === COLOR
 
-The COLOR property is defined in <<RFC7986>> and maps to the JSCalendar "color" property.
-Copy the value verbatim.
+The COLOR property is defined in <<RFC7986>> and maps to the JSCalendar "color"
+property. Copy the value verbatim.
 
 === COMMENT
 
-There is no direct mapping for this property which may appear multiple times in <<RFC5545>>.
+There is no direct mapping for this property which may appear multiple times in
+<<RFC5545>>.
 
-For a scheduling reply it is presumably a message by the participant so the value or values
-should be used to set the JSCalendar "participantComment" property.
+For a scheduling reply it is presumably a message by the participant so the
+value or values should be used to set the JSCalendar "participantComment"
+property.
 
 === COMPLETED
 
-Set the JSCalendar "progress" property to "completed" and the "progressUpdated" property to
-the reformatted date/time.
+Set the JSCalendar "progress" property to "completed" and the "progressUpdated"
+property to the reformatted date/time.
 
 [source%unnumbered]
 ----
@@ -207,10 +216,11 @@ maps to
 
 === CONCEPT
 
-This <<draft-ietf-calext-ical-relations>> property may appear multiple times in components.
+This <<draft-ietf-calext-ical-relations>> property may appear multiple times in
+components.
 
-Each instance of the property is mapped on to a member of the JSCalendar "categories"
-property.
+Each instance of the property is mapped on to a member of the JSCalendar
+"categories" property.
 
 [source%unnumbered]
 ----
@@ -231,8 +241,8 @@ maps to
 
 === CONFERENCE
 
-Maps to a "VirtualLocation" object. The property value maps to the "uri" property of the
-virtual location.
+Maps to a "VirtualLocation" object. The property value maps to the "uri"
+property of the virtual location.
 
 Mapping parameters:
 
@@ -247,19 +257,21 @@ No mapping.
 
 === CONTACT
 
-A CONTACT property is mapped on to a participant object with a "roles" property of "contact".
-The value of the property is used to set the jscalendar participant "name" property.
+A CONTACT property is mapped on to a participant object with a "roles" property
+of "contact". The value of the property is used to set the jscalendar
+participant "name" property.
 
-QUESTIONS - what to use for the id? I have a uid but that's my implementation. There may be
-multiple CONTACT properties. If we create PARTICIPANT objects going the other way - how to
-link them - "name" == CONTACT value?
+QUESTIONS - what to use for the id? I have a uid but that's my implementation.
+There may be multiple CONTACT properties. If we create PARTICIPANT objects going
+the other way - how to link them - "name" == CONTACT value?
 
 Mapping parameters:
 
 ALTREP:::
-Use the same process as for the ATTENDEE DIR parameter: create a link property with the "rel"
-property set to "alternate" and the "href" property set to the value of the ALTREP parameter.
-Then add the link to the participants "links" property.
+Use the same process as for the ATTENDEE DIR parameter: create a link property
+with the "rel" property set to "alternate" and the "href" property set to the
+value of the ALTREP parameter. Then add the link to the participants "links"
+property.
 
 LANG:::
 Set the participants "language" property.
@@ -268,8 +280,8 @@ For an example see <<example-simple-contact>>.
 
 === CREATED
 
-The CREATED property is mapped on to a "created" property with a json formatted form of the
-date. Example:
+The CREATED property is mapped on to a "created" property with a json formatted
+form of the date. Example:
 
 [source%unnumbered]
 ----
@@ -291,8 +303,8 @@ maps to
 
 === DESCRIPTION
 
-Copy the value, preprocessed according to <<icalendar-preprocessing>> into the "description"
-property.
+Copy the value, preprocessed according to <<icalendar-preprocessing>> into the
+"description" property.
 
 Mapping parameters:
 
@@ -333,24 +345,28 @@ maps to
 
 === DTEND, DTSTART, DUE, DURATION
 
-If the DTSTART is a DATE only property then add the JSCalendar showWithoutTime property with
-the value set to "true". The JSCalendar "start" property is set with zero time values.
+If the DTSTART is a DATE only property then add the JSCalendar showWithoutTime
+property with the value set to "true". The JSCalendar "start" property is set
+with zero time values.
 
-If the DTSTART has a TZID parameter then set the JSCalendar "timeZone" property to the value
-of TZID.
+If the DTSTART has a TZID parameter then set the JSCalendar "timeZone" property
+to the value of TZID.
 
-If the DTSTART has a UTC value then set the JSCalendar "timeZone" property to the value
-"Etc/UTC". The JSCalendar "start" property is set without any UTC indicator.
+If the DTSTART has a UTC value then set the JSCalendar "timeZone" property to
+the value "Etc/UTC". The JSCalendar "start" property is set without any UTC
+indicator.
 
-JSCalendar has no equivalent to DTEND. If the component has a DTEND then calculate a value
-for "DURATION" from that property and DTSTART and proceed as below.
+JSCalendar has no equivalent to DTEND. If the component has a DTEND then
+calculate a value for "DURATION" from that property and DTSTART and proceed as
+below.
 
-If the DTEND has a TZID parameter with a value that differs from the DTSTART TZID parameter
-then a "location" object should be created with a "relativeTo" property set to "end" and a
-"timezone" property set to the value of the "TZID" parameter.
+If the DTEND has a TZID parameter with a value that differs from the DTSTART
+TZID parameter then a "location" object should be created with a "relativeTo"
+property set to "end" and a "timezone" property set to the value of the "TZID"
+parameter.
 
-Note that a task is not required to have a DTSTART so the JSCalendar "timezone" property
-needs to be set from the DUE property.
+Note that a task is not required to have a DTSTART so the JSCalendar "timezone"
+property needs to be set from the DUE property.
 
 Convert a DURATION property to the JSCalendar duration.
 
@@ -441,7 +457,8 @@ maps to
 
 === ESTIMATED-DURATION
 
-Copy the ESTIMATED-DURATION value into the JSCalendar "estimatedDuration" property.
+Copy the ESTIMATED-DURATION value into the JSCalendar "estimatedDuration"
+property.
 
 For example:
 
@@ -460,9 +477,9 @@ maps to
 
 === EXDATE
 
-Create a patch object with the recurrence id set from the EXDATE value. Add a single
-JSCalendar "excluded" property with the value set to true. There MUST NOT be any other
-properties set - other than "@type".
+Create a patch object with the recurrence id set from the EXDATE value. Add a
+single JSCalendar "excluded" property with the value set to true. There MUST NOT
+be any other properties set - other than "@type".
 
 [[translate-ical-rrule]]
 === EXRULE
@@ -474,27 +491,28 @@ Maps to the "excludedRecurrenceRules" property. Also see <<translate-ical-rrule>
 The mapping depends on whether or not the component is a scheduling entity.
 
 Not a scheduling entity:::
-The <<RFC5545>> DTSTAMP and LAST-MODIFIED properties have essentially the same meaning. If
-both are present use the value of the latest for the "updated" property. Otherwise set from
-whichever is present.
+The <<RFC5545>> DTSTAMP and LAST-MODIFIED properties have essentially the same
+meaning. If both are present use the value of the latest for the "updated"
+property. Otherwise set from whichever is present.
 
 Is a scheduling entity:::
-DTSTAMP should be used to set the "ScheduleUpdated" property in the "participant" object for
-the attendee.
+DTSTAMP should be used to set the "ScheduleUpdated" property in the
+"participant" object for the attendee.
 +
-If present LAST-MODIFIED should be used to set the "updated" property - otherwise set it from
-the DTSTAMP.
+If present LAST-MODIFIED should be used to set the "updated" property -
+otherwise set it from the DTSTAMP.
 
 === GEO
 
-Maps to a Location object, with only the "coordinates" property set. Note that the JSCalendar
-coordinates property value MUST be a valid "geo" URI, so replace the ";" character in the
-iCalendar value with "," and prepend the resulting string with "geo:".
+Maps to a Location object, with only the "coordinates" property set. Note that
+the JSCalendar coordinates property value MUST be a valid "geo" URI, so replace
+the ";" character in the iCalendar value with "," and prepend the resulting
+string with "geo:".
 
 === IMAGE
 
-Maps to a Link object with the iCalendar property value mapped to the location "href"
-property, and the "rel" property set to "icon".
+Maps to a Link object with the iCalendar property value mapped to the location
+"href" property, and the "rel" property set to "icon".
 
 For a binary value use a base64 data uri in the "href" property.
 
@@ -507,46 +525,50 @@ FMTTYPE:::
 Maps to the "contentType" property of the Link object.
 
 DISPLAY:::
-Maps to the "display" property of the Link object. The property values "BADGE", "GRAPHIC",
-"FULLSIZE" and "THUMBNAIL" map to their lower-case equivalent in JSCalendar.
+Maps to the "display" property of the Link object. The property values "BADGE",
+"GRAPHIC", "FULLSIZE" and "THUMBNAIL" map to their lower-case equivalent in
+JSCalendar.
 
 === LOCATION
 
-If any <<RFC9073>> "VLOCATION" components are present, then the <<RFC5545>> "LOCATION"
-property should be ignored.
+If any <<RFC9073>> "VLOCATION" components are present, then the <<RFC5545>>
+"LOCATION" property should be ignored.
 
-To map the property create a "locations" property with a single "location" and set the
-"description" property to the value of the <<RFC5545>> "LOCATION" property.
+To map the property create a "locations" property with a single "location" and
+set the "description" property to the value of the <<RFC5545>> "LOCATION"
+property.
 
 Mapping parameters:
 
 ALTREP:::
-Maps to a Link object in the Location "links" property, with the "href" property set to the
-parameter value.
+Maps to a Link object in the Location "links" property, with the "href" property
+set to the parameter value.
 
 === METHOD
 
-Maps to the "method" property of the JSCalendar object. The JSCalendar property value is the
-lowercase equivalent of the iCalendar property value.
+Maps to the "method" property of the JSCalendar object. The JSCalendar property
+value is the lowercase equivalent of the iCalendar property value.
 
 === ORGANIZER
 
-Maps to the "replyTo" property of the JSCalendar object. An iCalendar property value in the
-"mailto:" URI scheme, maps to the "imip" method, any other value maps to the "other" method.
+Maps to the "replyTo" property of the JSCalendar object. An iCalendar property
+value in the "mailto:" URI scheme, maps to the "imip" method, any other value
+maps to the "other" method.
 
-If the iCalendar component also contains an ATTENDEE with the same calendar user address then
-map that ATTENDEE as defined in <<translate-ical-attendee>> and add the "owner" role to the Participant "roles" property. Otherwise, use the ORGANIZER property to map to a Participant
-object. The "roles" property of the Participant MUST only contain the "owner" role and the
-"expectReply" property value MUST be "false". Any iCalendar parameters map as defined for
-ATTENDEE.
+If the iCalendar component also contains an ATTENDEE with the same calendar user
+address then map that ATTENDEE as defined in <<translate-ical-attendee>> and add
+the "owner" role to the Participant "roles" property. Otherwise, use the
+ORGANIZER property to map to a Participant object. The "roles" property of the
+Participant MUST only contain the "owner" role and the "expectReply" property
+value MUST be "false". Any iCalendar parameters map as defined for ATTENDEE.
 
 TBD: SENT-BY parameter. Example.
 
 === PERCENT-COMPLETE
 
-For all methods other than REPLY (or no method), the PERCENT-COMPLETE applies to the VTODO as
-a whole. In this case it the value is used to set the JSCalendar "percentComplete" property
-in the task object.
+For all methods other than REPLY (or no method), the PERCENT-COMPLETE applies to
+the VTODO as a whole. In this case it the value is used to set the JSCalendar
+"percentComplete" property in the task object.
 
 [source%unnumbered]
 ----
@@ -569,12 +591,12 @@ maps to
 }
 ----
 
-PERCENT-COMPLETE in a REPLY is used to indicate the level of completeness of the ATTENDEE.
-There should only be a single ATTENDEE in the VTODO object.
+PERCENT-COMPLETE in a REPLY is used to indicate the level of completeness of the
+ATTENDEE. There should only be a single ATTENDEE in the VTODO object.
 
-As ever recurrences complicate matters. For a non-recurring event or an override that
-contains the single participant, set the JSCalendar "percentComplete" property in the
-JSCalendar "participant" object representing the attendee.
+As ever recurrences complicate matters. For a non-recurring event or an override
+that contains the single participant, set the JSCalendar "percentComplete"
+property in the JSCalendar "participant" object representing the attendee.
 
 [source%unnumbered]
 ----
@@ -609,8 +631,8 @@ maps to
 }
 ----
 
-In the case of an override with the participant appearing in the master then add a patch to
-the override.
+In the case of an override with the participant appearing in the master then add
+a patch to the override.
 
 [source%unnumbered]
 ----
@@ -661,11 +683,12 @@ Simply copy value into the JSCalendar "priority" property.
 
 === PRODID
 
-For a vcalendar Group object with multiple Event and/or Task object the <<RFC5545>> VCALENDAR
-PRODID is mapped to a JSCalendar "prodid" property in the group.
+For a vcalendar Group object with multiple Event and/or Task object the
+<<RFC5545>> VCALENDAR PRODID is mapped to a JSCalendar "prodid" property in the
+group.
 
-When mapping to a single Event and/or Task object the <<RFC5545>> VCALENDAR PRODID is mapped
-to a JSCalendar "prodid" property in the group
+When mapping to a single Event and/or Task object the <<RFC5545>> VCALENDAR
+PRODID is mapped to a JSCalendar "prodid" property in the group
 
 [source%unnumbered]
 ----
@@ -687,18 +710,22 @@ maps to
 
 === RECURRENCE-ID
 
-Refer to <<translate-icalendar-recurrences>> for information on mapping recurrence ids.
+Refer to <<translate-icalendar-recurrences>> for information on mapping
+recurrence ids.
 
 === RELATED-TO
 
-This is mapped to the JSCalendar "relatedTo" property which is a map of relations with the
-target UID as the keys. The iCalendar relation is by default a PARENT relationship. There is
-no default for JSCalendar so the relationship must be explicitly specified.
+This is mapped to the JSCalendar "relatedTo" property which is a map of
+relations with the target UID as the keys. The iCalendar relation is by default
+a PARENT relationship. There is no default for JSCalendar so the relationship
+must be explicitly specified.
 
-The RELTYPE parameter values map to their lowercase equivalents in the "relation" property.
+The RELTYPE parameter values map to their lowercase equivalents in the
+"relation" property.
 
-Also note that the iCalendar relationship types are not identical. CHILD and PARENT map to
-JSCalendar "child" and "parent" but the best match for iCalendar SIBLING is "next"
+Also note that the iCalendar relationship types are not identical. CHILD and
+PARENT map to JSCalendar "child" and "parent" but the best match for iCalendar
+SIBLING is "next"
 
 [source%unnumbered]
 ----
@@ -737,16 +764,18 @@ Copy the value into the JSCalendar "requestStatus" property.
 
 === RESOURCES
 
-The RESOURCES property value is a comma-separated list of resources. First split this into
-the separate resource names and then each resource is mapped on a participant object with a
-"kind" property of "resource" and the "name" property set to the resource name.
+The RESOURCES property value is a comma-separated list of resources. First split
+this into the separate resource names and then each resource is mapped on a
+participant object with a "kind" property of "resource" and the "name" property
+set to the resource name.
 
 Mapping parameters:
 
 ALTREP:::
-Use the same process as for the ATTENDEE DIR parameter: create a link property with the "rel"
-property set to "alternate" and the "href" property set to the value of the ALTREP parameter.
-Then add the link to the participants "links" property.
+Use the same process as for the ATTENDEE DIR parameter: create a link property
+with the "rel" property set to "alternate" and the "href" property set to the
+value of the ALTREP parameter. Then add the link to the participants "links"
+property.
 
 LANG:::
 Set the participants "language" property.
@@ -755,19 +784,19 @@ For an example see <<example-simple-resource>>.
 
 === RDATE
 
-If the RDATE has a RANGE=THISANDFUTURE parameter then the recurrence MUST be split at this
-RDATE.
+If the RDATE has a RANGE=THISANDFUTURE parameter then the recurrence MUST be
+split at this RDATE.
 
-Truncate the original object before this RDATE, create a new master representing the object
-and link them by setting the jscalendar "relatedTo" property in both.
+Truncate the original object before this RDATE, create a new master representing
+the object and link them by setting the jscalendar "relatedTo" property in both.
 
-Otherwise create a patch object with the recurrence id set from the RDATE value. If the
-instance has overrides the differences will also be set in the object.
+Otherwise create a patch object with the recurrence id set from the RDATE value.
+If the instance has overrides the differences will also be set in the object.
 
 === RRULE
 
-Each RRULE is converted to an object in the JSCalendar "recurrenceRules" property. Each entry
-has the type "RecurrenceRule".
+Each RRULE is converted to an object in the JSCalendar "recurrenceRules"
+property. Each entry has the type "RecurrenceRule".
 
 [source%unnumbered]
 ----
@@ -785,9 +814,9 @@ maps to
   ...
 ----
 
-The recurrence rule object has one property for each element of the recurrence rule. The
-iCalendar rule has to be parsed out and the individual jscalendar property values set. Most
-take the same type but there are exceptions.
+The recurrence rule object has one property for each element of the recurrence
+rule. The iCalendar rule has to be parsed out and the individual jscalendar
+property values set. Most take the same type but there are exceptions.
 
 FREQ (mandatory):::
 Copy into the jscalendar "frequency" property converted to lowercase.
@@ -802,15 +831,16 @@ SKIP:::
 If present copy into the jscalendar "skip" property converted to lowercase.
 
 WKST:::
-If present copy into the jscalendar "firstDayOfWeek" property converted to lowercase.
+If present copy into the jscalendar "firstDayOfWeek" property converted to
+lowercase.
 
 BYDAY:::
-If present each element becomes an entry in the jsCalendar "byDay" propety. This is an array
-of NDay objects which may have 2 properties:
+If present each element becomes an entry in the jsCalendar "byDay" propety. This
+is an array of NDay objects which may have 2 properties:
 
 day:::: The two character weekday abbreviation.
-nthOfPeriod:::: If the weekday abbreviation is preceded by a signed integer value set the
-jscalendar "nthOfPeriod" property.
+nthOfPeriod:::: If the weekday abbreviation is preceded by a signed integer
+value set the jscalendar "nthOfPeriod" property.
 +
 [source%unnumbered]
 ----
@@ -834,38 +864,45 @@ maps to
 ----
 
 BYMONTHDAY:::
-If present each element will be an element in the jscalendar "byMonthDay" property.
+If present each element will be an element in the jscalendar "byMonthDay"
+property.
 
 BYMONTH:::
 If present each element will be an element in the jscalendar "byMonth" property.
 +
-Note that the iCalendar values are numeric but the JSCalendar values are strings. This is
-because of the possible "L" suffix for leap months.
+Note that the iCalendar values are numeric but the JSCalendar values are
+strings. This is because of the possible "L" suffix for leap months.
 
 BYYEARDAY:::
-If present each element will be an element in the jscalendar "byYearDay" property.
+If present each element will be an element in the jscalendar "byYearDay"
+property.
 
 BYWEEKNO:::
-If present each element will be an element in the jscalendar "byWeekNo" property.
+If present each element will be an element in the jscalendar "byWeekNo"
+property.
 
 BYHOUR:::
 If present each element will be an element in the jscalendar "byHour" property.
 
 BYMINUTE:::
-If present each element will be an element in the jscalendar "byMinute" property.
+If present each element will be an element in the jscalendar "byMinute"
+property.
 
 BYSECOND:::
-If present each element will be an element in the jscalendar "bySecond" property.
+If present each element will be an element in the jscalendar "bySecond"
+property.
 
 BYSETPOS:::
-If present each element will be an element in the jscalendar "bySetPosition" property.
+If present each element will be an element in the jscalendar "bySetPosition"
+property.
 
 COUNT:::
 If present set in the jscalendar "count" property.
 
 UNTIL:::
-If present set the jscalendar "until" property with the appropriately reformatted value. If
-the is no time part append a 0 time and reformat as a jscalendar local date/time.
+If present set the jscalendar "until" property with the appropriately
+reformatted value. If the is no time part append a 0 time and reformat as a
+jscalendar local date/time.
 
 Some examples:
 
@@ -959,12 +996,13 @@ For a VTODO copy the lower-cased value into the JSCalendar "progress" property.
 
 === STRUCTURED-DATA
 
-This property is mapped on to a JSCalendar "link" object with the value mapped on to the
-JSCalendar "href" property in a manner depending on the "STRUCTURED-DATA" "VALUE" parameter:
+This property is mapped on to a JSCalendar "link" object with the value mapped
+on to the JSCalendar "href" property in a manner depending on the
+"STRUCTURED-DATA" "VALUE" parameter:
 
 VALUE=TEXT:::
-Copy the value as a <<RFC2397>> data uri either as plain text or by encoding as a base64
-value. If plain text the value may need escaping as per <<RFC2397>>.
+Copy the value as a <<RFC2397>> data uri either as plain text or by encoding as
+a base64 value. If plain text the value may need escaping as per <<RFC2397>>.
 
 VALUE=BINARY:::
 Copy the value as a <<RFC2397>> data uri speifying base64 encoding.
@@ -972,11 +1010,11 @@ Copy the value as a <<RFC2397>> data uri speifying base64 encoding.
 VALUE=URI:::
 Copy the value as-is into the href.
 
-The "STRUCTURED-DATA" "SCHEMA" parameter is mapped on to a JSCalendar "schema" property
-within the link object.
+The "STRUCTURED-DATA" "SCHEMA" parameter is mapped on to a JSCalendar "schema"
+property within the link object.
 
-The "STRUCTURED-DATA" "FMTTYPE" parameter is mapped on to a JSCalendar "contentType" property
-within the link object.
+The "STRUCTURED-DATA" "FMTTYPE" parameter is mapped on to a JSCalendar
+"contentType" property within the link object.
 
 For example:
 
@@ -1021,8 +1059,8 @@ Use the "locale" property.
 
 === TRANSP
 
-If the value of the TRANSP property (ignoring case) is "opaque" set the JSCalendar
-"freeBusyStatus" property to the value "busy".
+If the value of the TRANSP property (ignoring case) is "opaque" set the
+JSCalendar "freeBusyStatus" property to the value "busy".
 
 Otherwise set the JSCalendar "freeBusyStatus" property to the value "free".
 
@@ -1032,5 +1070,5 @@ Copy the value into the JSCalendar "uid" property.
 
 === URL
 
-Maps to a Link object in the JSCalendar object's "links" property, with the URL property
-value mapped to the Link "href" property.
+Maps to a Link object in the JSCalendar object's "links" property, with the URL
+property value mapped to the Link "href" property.

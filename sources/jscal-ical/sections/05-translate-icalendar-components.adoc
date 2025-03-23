@@ -1,15 +1,15 @@
 [[translate-icalendar-components]]
 == Translating iCalendar components to JSCalendar
 
-This section is an alphabetic list of <<RFC5545>> components and how they are mapped to
-JSCalendar.
+This section is an alphabetic list of <<RFC5545>> components and how they are
+mapped to JSCalendar.
 
 At present VFREEBUSY and VJOURNAL are not mapped in JSCalendar.
 
 === VALARM
 
-An <<RFC5545>> VALARM component is mapped to a member of a JSCalendar "alerts" object with a
-type of "Alert" and a small id.
+An <<RFC5545>> VALARM component is mapped to a member of a JSCalendar "alerts"
+object with a type of "Alert" and a small id.
 
 [source%unnumbered]
 ----
@@ -41,39 +41,44 @@ maps to
 }
 ----
 
-The <<RFC5545>> VALARM has a number of problems which are not carried over into JSCalendar.
-Clients tend to choose how, and in some cases when to notify the user.
+The <<RFC5545>> VALARM has a number of problems which are not carried over into
+JSCalendar. Clients tend to choose how, and in some cases when to notify the
+user.
 
-For example, if the user has a smart-watch they may get tapped on the wrist. The method of
-notification may depend on which device is being used and the context, for example a meeting
-or driving.
+For example, if the user has a smart-watch they may get tapped on the wrist. The
+method of notification may depend on which device is being used and the context,
+for example a meeting or driving.
 
-Also, many clients are taking into consideration the travel time and notifying the user
-earlier if it seems necessary.
+Also, many clients are taking into consideration the travel time and notifying
+the user earlier if it seems necessary.
 
-Specifying that a client should send emails to all attendees is both annoying and dangerous.
-Attendees have their own preferences for how and when they should be notified.
+Specifying that a client should send emails to all attendees is both annoying
+and dangerous. Attendees have their own preferences for how and when they should
+be notified.
 
-Accordingly, the specification only allows for "display" and "email" actions and - other than
-specifying when - does not allow much else. Clients and/or servers will generally use the
-associated event or task title as identification. User preferences generally indicate what
-actions they prefer.
+Accordingly, the specification only allows for "display" and "email" actions and
+- other than specifying when - does not allow much else. Clients and/or servers
+will generally use the associated event or task title as identification. User
+preferences generally indicate what actions they prefer.
 
 Any ATTENDEE properties in the VALARM MUST be ignored.
 
-An <<RFC5545>> ACTION property can take the defined values "AUDIO" / "DISPLAY" / "EMAIL"
-whereas the JSCalendar "action" property only supports "display" and "email".
+An <<RFC5545>> ACTION property can take the defined values "AUDIO" / "DISPLAY" /
+"EMAIL" whereas the JSCalendar "action" property only supports "display" and
+"email".
 
-An "AUDIO" alarm SHOULD be mapped to a "display" alert. Any attachment MUST be ignored.
+An "AUDIO" alarm SHOULD be mapped to a "display" alert. Any attachment MUST be
+ignored.
 
-The iCalendar DESCRIPTION property is required for both ACTION:EMAIL and ACTION:DISPLAY.
-Additionally, the iCalendar SUMMARY property is required for ACTION:EMAIL.
+The iCalendar DESCRIPTION property is required for both ACTION:EMAIL and
+ACTION:DISPLAY. Additionally, the iCalendar SUMMARY property is required for
+ACTION:EMAIL.
 
-Store the SUMMARY in the optional alert title property and the DESCRIPTION is the alert
-description property.
+Store the SUMMARY in the optional alert title property and the DESCRIPTION is
+the alert description property.
 
-The <<RFC5545>> example VALARMs will be mapped as follows, assuming they are all in the same
-event:
+The <<RFC5545>> example VALARMs will be mapped as follows, assuming they are all
+in the same event:
 
 [source%unnumbered]
 ----
@@ -170,7 +175,8 @@ Note that the ATTENDEE, DURATION and REPEAT properties have been dropped.
 
 === VCALENDAR
 
-A <<RFC5545>> VCALENDAR component may be mapped to a JSCalendar object with a type of "Group".
+A <<RFC5545>> VCALENDAR component may be mapped to a JSCalendar object with a
+type of "Group".
 
 [source%unnumbered]
 ----
@@ -188,10 +194,10 @@ maps to
 }
 ----
 
-Note that a single Event or Task MAY be converted without a surrounding Group if the
-VCALENDAR component only contains PRODID and CALSCALE properties. In this case the prodid can
-go in the Event or Task. The CALSCALE property is dropped - there is no equivalence in
-JSCalendar.
+Note that a single Event or Task MAY be converted without a surrounding Group if
+the VCALENDAR component only contains PRODID and CALSCALE properties. In this
+case the prodid can go in the Event or Task. The CALSCALE property is dropped -
+there is no equivalence in JSCalendar.
 
 === VEVENT
 
@@ -213,8 +219,9 @@ maps to
 
 === VLOCATION
 
-A <<RFC9073>> VLOCATION component is mapped to a JSCalendar object with a type of "Location".
-Any properties within the VLOCATION must be mapped as described below.
+A <<RFC9073>> VLOCATION component is mapped to a JSCalendar object with a type
+of "Location". Any properties within the VLOCATION must be mapped as described
+below.
 
 [source%unnumbered]
 ----
@@ -241,16 +248,19 @@ maps to
 
 === VTIMEZONE, STANDARD, DAYLIGHT
 
-A <<RFC5545>> VTIMEZONE component is mapped to a member of a JSCalendar "timezones" object
-with a type of "TimeZone" and an id which follows the restrictions specified.
+A <<RFC5545>> VTIMEZONE component is mapped to a member of a JSCalendar
+"timezones" object with a type of "TimeZone" and an id which follows the
+restrictions specified.
 
-The STANDARD and DAYLIGHT components map to JSCalendar TimeZoneRule objects as members of the
+The STANDARD and DAYLIGHT components map to JSCalendar TimeZoneRule objects as
+members of the
 
 Note that
 
 * There is no current approach for defining standalone sets of timezones.
-* Timezones defined in the IANA timezone database SHOULD NOT be redefined in the object. Only
-custom timezones will be defined.
+
+* Timezones defined in the IANA timezone database SHOULD NOT be redefined in the
+object. Only custom timezones will be defined.
 
 [source%unnumbered]
 ----

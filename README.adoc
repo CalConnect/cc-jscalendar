@@ -1,22 +1,47 @@
-= CalConnect Standard: (TITLE)
+= CalConnect Standard: JSCalendar and related documents
 
-This work item belongs to CalConnect (TCs).
+This work item belongs to CalConnect TC API.
 
 image:https://github.com/CalConnect/cc-jscalendar/workflows/generate/badge.svg["Build Status", link="https://github.com/CalConnect/cc-jscalendar/actions?workflow=generate"]
 
 This document is available in its rendered forms here:
 
-* https://calconnect.github.io/cc-jscalendar/[CalConnect: Calendaring and scheduling -- Vocabulary (HTML)]
+* https://calconnect.github.io/cc-jscalendar/[CalConnect: JSCalendar and related documents (HTML)]
 
 == General
 
-This document specifies the (TITLE).
+This document specifies the JSCalendar and related documents.
 
-The document is published as the following:
+This specification defines a JSON representation of calendar data
+that can be used for storage and data exchange in a calendaring and
+scheduling environment.  It aims to be an alternative to the widely
+deployed iCalendar data format and to be unambiguous, extendable and
+simple to process.
 
-* CalConnect CC (DOCNUMBER)
-* ISO (DOCNUMBER)
-* IETF draft-cc-jscalendar
+The latest RFC draft version of this document is located at
+[draft-ietf-calext-jscalendar](https://datatracker.ietf.org/doc/draft-ietf-calext-jscalendar/).
+
+This repository contains the following documents:
+
+JSCalendar 2020::
+** CalConnect CC 51015:2020
+** IETF draft-ietf-calext-jscalendar-32
+
+JSCalendar 2022::
+** CalConnect CC 51015:2022
+** IETF draft-ietf-calext-jscalendarbis-01
+
+JSCalendar: Converting from and to iCalendar::
+** CalConnect CC 51026:2022
+** IETF draft-ietf-calext-jscalendar-icalendar-07
+
+iCalendar: Representing fractional seconds in iCalendar::
+** CalConnect CC 51024:2021
+** IETF draft-ietf-calext-icalendar-fractional-time-03
+
+iCalendar Format Extension for JSCalendar::
+** CalConnect CC 51025:2022
+** IETF draft-ietf-calext-icalendar-jscalendar-extensions-00
 
 
 == Fetching the document

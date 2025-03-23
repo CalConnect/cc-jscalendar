@@ -1,5 +1,5 @@
 [[jscalendar-spec-updates]]
 == JSCalendar base spec updates
 
-* Make title and description optional in an alert. Used to hold SUMMARY and DESCRIPTION if
-present.
+* Make title and description optional in an alert. Used to hold SUMMARY and
+DESCRIPTION if present.

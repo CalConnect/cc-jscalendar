@@ -1,16 +1,17 @@
 [[examples]]
 == Examples
 
-The following examples illustrate several aspects of the JSCalendar data model and format.
-The examples may omit mandatory or additional properties, which is indicated by a placeholder
-property with key `...`. While most of the examples use calendar event objects, they are also
-illustrative for tasks.
+The following examples illustrate several aspects of the JSCalendar data model
+and format. The examples may omit mandatory or additional properties, which is
+indicated by a placeholder property with key `...`. While most of the examples
+use calendar event objects, they are also illustrative for tasks.
 
 [[example-simple-event]]
 === Simple event
 
-This example illustrates a simple one-time event. It specifies a one-time event that begins
-on January 15, 2020 at 1pm New York local time and ends after 1 hour.
+This example illustrates a simple one-time event. It specifies a one-time event
+that begins on January 15, 2020 at 1pm New York local time and ends after 1
+hour.
 
 [source%unnumbered,json]
 ----
@@ -43,7 +44,8 @@ This example illustrates a simple task for a plain to-do item.
 [[example-simple-group]]
 === Simple group
 
-This example illustrates a simple calendar object group that contains an event and a task.
+This example illustrates a simple calendar object group that contains an event
+and a task.
 
 [source%unnumbered,json]
 ----
@@ -73,8 +75,8 @@ This example illustrates a simple calendar object group that contains an event a
 [[example-all-day-event]]
 === All-day event
 
-This example illustrates an event for an international holiday. It specifies an all-day event
-on April 1 that occurs every year since the year 1900.
+This example illustrates an event for an international holiday. It specifies an
+all-day event on April 1 that occurs every year since the year 1900.
 
 [source%unnumbered,json]
 ----
@@ -94,8 +96,9 @@ on April 1 that occurs every year since the year 1900.
 [[example-due-task]]
 === Task with a due date
 
-This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm
-Vienna local time on January 19, 2020. The calendar user expects to need 1 hour for shopping.
+This example illustrates a task with a due date. It is a reminder to buy
+groceries before 6pm Vienna local time on January 19, 2020. The calendar user
+expects to need 1 hour for shopping.
 
 [source%unnumbered,json]
 ----
@@ -111,12 +114,13 @@ Vienna local time on January 19, 2020. The calendar user expects to need 1 hour 
 [[example-zoned-event-endtz]]
 === Event with end time zone
 
-This example illustrates the use of end time zones by use of an international flight. The
-flight starts on April 1, 2020 at 9am in Berlin local time. The duration of the flight is
-scheduled at 10 hours 30 minutes. The time at the flight's destination is in the same time
-zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in
-Tokyo local time and highlight the time zone difference of the flight. The location names can
-serve as input for navigation systems.
+This example illustrates the use of end time zones by use of an international
+flight. The flight starts on April 1, 2020 at 9am in Berlin local time. The
+duration of the flight is scheduled at 10 hours 30 minutes. The time at the
+flight's destination is in the same time zone as Tokyo. Calendar clients could
+use the end time zone to display the arrival time in Tokyo local time and
+highlight the time zone difference of the flight. The location names can serve
+as input for navigation systems.
 
 [source%unnumbered,json]
 ----
@@ -145,9 +149,9 @@ serve as input for navigation systems.
 [[example-floating-event]]
 === Floating-time event (with recurrence)
 
-This example illustrates the use of floating time. Since January 1, 2020, a calendar user
-blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the
-user is located on that date.
+This example illustrates the use of floating time. Since January 1, 2020, a
+calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in
+whatever time zone the user is located on that date.
 
 [source%unnumbered,json]
 ----
@@ -166,9 +170,9 @@ user is located on that date.
 [[example-multi-location-event]]
 === Event with multiple locations and localization
 
-This example illustrates an event that happens at both a physical and a virtual location.
-Fans can see a live concert on premises or online. The event title and descriptions are
-localized.
+This example illustrates an event that happens at both a physical and a virtual
+location. Fans can see a live concert on premises or online. The event title and
+descriptions are localized.
 
 [source%unnumbered,json]
 ----
@@ -208,13 +212,14 @@ localized.
 [[example-recurring-overrides]]
 === Recurring event with overrides
 
-This example illustrates the use of recurrence overrides. A math course at a University is
-held for the first time on January 8, 2020 at 9am London time and occurs every week until
-June 24, 2020. Each lecture lasts for one hour and 30 minutes and is located at the
-Mathematics department. This event has exceptional occurrences: at the last occurrence of the
-course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam
-differs from the usual location. On April 1 no course is held. On January 7 at 2pm is an
-optional introduction course, that occurs before the first regular lecture.
+This example illustrates the use of recurrence overrides. A math course at a
+University is held for the first time on January 8, 2020 at 9am London time and
+occurs every week until June 24, 2020. Each lecture lasts for one hour and 30
+minutes and is located at the Mathematics department. This event has exceptional
+occurrences: at the last occurrence of the course is an exam, which lasts for 2
+hours and starts at 10am. Also, the location of the exam differs from the usual
+location. On April 1 no course is held. On January 7 at 2pm is an optional
+introduction course, that occurs before the first regular lecture.
 
 [source%unnumbered,json]
 ----
@@ -262,10 +267,11 @@ optional introduction course, that occurs before the first regular lecture.
 [[example-recurring-participants]]
 === Recurring event with participants
 
-This example illustrates scheduled events. A team meeting occurs every week since January 8,
-2020 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a
-virtual meeting room. An attendee has accepted the invitation, but on March 4, 2020 he is
-unavailable and declined participation for this occurrence.
+This example illustrates scheduled events. A team meeting occurs every week
+since January 8, 2020 at 9am Johannesburg time. The event owner also chairs the
+event. Participants meet in a virtual meeting room. An attendee has accepted the
+invitation, but on March 4, 2020 he is unavailable and declined participation
+for this occurrence.
 
 [source%unnumbered,json]
 ----

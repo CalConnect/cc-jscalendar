@@ -6,75 +6,90 @@ extendable, and simple to process.
 
 The key design considerations for this data model are as follows:
 
-* The attributes of the calendar entry represented must be described as simple key-value
-pairs. Simple events are simple to represent; complex events can be modeled accurately.
-* Wherever possible, there should be only one way to express the desired semantics, reducing
-complexity.
-* The data model should avoid ambiguities, which often lead to interoperability issues
-between implementations.
-* The data model should be generally compatible with the iCalendar data format <<RFC5545>>
-<<RFC7986>> and extensions, but the specification should add new attributes where the
-iCalendar format currently lacks expressivity, and drop seldom-used, obsolete, or redundant
-properties. This means translation with no loss of semantics should be easy with most common
-iCalendar files.
-* Extensions, such as new properties and components, should not require updates to this
-document.
+* The attributes of the calendar entry represented must be described as simple
+key-value pairs. Simple events are simple to represent; complex events can be
+modeled accurately.
 
-The representation of this data model is defined in the Internet JSON (I-JSON) format
-<<RFC7493>>, which is a strict subset of the JSON data interchange format <<RFC8259>>. Using
-JSON is mostly a pragmatic choice: its widespread use makes JSCalendar easier to adopt and
-the ready availability of production-ready JSON implementations eliminates a whole category
-of parser-related interoperability issues, which iCalendar has often suffered from.
+* Wherever possible, there should be only one way to express the desired
+semantics, reducing complexity.
+
+* The data model should avoid ambiguities, which often lead to interoperability
+issues between implementations.
+
+* The data model should be generally compatible with the iCalendar data format
+<<RFC5545>> <<RFC7986>> and extensions, but the specification should add new
+attributes where the iCalendar format currently lacks expressivity, and drop
+seldom-used, obsolete, or redundant properties. This means translation with no
+loss of semantics should be easy with most common iCalendar files.
+
+* Extensions, such as new properties and components, should not require updates
+to this document.
+
+The representation of this data model is defined in the Internet JSON (I-JSON)
+format <<RFC7493>>, which is a strict subset of the JSON data interchange format
+<<RFC8259>>. Using JSON is mostly a pragmatic choice: its widespread use makes
+JSCalendar easier to adopt and the ready availability of production-ready JSON
+implementations eliminates a whole category of parser-related interoperability
+issues, which iCalendar has often suffered from.
 
 === Motivation and Relation to iCalendar and jCal
 
-The iCalendar data format <<RFC5545>>, a widely deployed interchange format for calendaring
-and scheduling data, has served calendaring vendors for a long time but contains some
-ambiguities and pitfalls that cannot be overcome without backward-incompatible changes.
+The iCalendar data format <<RFC5545>>, a widely deployed interchange format for
+calendaring and scheduling data, has served calendaring vendors for a long time
+but contains some ambiguities and pitfalls that cannot be overcome without
+backward-incompatible changes.
 
 Sources of implementation errors include the following:
 
 * iCalendar defines various formats for local times, UTC, and dates.
-* iCalendar requires custom time zone definitions within a single calendar component.
-* iCalendar's definition of recurrence rules is ambiguous and has resulted in differing
-interpretations, even between experienced calendar developers.
-* The iCalendar format itself causes interoperability issues due to misuse of CRLF-terminated
-strings, line continuations, and subtle differences among iCalendar parsers.
 
-In recent years, many new products and services have appeared that wish to use a JSON
-representation of calendar data within their APIs. The JSON format for iCalendar data, jCal
-<<RFC7265>>, is a direct mapping between iCalendar and JSON. In its effort to represent
-full iCalendar semantics, it inherits all the same pitfalls and uses a complicated JSON
-structure.
+* iCalendar requires custom time zone definitions within a single calendar
+component.
 
-As a consequence, since the standardization of jCal, the majority of implementations and
-service providers either kept using iCalendar or came up with their own proprietary JSON
-representations, which are incompatible with each other and often suffer from common
-pitfalls, such as storing event start times in UTC (which become incorrect if the time zone's
-rules change in the future). JSCalendar meets the demand for JSON-formatted calendar data
-that is free of such known problems and provides a standard representation as an alternative
-to the proprietary formats.
+* iCalendar's definition of recurrence rules is ambiguous and has resulted in
+differing interpretations, even between experienced calendar developers.
+
+* The iCalendar format itself causes interoperability issues due to misuse of
+CRLF-terminated strings, line continuations, and subtle differences among
+iCalendar parsers.
+
+In recent years, many new products and services have appeared that wish to use a
+JSON representation of calendar data within their APIs. The JSON format for
+iCalendar data, jCal <<RFC7265>>, is a direct mapping between iCalendar and
+JSON. In its effort to represent full iCalendar semantics, it inherits all the
+same pitfalls and uses a complicated JSON structure.
+
+As a consequence, since the standardization of jCal, the majority of
+implementations and service providers either kept using iCalendar or came up
+with their own proprietary JSON representations, which are incompatible with
+each other and often suffer from common pitfalls, such as storing event start
+times in UTC (which become incorrect if the time zone's rules change in the
+future). JSCalendar meets the demand for JSON-formatted calendar data that is
+free of such known problems and provides a standard representation as an
+alternative to the proprietary formats.
 
 === Notational Conventions
 
-The key words "*MUST*", "*MUST NOT*", "*REQUIRED*", "*SHALL*", "*SHALL NOT*", "*SHOULD*",
-"*SHOULD NOT*", "*RECOMMENDED*", "*NOT RECOMMENDED*", "*MAY*", and "*OPTIONAL*" in this
-document are to be interpreted as described in BCP 14 <<RFC2119>> <<RFC8174>> when, and only
-when, they appear in all capitals, as shown here.
+The key words "*MUST*", "*MUST NOT*", "*REQUIRED*", "*SHALL*", "*SHALL NOT*",
+"*SHOULD*", "*SHOULD NOT*", "*RECOMMENDED*", "*NOT RECOMMENDED*", "*MAY*", and
+"*OPTIONAL*" in this document are to be interpreted as described in BCP 14
+<<RFC2119>> <<RFC8174>> when, and only when, they appear in all capitals, as
+shown here.
 
-The underlying format used for this specification is JSON. Consequently, the terms "object"
-and "array" as well as the four primitive types (strings, numbers, booleans, and null) are to
-be interpreted as described in <<RFC8259,Section 1>>.
+The underlying format used for this specification is JSON. Consequently, the
+terms "object" and "array" as well as the four primitive types (strings,
+numbers, booleans, and null) are to be interpreted as described in
+<<RFC8259,Section 1>>.
 
-Some examples in this document contain "partial" JSON documents used for illustrative
-purposes. In these examples, an ellipsis "..." is used to indicate a portion of the document
-that has been removed for compactness.
+Some examples in this document contain "partial" JSON documents used for
+illustrative purposes. In these examples, an ellipsis "..." is used to indicate
+a portion of the document that has been removed for compactness.
 
 [[type-signatures]]
 === Type Signatures
 
-Type signatures are given for all JSON values in this document. The following conventions are
-used:
+Type signatures are given for all JSON values in this document. The following
+conventions are used:
 
 `*`:: The type is undefined (the value could be any type, although permitted values may be
 constrained by the context of this value).
@@ -101,38 +116,40 @@ specification:
 [[type-Id]]
 ==== Id
 
-Where `Id` is given as a data type, it means a `String` of at least 1 and a maximum of 255
-octets in size, and it *MUST* only contain characters from the "URL and Filename Safe"
-base64url alphabet, as defined in <<RFC4648,section=5>>, excluding the pad character (`=`).
-This means the allowed characters are the ASCII alphanumeric characters (`A-Za-z0-9`), hyphen
-(`-`), and underscore (`_`).
+Where `Id` is given as a data type, it means a `String` of at least 1 and a
+maximum of 255 octets in size, and it *MUST* only contain characters from the
+"URL and Filename Safe" base64url alphabet, as defined in <<RFC4648,section=5>>,
+excluding the pad character (`=`). This means the allowed characters are the
+ASCII alphanumeric characters (`A-Za-z0-9`), hyphen (`-`), and underscore (`_`).
 
-In many places in JSCalendar, a JSON map is used where the map keys are of type Id and the
-map values are all the same type of object. This construction represents an unordered set of
-objects, with the added advantage that each entry has a name (the corresponding map key).
-This allows for more concise patching of objects, and, when applicable, for the objects in
-question to be referenced from other objects within the JSCalendar object. The map keys
-*MUST* be preserved across multiple versions of the JSCalendar object.
+In many places in JSCalendar, a JSON map is used where the map keys are of type
+Id and the map values are all the same type of object. This construction
+represents an unordered set of objects, with the added advantage that each entry
+has a name (the corresponding map key). This allows for more concise patching of
+objects, and, when applicable, for the objects in question to be referenced from
+other objects within the JSCalendar object. The map keys *MUST* be preserved
+across multiple versions of the JSCalendar object.
 
-Unless otherwise specified for a particular property, there are no uniqueness constraints on
-an Id value (other than, of course, the requirement that you cannot have two values with the
-same key within a single JSON map). For example, two Event objects might use the same Ids in
-their respective `links` properties or, within the same Event object, the same Id could
-appear in the `participants` and `alerts` properties. These situations do not imply any
-semantic connections among the objects.
+Unless otherwise specified for a particular property, there are no uniqueness
+constraints on an Id value (other than, of course, the requirement that you
+cannot have two values with the same key within a single JSON map). For example,
+two Event objects might use the same Ids in their respective `links` properties
+or, within the same Event object, the same Id could appear in the `participants`
+and `alerts` properties. These situations do not imply any semantic connections
+among the objects.
 
 [[type-Int]]
 ==== Int
 
-Where `Int` is given as a data type, it means an integer in the range -2^53^+1 <= value <=
-2^53^-1, the safe range for integers stored in a floating-point double, represented as a JSON
-`Number`.
+Where `Int` is given as a data type, it means an integer in the range -2^53^+1
+<= value <= 2^53^-1, the safe range for integers stored in a floating-point
+double, represented as a JSON `Number`.
 
 [[type-UnsignedInt]]
 ==== UnsignedInt
 
-Where `UnsignedInt` is given as a data type, it means an integer in the range 0 <= value <=
-2^53^-1, represented as a JSON `Number`.
+Where `UnsignedInt` is given as a data type, it means an integer in the range 0
+<= value <= 2^53^-1, represented as a JSON `Number`.
 
 [[type-UTCDateTime]]
 ==== UTCDateTime
@@ -142,41 +159,47 @@ any letters *MUST* be in uppercase, and the time offset *MUST* be the character 
 Fractional second values *MUST NOT* be included unless non-zero and *MUST NOT* have trailing
 zeros, to ensure there is only a single representation for each date-time.
 
-For example, `2010-10-10T10:10:10.003Z` is conformant, but `2010-10-10T10:10:10.000Z` is
-invalid and is correctly encoded as `2010-10-10T10:10:10Z`.
+For example, `2010-10-10T10:10:10.003Z` is conformant, but
+`2010-10-10T10:10:10.000Z` is invalid and is correctly encoded as
+`2010-10-10T10:10:10Z`.
 
 [[type-LocalDateTime]]
 ==== LocalDateTime
 
-This is a date-time string with no time zone/offset information. It is otherwise in the same
-format as UTCDateTime, including fractional seconds. For example, `2006-01-02T15:04:05` and
-`2006-01-02T15:04:05.003` are both valid. The time zone to associate with the LocalDateTime
-comes from the `timeZone` property of the JSCalendar object. If no time zone is specified,
-the LocalDateTime is `floating`. Floating date-times are not tied to any specific time zone.
-Instead, they occur in each time zone at the given wall-clock time (as opposed to the same
-instant point in time).
+This is a date-time string with no time zone/offset information. It is otherwise
+in the same format as UTCDateTime, including fractional seconds. For example,
+`2006-01-02T15:04:05` and `2006-01-02T15:04:05.003` are both valid. The time
+zone to associate with the LocalDateTime comes from the `timeZone` property of
+the JSCalendar object. If no time zone is specified, the LocalDateTime is
+`floating`. Floating date-times are not tied to any specific time zone. Instead,
+they occur in each time zone at the given wall-clock time (as opposed to the
+same instant point in time).
 
-A time zone may have a period of discontinuity, for example, a change from standard time to
-daylight savings time. When converting local date-times that fall in the discontinuity to
-UTC, the offset before the transition *MUST* be used.
+A time zone may have a period of discontinuity, for example, a change from
+standard time to daylight savings time. When converting local date-times that
+fall in the discontinuity to UTC, the offset before the transition *MUST* be
+used.
 
-For example, in the America/Los_Angeles time zone, the date-time 2020-11-01T01:30:00 occurs
-twice: before the daylight savings time (DST) transition with a UTC offset of -07:00 and
-again after the transition with an offset of -08:00. When converting to UTC, we therefore use
-the offset before the transition (-07:00), so it becomes 2020-11-01T08:30:00Z.
+For example, in the America/Los_Angeles time zone, the date-time
+2020-11-01T01:30:00 occurs twice: before the daylight savings time (DST)
+transition with a UTC offset of -07:00 and again after the transition with an
+offset of -08:00. When converting to UTC, we therefore use the offset before the
+transition (-07:00), so it becomes 2020-11-01T08:30:00Z.
 
-Similarly, in the Australia/Melbourne time zone, the date-time 2020-10-04T02:30:00 does not
-exist; the clocks are moved forward one hour for DST on that day at 02:00. However, such a
-value may appear during calculations or due to a change in time zone rules (so it was valid
-when the event was first created). Again, it is interpreted as though the offset before the
-transition is in effect (+10:00); therefore, when converted to UTC, we get
+Similarly, in the Australia/Melbourne time zone, the date-time
+2020-10-04T02:30:00 does not exist; the clocks are moved forward one hour for
+DST on that day at 02:00. However, such a value may appear during calculations
+or due to a change in time zone rules (so it was valid when the event was first
+created). Again, it is interpreted as though the offset before the transition is
+in effect (+10:00); therefore, when converted to UTC, we get
 2020-10-03T16:30:00Z.
 
 [[type-Duration]]
 ==== Duration
 
-Where Duration is given as a type, it means a length of time represented by a subset of the
-ISO 8601 duration format, as specified by the following ABNF <<RFC5234>>:
+Where Duration is given as a type, it means a length of time represented by a
+subset of the ISO 8601 duration format, as specified by the following ABNF
+<<RFC5234>>:
 
 [source%unnumbered]
 ----
@@ -192,126 +215,153 @@ dur-cal     = (dur-week [dur-day] / dur-day)
 duration    = "P" (dur-cal [dur-time] / dur-time)
 ----
 
-In addition, the duration *MUST NOT* include fractional second values unless the fraction is
-non-zero. Fractional second values *MUST NOT* have trailing zeros to ensure there is only a
-single representation for each duration.
+In addition, the duration *MUST NOT* include fractional second values unless the
+fraction is non-zero. Fractional second values *MUST NOT* have trailing zeros to
+ensure there is only a single representation for each duration.
 
-A duration specifies an abstract number of weeks, days, hours, minutes, and/or seconds. A
-duration specified using weeks or days does not always correspond to an exact multiple of 24
-hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity
-in the event's time zone, for example, a change from standard time to daylight savings time.
-Leap seconds *MUST NOT* be considered when adding or subtracting a duration to/from a
-LocalDateTime.
+A duration specifies an abstract number of weeks, days, hours, minutes, and/or
+seconds. A duration specified using weeks or days does not always correspond to
+an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if
+it overlaps a period of discontinuity in the event's time zone, for example, a
+change from standard time to daylight savings time. Leap seconds *MUST NOT* be
+considered when adding or subtracting a duration to/from a LocalDateTime.
 
 To add a duration to a LocalDateTime:
 
-. Add any week or day components of the duration to the date. A week is always the same as
-seven days.
-. If a time zone applies to the LocalDateTime, convert it to a UTCDateTime following the
-semantics in <<LocalDateTime>>.
+. Add any week or day components of the duration to the date. A week is always
+the same as seven days.
+
+. If a time zone applies to the LocalDateTime, convert it to a UTCDateTime
+following the semantics in <<LocalDateTime>>.
+
 . Add any hour, minute, or second components of the duration (in absolute time).
-. Convert the resulting UTCDateTime back to a LocalDateTime in the time zone that applies.
+
+. Convert the resulting UTCDateTime back to a LocalDateTime in the time zone
+that applies.
 
 To subtract a duration from a LocalDateTime, the steps apply in reverse:
 
-. If a time zone applies to the LocalDateTime, convert it to UTC following the semantics in
-<<LocalDateTime>>.
-. Subtract any hour, minute, or second components of the duration (in absolute time).
-. Convert the resulting UTCDateTime back to LocalDateTime in the time zone that applies.
-. Subtract any week or day components of the duration from the date.
-. If the resulting time does not exist on the date due to a discontinuity in the time zone,
-use the semantics in <<LocalDateTime>> to convert to UTC and back to get a valid
-LocalDateTime.
+. If a time zone applies to the LocalDateTime, convert it to UTC following the
+semantics in <<LocalDateTime>>.
 
-These semantics match the iCalendar DURATION value type (<<RFC5545,section=3.3.6>>).
+. Subtract any hour, minute, or second components of the duration (in absolute
+time).
+
+. Convert the resulting UTCDateTime back to LocalDateTime in the time zone that
+applies.
+
+. Subtract any week or day components of the duration from the date.
+
+. If the resulting time does not exist on the date due to a discontinuity in the
+time zone, use the semantics in <<LocalDateTime>> to convert to UTC and back to
+get a valid LocalDateTime.
+
+These semantics match the iCalendar DURATION value type
+(<<RFC5545,section=3.3.6>>).
 
 [[type-SignedDuration]]
 ==== SignedDuration
 
-A SignedDuration represents a length of time that may be positive or negative and is
-typically used to express the offset of a point in time relative to an associated time. It is
-represented as a Duration, optionally preceded by a sign character. It is specified by the
-following ABNF:
+A SignedDuration represents a length of time that may be positive or negative
+and is typically used to express the offset of a point in time relative to an
+associated time. It is represented as a Duration, optionally preceded by a sign
+character. It is specified by the following ABNF:
 
 [source%unnumbered]
 ----
 signed-duration = ["+" / "-"] duration
 ----
 
-A negative sign indicates a point in time at or before the associated time; a positive or no
-sign indicates a time at or after the associated time.
+A negative sign indicates a point in time at or before the associated time; a
+positive or no sign indicates a time at or after the associated time.
 
 [[type-timeZoneId]]
 ==== TimeZoneId
 
-Where `TimeZoneId` is given as a data type, it means a `String` that is either a time zone
-name in the IANA Time Zone Database <<TZDB>> or a custom time zone identifier defined in the
-`timeZones` property of the Group of which the calendar object is a member of.
+Where `TimeZoneId` is given as a data type, it means a `String` that is either a
+time zone name in the IANA Time Zone Database <<TZDB>> or a custom time zone
+identifier defined in the `timeZones` property of the Group of which the
+calendar object is a member of.
 
-Where an IANA time zone is specified, the zone rules of the respective zone records apply.
-Custom time zones are interpreted as described in the `timeZones` property.
+Where an IANA time zone is specified, the zone rules of the respective zone
+records apply. Custom time zones are interpreted as described in the `timeZones`
+property.
 
 [[type-PatchObject]]
 ==== PatchObject
 
-A PatchObject is of type `String[*]` and represents an unordered set of patches on a JSON
-object. Each key is a path represented in a subset of the JSON Pointer format <<RFC6901>>.
-The paths have an implicit leading `/`, so each key is prefixed with `/` before applying the
-JSON Pointer evaluation algorithm.
+A PatchObject is of type `String[*]` and represents an unordered set of patches
+on a JSON object. Each key is a path represented in a subset of the JSON Pointer
+format <<RFC6901>>. The paths have an implicit leading `/`, so each key is
+prefixed with `/` before applying the JSON Pointer evaluation algorithm.
 
-A patch within a PatchObject is only valid if all of the following conditions apply:
+A patch within a PatchObject is only valid if all of the following conditions
+apply:
 
-. The pointer *MUST NOT* reference inside an array (i.e., you *MUST NOT* insert/delete from
-an array; the array *MUST* be replaced in its entirety instead).
-. All parts prior to the last (i.e., the value after the final slash) *MUST* already exist on
-the object being patched.
-. There *MUST NOT* be two patches in the PatchObject where the pointer of one is the prefix
-of the pointer of the other, e.g., `alerts/1/offset` and `alerts`.
-. The value for the patch *MUST* be valid for the property being set (of the correct type and
-obeying any other applicable restrictions), or, if null, the property *MUST* be optional.
+. The pointer *MUST NOT* reference inside an array (i.e., you *MUST NOT*
+insert/delete from an array; the array *MUST* be replaced in its entirety
+instead).
+
+. All parts prior to the last (i.e., the value after the final slash) *MUST*
+already exist on the object being patched.
+
+. There *MUST NOT* be two patches in the PatchObject where the pointer of one is
+the prefix of the pointer of the other, e.g., `alerts/1/offset` and `alerts`.
+
+. The value for the patch *MUST* be valid for the property being set (of the
+correct type and obeying any other applicable restrictions), or, if null, the
+property *MUST* be optional.
 
 The value associated with each pointer determines how to apply that patch:
 
-* If null, remove the property from the patched object. If the key is not present in the
-parent, this a no-op.
-* If non-null, set the value given as the value for this property (this may be a replacement
-or addition to the object being patched).
+* If null, remove the property from the patched object. If the key is not
+present in the parent, this a no-op.
 
-A PatchObject does not define its own `@type` property. An `@type` property in a patch *MUST*
-be handled as any other patched property value.
+* If non-null, set the value given as the value for this property (this may be a
+replacement or addition to the object being patched).
 
-Implementations *MUST* reject a PatchObject in its entirety if any of its patches are
-invalid. Implementations *MUST NOT* apply partial patches.
+A PatchObject does not define its own `@type` property. An `@type` property in a
+patch *MUST* be handled as any other patched property value.
 
-The PatchObject format is used to significantly reduce file size and duplicated content when
-specifying variations to a common object, such as with recurring events or when translating
-the data into multiple languages. It can also better preserve semantic intent if only the
-properties that should differ between the two objects are patched. For example, if one person
-is not going to a particular instance of a regularly scheduled event, in iCalendar, you would
-have to duplicate the entire event in the override. In JSCalendar, this is a small patch to
-show the difference. As only this property is patched, if the location of the event is
-changed, the occurrence will automatically still inherit this.
+Implementations *MUST* reject a PatchObject in its entirety if any of its
+patches are invalid. Implementations *MUST NOT* apply partial patches.
+
+The PatchObject format is used to significantly reduce file size and duplicated
+content when specifying variations to a common object, such as with recurring
+events or when translating the data into multiple languages. It can also better
+preserve semantic intent if only the properties that should differ between the
+two objects are patched. For example, if one person is not going to a particular
+instance of a regularly scheduled event, in iCalendar, you would have to
+duplicate the entire event in the override. In JSCalendar, this is a small patch
+to show the difference. As only this property is patched, if the location of the
+event is changed, the occurrence will automatically still inherit this.
 
 [[type-Relation]]
 ==== Relation
 
-A Relation object defines the relation to other objects, using a possibly empty set of
-relation types. The object that defines this relation is the linking object, while the other
-object is the linked object. A Relation object has the following properties:
+A Relation object defines the relation to other objects, using a possibly empty
+set of relation types. The object that defines this relation is the linking
+object, while the other object is the linked object. A Relation object has the
+following properties:
 
-@type:: `String` (mandatory) +
+@type:: `String` (mandatory)
++
 This specifies the type of this object. This *MUST* be `Relation`.
 
-relation:: `String[Boolean]` (optional, default: empty Object) +
-This describes how the linked object is related to the linking object. The relation is
-defined as a set of relation types. If empty, the relationship between the two objects is
-unspecified. +
-Keys in the set *MUST* be one of the following values, specified in the property definition
-where the Relation object is used, a value registered in the IANA "JSCalendar Enum Values"
-registry, or a vendor-specific value (see <<custom-properties>>):
+relation:: `String[Boolean]` (optional, default: empty Object)
++
+This describes how the linked object is related to the linking object. The
+relation is defined as a set of relation types. If empty, the relationship
+between the two objects is unspecified.
++
+Keys in the set *MUST* be one of the following values, specified in the property
+definition where the Relation object is used, a value registered in the IANA
+"JSCalendar Enum Values" registry, or a vendor-specific value (see
+<<custom-properties>>):
 +
 --
-first::: The linked object is the first in a series the linking object is part of.
+first::: The linked object is the first in a series the linking object is part
+of.
 next::: The linked object is next in a series the linking object is part of.
 child::: The linked object is a subpart of the linking object.
 parent::: The linking object is a subpart of the linked object.
@@ -322,45 +372,57 @@ The value for each key in the map *MUST* be true.
 [[type-Link]]
 ==== Link
 
-A Link object represents an external resource associated with the linking object. It has the
-following properties:
+A Link object represents an external resource associated with the linking
+object. It has the following properties:
 
-@type:: `String` (mandatory) +
+@type:: `String` (mandatory)
++
 This specifies the type of this object. This *MUST* be `Link`.
 
-href:: `String` (mandatory) +
-This is a URI <<RFC3986>> from which the resource may be fetched. +
-This *MAY* be a `data:` URL <<RFC2397>>, but it is recommended that the file be hosted on a
-server to avoid embedding arbitrarily large data in JSCalendar object instances.
+href:: `String` (mandatory)
++
+This is a URI <<RFC3986>> from which the resource may be fetched.
++
+This *MAY* be a `data:` URL <<RFC2397>>, but it is recommended that the file be
+hosted on a server to avoid embedding arbitrarily large data in JSCalendar
+object instances.
 
-cid:: `String` (optional) +
-This *MUST* be a URI in the `cid` scheme defined in <<RFC2392,section=2>>. The value *MUST*
-be unique across all Link objects in an Event or Task object, but has no meaning beyond that.
+cid:: `String` (optional)
++
+This *MUST* be a URI in the `cid` scheme defined in <<RFC2392,section=2>>. The
+value *MUST* be unique across all Link objects in an Event or Task object, but
+has no meaning beyond that.
 
-contentType:: `String` (optional) +
+contentType:: `String` (optional)
++
 This is the media type <<RFC6838>> of the resource, if known.
 
-size:: `UnsignedInt` (optional) +
-This is the size, in octets, of the resource when fully decoded (i.e., the number of octets
-in the file the user would download), if known. Note that this is an informational estimate,
-and implementations must be prepared to handle the actual size being quite different when the
-resource is fetched.
+size:: `UnsignedInt` (optional)
++
+This is the size, in octets, of the resource when fully decoded (i.e., the
+number of octets in the file the user would download), if known. Note that this
+is an informational estimate, and implementations must be prepared to handle the
+actual size being quite different when the resource is fetched.
 
-rel:: `String` (optional) +
-This identifies the relation of the linked resource to the object. If set, the value *MUST*
-be a relation type from the IANA "Link Relations" registry <<LINKRELS>>, as established in <<RFC8288>>.
+rel:: `String` (optional)
++
+This identifies the relation of the linked resource to the object. If set, the
+value *MUST* be a relation type from the IANA "Link Relations" registry
+<<LINKRELS>>, as established in <<RFC8288>>.
 
-display:: `String` (optional) +
-This describes the intended purpose of a link to an image. If set, the `rel` property *MUST*
-be set to `icon`. The value *MUST* be one of the following values, another value registered
-in the IANA "JSCalendar Enum Values" registry, or a vendor-specific value:
+display:: `String` (optional)
++
+This describes the intended purpose of a link to an image. If set, the `rel`
+property *MUST* be set to `icon`. The value *MUST* be one of the following
+values, another value registered in the IANA "JSCalendar Enum Values" registry,
+or a vendor-specific value:
 +
 --
 badge::: an image meant to be displayed alongside the title of the object
 graphic::: a full image replacement for the object itself
 fullsize::: an image that is used to enhance the object
-thumbnail::: a smaller variant of `fullsize` to be used when space for the image is
-constrained
+thumbnail::: a smaller variant of `fullsize` to be used when space for the image
+is constrained
 --
 
 filename:: `String` (optional) +

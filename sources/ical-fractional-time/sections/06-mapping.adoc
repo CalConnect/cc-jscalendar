@@ -1,8 +1,8 @@
 [[mapping-icalendar-jscalendar]]
 == Mapping from iCalendar to JSCalendar
 
-When mapping properties possibly containing time, use the iCalendar property value obtained
-as specified in <<obtaining-value>>.
+When mapping properties possibly containing time, use the iCalendar property
+value obtained as specified in <<obtaining-value>>.
 
 For example:
 
@@ -47,9 +47,10 @@ because the FRACTIONAL parameter is valid.
 [[mapping-jscalendar-icalendar]]
 == Mapping from JSCalendar to iCalendar
 
-If the JSCalendar property value has fractional seconds then the <<RFC5545>> value is set to the
-JSCalendar property value rounded up to the next non-fractional value and a FRACTIONAL
-parameter is added with the full unrounded value.
+If the JSCalendar property value has fractional seconds then the <<RFC5545>>
+value is set to the JSCalendar property value rounded up to the next
+non-fractional value and a FRACTIONAL parameter is added with the full unrounded
+value.
 
 For example:
 

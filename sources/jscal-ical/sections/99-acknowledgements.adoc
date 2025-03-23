@@ -1,6 +1,6 @@
 [acknowledgments]
 == Acknowledgments
 
-The authors would like to thank the members of CalConnect for their valuable contributions. This
-specification originated from the work of the API technical committee of CalConnect, the
-Calendaring and Scheduling Consortium.
+The authors would like to thank the members of CalConnect for their valuable
+contributions. This specification originated from the work of the API technical
+committee of CalConnect, the Calendaring and Scheduling Consortium.
