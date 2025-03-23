@@ -1,16 +1,19 @@
 [[translate-icalendar-further-examples]]
 == Translating iCalendar: Further examples
 
-This section provides more complete examples of translating from <<RFC5545>> to JSCalendar.
+This section provides more complete examples of translating from <<RFC5545>> to
+JSCalendar.
 
-As usual note that json string values may be split because of line width limits. This is not
+As usual note that json string values may be split because of line width limits.
+This is not
 legal json.
 
 [[example-recurring-attach]]
 === Recurring event with ATTACH
 
-This is an example of a recurring event with overrides. The first override removes an ATTACH
-property and adds an ATTACH property. The second override removes all ATTACH properties.
+This is an example of a recurring event with overrides. The first override
+removes an ATTACH property and adds an ATTACH property. The second override
+removes all ATTACH properties.
 
 [source%unnumbered]
 ----
@@ -115,8 +118,8 @@ maps to
 [[example-simple-contact]]
 === Simple event with CONTACT
 
-This example shows the conversion of a simple event with a single CONTACT property in
-JSCalendar.
+This example shows the conversion of a simple event with a single CONTACT
+property in JSCalendar.
 
 [source%unnumbered]
 ----
@@ -180,14 +183,14 @@ TBD
 
 === Recurring event. Attendees only in overrides
 
-In this more complex example there is no ORGANIZER or ATTENDEEs in the master event. There
-are overrides which invite one or more attendees.
+In this more complex example there is no ORGANIZER or ATTENDEEs in the master
+event. There are overrides which invite one or more attendees.
 
-For one overrride the ORGANIZER is also an ATTENDEE. In the other that is not the case. This
-is reflected in the "roles" property for the organizer.
+For one overrride the ORGANIZER is also an ATTENDEE. In the other that is not
+the case. This is reflected in the "roles" property for the organizer.
 
-Note that each override has its own "participants" property and the first has a links
-property to handle the DIR parameter on one attendee.
+Note that each override has its own "participants" property and the first has a
+links property to handle the DIR parameter on one attendee.
 
 [source%unnumbered]
 ----

@@ -1,12 +1,14 @@
 [abstract]
 == Abstract
+
 This document defines a way to represent fractional seconds in iCalendar.
 
 [NOTE,title=Open Issues]
 ====
-Recurrences:: It is probably the case that subsecond intervals are most useful for short
-recurrence intervals. Neither JSCalendar nor iCalendar currently allows that.
+Recurrences:: It is probably the case that subsecond intervals are most useful
+for short recurrence intervals. Neither JSCalendar nor iCalendar currently
+allows that.
 +
-This probably only requires that the interval value be allowed to contain fractional values (for
-seconds frequency only?).
+This probably only requires that the interval value be allowed to contain
+fractional values (for seconds frequency only?).
 ====

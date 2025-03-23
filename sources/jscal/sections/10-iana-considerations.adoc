@@ -13,9 +13,9 @@ This document defines a media type for use with JSCalendar data formatted in JSO
 |Required parameters: |type
 |===
 
-The `type` parameter conveys the type of the JSCalendar data in the body part. The allowed
-parameter values correspond to the `@type` property of the JSON-formatted JSCalendar object
-in the body:
+The `type` parameter conveys the type of the JSCalendar data in the body part.
+The allowed parameter values correspond to the `@type` property of the
+JSON-formatted JSCalendar object in the body:
 
 * `jsevent`: the `@type` property value MUST be `Event`
 * `jstask`: the `@type` property value MUST be `Task`
@@ -24,73 +24,91 @@ in the body:
 No other parameter values are allowed. The parameter MUST NOT occur more than once.
 
 Optional parameters:: none
-Encoding considerations:: Same as encoding considerations of application/json as specified in <<RFC8259,section=11>>.
+
+Encoding considerations:: Same as encoding considerations of application/json as
+specified in <<RFC8259,section=11>>.
+
 Security considerations:: See <<security-considerations>> of this document.
-Interoperability considerations:: While JSCalendar is designed to avoid ambiguities as much
-as possible, when converting objects from other calendar formats to/from JSCalendar it is
-possible that differing representations for the same logical data might arise, or ambiguities
-in interpretation. The semantic equivalence of two JSCalendar objects may be determined
-differently by different applications, for example where URL values differ in case between
-the two objects.
+
+Interoperability considerations:: While JSCalendar is designed to avoid
+ambiguities as much as possible, when converting objects from other calendar
+formats to/from JSCalendar it is possible that differing representations for the
+same logical data might arise, or ambiguities in interpretation. The semantic
+equivalence of two JSCalendar objects may be determined differently by different
+applications, for example where URL values differ in case between the two
+objects.
+
 Published specification:: This specification.
-Applications that use this media type:: Applications that currently make use of the
-text/calendar and application/calendar+json media types can use this as an alternative.
-Similarly, applications that use the application/json media type to transfer calendaring data
-can use this to further specify the content.
-Fragment identifier considerations:: A JSON Pointer fragment identifier may be used, as
-defined in <<RFC6901,section=6>>.
+
+Applications that use this media type:: Applications that currently make use of
+the text/calendar and application/calendar+json media types can use this as an
+alternative. Similarly, applications that use the application/json media type to
+transfer calendaring data can use this to further specify the content.
+
+Fragment identifier considerations:: A JSON Pointer fragment identifier may be
+used, as defined in <<RFC6901,section=6>>.
+
 Additional information::
+
 Magic number(s)::: N/A
+
 File extensions(s)::: N/A
+
 Macintosh file type code(s)::: N/A
+
 Person & email address to contact for further information::: calsify@ietf.org
+
 Intended usage::: COMMON
+
 Restrictions on usage::: N/A
+
 Author::: See the "Author's Address" section of this document.
+
 Change controller::: IETF
 
 [[iana-property-registry]]
 === Creation of "JSCalendar Properties" Registry
 
-The IANA will create the "JSCalendar Properties" registry to allow interoperability of
-extensions to JSCalendar objects.
+The IANA will create the "JSCalendar Properties" registry to allow
+interoperability of extensions to JSCalendar objects.
 
-This registry follows the Expert Review process (<<RFC8126,section=4.5>>). If the "intended
-use" field is `common`, sufficient documentation is required to enable
-interoperability. Preliminary community review for this registry is optional but strongly
-encouraged.
+This registry follows the Expert Review process (<<RFC8126,section=4.5>>). If
+the "intended use" field is `common`, sufficient documentation is required to
+enable interoperability. Preliminary community review for this registry is
+optional but strongly encouraged.
 
-A registration can have an intended use of `common`, `reserved`, or `obsolete`. The IANA will
-list common-use registrations prominently and separately from those with other intended use
-values.
+A registration can have an intended use of `common`, `reserved`, or `obsolete`.
+The IANA will list common-use registrations prominently and separately from
+those with other intended use values.
 
-A `reserved` registration reserves a property name without assigning semantics to avoid name
-collisions with future extensions or protocol use.
+A `reserved` registration reserves a property name without assigning semantics
+to avoid name collisions with future extensions or protocol use.
 
-An `obsolete` registration denotes a property that is no longer expected to be added by
-up-to-date systems. A new property has probably been defined covering the obsolete property's
-semantics.
+An `obsolete` registration denotes a property that is no longer expected to be
+added by up-to-date systems. A new property has probably been defined covering
+the obsolete property's semantics.
 
-The JSCalendar property registration procedure is not a formal standards process but rather
-an administrative procedure intended to allow community comment and sanity checking without
-excessive time delay. It is designed to encourage vendors to document and register new
-properties they add for use cases not covered by the original specification, leading to
-increased interoperability.
+The JSCalendar property registration procedure is not a formal standards process
+but rather an administrative procedure intended to allow community comment and
+sanity checking without excessive time delay. It is designed to encourage
+vendors to document and register new properties they add for use cases not
+covered by the original specification, leading to increased interoperability.
 
 [[iana-property-registry-preliminary-community-review]]
 === Preliminary Community Review
 
 Notice of a potential new registration SHOULD be sent to the Calext mailing list
-<calsify@ietf.org>; for review. This mailing list is appropriate to solicit community
-feedback on a proposed new property.
+<calsify@ietf.org>; for review. This mailing list is appropriate to solicit
+community feedback on a proposed new property.
 
-Properties registrations must be marked with their intended use: "common", "reserved" or
-"obsolete".
+Properties registrations must be marked with their intended use: "common",
+"reserved" or "obsolete".
 
-The intent of the public posting to this list is to solicit comments and feedback on the
-choice of the property name, the unambiguity of the specification document, and a review of
-any interoperability or security considerations. The submitter may submit a revised
-registration proposal or abandon the registration completely at any time.
+The intent of the public posting to this list is to solicit comments and
+feedback on the choice of the property name, the unambiguity of the
+specification document, and a review of any interoperability or security
+considerations. The submitter may submit a revised registration proposal or
+abandon the registration completely at any time.
 
 [[iana-property-registry-submit-request-to-iana]]
 === Submit Request to IANA
@@ -100,64 +118,75 @@ Registration requests can be sent to <iana@iana.org>.
 [[iana-property-registry-designated-expert-review]]
 === Designated Expert Review
 
-The primary concern of the designated expert (DE) is preventing name collisions and
-encouraging the submitter to document security and privacy considerations. For a common-use
-registration, the DE is expected to confirm that suitable documentation, as described in
-<<RFC8126,section=4.6>>, is available to ensure interoperability. That documentation will
-usually be in an RFC, but simple definitions are likely to use a web/wiki page, and if a
-sentence or two is deemed sufficient it could be described in the registry itself. The DE
-should also verify that the property name does not conflict with work that is active or
-already published within the IETF. A published specification is not required for reserved or
-obsolete registrations.
+The primary concern of the designated expert (DE) is preventing name collisions
+and encouraging the submitter to document security and privacy considerations.
+For a common-use registration, the DE is expected to confirm that suitable
+documentation, as described in <<RFC8126,section=4.6>>, is available to ensure
+interoperability. That documentation will usually be in an RFC, but simple
+definitions are likely to use a web/wiki page, and if a sentence or two is
+deemed sufficient it could be described in the registry itself. The DE should
+also verify that the property name does not conflict with work that is active or
+already published within the IETF. A published specification is not required for
+reserved or obsolete registrations.
 
-The DE will either approve or deny the registration request and publish a notice of the
-decision to the Calext WG mailing list or its successor, as well as inform IANA. A denial
-notice must be justified by an explanation, and, in the cases where it is possible, concrete
-suggestions on how the request can be modified so as to become acceptable should be provided.
+The DE will either approve or deny the registration request and publish a notice
+of the decision to the Calext WG mailing list or its successor, as well as
+inform IANA. A denial notice must be justified by an explanation, and, in the
+cases where it is possible, concrete suggestions on how the request can be
+modified so as to become acceptable should be provided.
 
 [[iana-property-registry-change-procedures]]
 === Change Procedures
 
-Once a JSCalendar property has been published by the IANA, the change controller may request
-a change to its definition. The same procedure that would be appropriate for the original
-registration request is used to process a change request.
+Once a JSCalendar property has been published by the IANA, the change controller
+may request a change to its definition. The same procedure that would be
+appropriate for the original registration request is used to process a change
+request.
 
-JSCalendar property registrations may not be deleted; properties that are no longer believed
-appropriate for use can be declared obsolete by a change to their "intended use" field; such
-properties will be clearly marked in the lists published by the IANA.
+JSCalendar property registrations may not be deleted; properties that are no
+longer believed appropriate for use can be declared obsolete by a change to
+their "intended use" field; such properties will be clearly marked in the lists
+published by the IANA.
 
-Significant changes to a JSCalendar property's definition should be requested only when there
-are serious omissions or errors in the published specification, as such changes may cause
-interoperability issues. When review is required, a change request may be denied if it
-renders entities that were valid under the previous definition invalid under the new
-definition.
+Significant changes to a JSCalendar property's definition should be requested
+only when there are serious omissions or errors in the published specification,
+as such changes may cause interoperability issues. When review is required, a
+change request may be denied if it renders entities that were valid under the
+previous definition invalid under the new definition.
 
-The owner of a JSCalendar property may pass responsibility to another person or agency by
-informing the IANA; this can be done without discussion or review.
+The owner of a JSCalendar property may pass responsibility to another person or
+agency by informing the IANA; this can be done without discussion or review.
 
 [[iana-property-registry-template]]
 === JSCalendar Properties Registry Template
 
-* Property Name: The name of the property. The property name MUST NOT already be registered
-for any of the object types listed in the "Property Context" field of this registration.
-Other object types MAY already have registered a different property with the same name,
-however the same name SHOULD only be used when the semantics are analogous.
-* Property Type: The type of this property, using type signatures as specified in
-<<type-signatures>>. The property type MUST be registed in the Type Registry.
-* Property Context: A comma-separated list of JSCalendar object types this property is
-allowed on.
-* Reference or Description: A brief description or RFC number and section reference where the
-property is specified (omitted for "reserved" property names).
+* Property Name: The name of the property. The property name MUST NOT already be
+registered for any of the object types listed in the "Property Context" field of
+this registration. Other object types MAY already have registered a different
+property with the same name, however the same name SHOULD only be used when the
+semantics are analogous.
+
+* Property Type: The type of this property, using type signatures as specified
+in <<type-signatures>>. The property type MUST be registed in the Type Registry.
+
+* Property Context: A comma-separated list of JSCalendar object types this
+property is allowed on.
+
+* Reference or Description: A brief description or RFC number and section
+reference where the property is specified (omitted for "reserved" property
+names).
+
 * Intended Use: Common, reserved, or obsolete.
-* Change Controller: Who may request a change to this entry's definition (`IETF` for
-IETF-stream RFCs).
+
+* Change Controller: Who may request a change to this entry's definition (`IETF`
+for IETF-stream RFCs).
 
 [[iana-property-registry-contents]]
 === Initial Contents for the JSCalendar Properties Registry
 
-The following table lists the initial entries of the JSCalendar Properties registry. All
-properties are for common-use. All RFC section references are for this document. The change
-controller for all these properties is "IETF".
+The following table lists the initial entries of the JSCalendar Properties
+registry. All properties are for common-use. All RFC section references are for
+this document. The change controller for all these properties is "IETF".
 
 [options=header,cols=4]
 |===
@@ -278,27 +307,31 @@ controller for all these properties is "IETF".
 [[iana-type-registry]]
 === Creation of "JSCalendar Types" Registry
 
-The IANA will create the "JSCalendar Types" registry to avoid name collisions and provide a
-complete reference for all data types used for JSCalendar property values. The registration
-process is the same as for the JSCalendar Properties registry, as defined in
-<<iana-property-registry>>.
+The IANA will create the "JSCalendar Types" registry to avoid name collisions
+and provide a complete reference for all data types used for JSCalendar property
+values. The registration process is the same as for the JSCalendar Properties
+registry, as defined in <<iana-property-registry>>.
 
 [[iana-type-registry-template]]
 ==== JSCalendar Types Registry Template
 
 * Type Name: The name of the type.
-* Reference or Description: A brief description or RFC number and section reference where the
-Type is specified (may be omitted for "reserved" type names).
+
+* Reference or Description: A brief description or RFC number and section
+reference where the Type is specified (may be omitted for "reserved" type
+names).
+
 * Intended Use: Common, reserved, or obsolete.
-* Change Controller: Who may request a change to this entry's definition (`IETF` for
-IETF-stream RFCs).
+
+* Change Controller: Who may request a change to this entry's definition (`IETF`
+for IETF-stream RFCs).
 
 [[iana-type-registry-contents]]
 ==== Initial Contents for the JSCalendar Types Registry
 
-The following table lists the initial entries of the JSCalendar Types registry. All
-properties are for common-use. All RFC section references are for this document. The change
-controller for all these properties is "IETF".
+The following table lists the initial entries of the JSCalendar Types registry.
+All properties are for common-use. All RFC section references are for this
+document. The change controller for all these properties is "IETF".
 
 [cols=2,options=header]
 |===
@@ -331,46 +364,56 @@ controller for all these properties is "IETF".
 [[iana-enum-registry]]
 === Creation of "JSCalendar Enum Values" Registry
 
-The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension
-of semantics for properties with enumerable values. Each such property will have a
-subregistry of allowed values. The registration process for a new enum value or adding a new
-enumerable property is the same as for the JSCalendar Properties registry, as defined in
+The IANA will create the "JSCalendar Enum Values" registry to allow
+interoperable extension of semantics for properties with enumerable values. Each
+such property will have a subregistry of allowed values. The registration
+process for a new enum value or adding a new enumerable property is the same as
+for the JSCalendar Properties registry, as defined in
 <<iana-property-registry>>.
 
 [[iana-enum-registry-registry-template]]
 ==== JSCalendar Enum Property Template
 
-This template is for adding a subregistry for a new enumerable property to the JSCalendar
-Enum registry.
+This template is for adding a subregistry for a new enumerable property to the
+JSCalendar Enum registry.
 
-* Property Name: the name(s) of the property or properties where these values may be used.
-This MUST be registered in the JSCalendar Properties registry.
-* Context: the list of allowed object types where the property or properties may appear, as
-registered in the JSCalendar Properties registry. This disambiguates where there may be two
-distinct properties with the same name in different contexts.
+* Property Name: the name(s) of the property or properties where these values
+may be used. This MUST be registered in the JSCalendar Properties registry.
+
+* Context: the list of allowed object types where the property or properties may
+appear, as registered in the JSCalendar Properties registry. This disambiguates
+where there may be two distinct properties with the same name in different
+contexts.
+
 * Change Controller: (`IETF` for properties defined in IETF-stream RFCs).
-* Initial Contents: The initial list of defined values for this enum, using the template
-defined in <<iana-enum-registry-value-template>>. A subregistry will be created with these
-values for this property name/context tuple.
+
+* Initial Contents: The initial list of defined values for this enum, using the
+template defined in <<iana-enum-registry-value-template>>. A subregistry will be
+created with these values for this property name/context tuple.
 
 [[iana-enum-registry-value-template]]
 ==== JSCalendar Enum Value Template
 
-This template is for adding a new enum value to a subregistry in the JSCalendar Enum registry.
+This template is for adding a new enum value to a subregistry in the JSCalendar
+Enum registry.
 
 * Enum Value: The verbatim value of the enum.
-* Reference or Description: A brief description or RFC number and section reference for the
-semantics of this value.
+
+* Reference or Description: A brief description or RFC number and section
+reference for the semantics of this value.
 
 [[iana-enum-registry-contents]]
 ==== Initial Contents for the JSCalendar Enum Values registry
 
-For each subregistry created in this section, all RFC section references are for this
-document.
+For each subregistry created in this section, all RFC section references are for
+this document.
 
 Property Name:: action
+
 Context:: Alert
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -381,9 +424,13 @@ Initial Contents::
 | email | <<prop-alerts>>
 |===
 
+
 Property Name:: display
+
 Context:: Link
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -396,9 +443,13 @@ Initial Contents::
 | thumbnail | <<type-Link>>
 |===
 
+
 Property Name:: features
+
 Context:: VirtualLocation
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -414,9 +465,13 @@ Initial Contents::
 | video | <<prop-virtualLocations>>
 |===
 
+
 Property Name:: freeBusyStatus
+
 Context:: Event, Task
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -427,9 +482,13 @@ Initial Contents::
 | busy | <<prop-freeBusyStatus>>
 |===
 
+
 Property Name:: kind
+
 Context:: Participant
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -442,9 +501,13 @@ Initial Contents::
 | location | <<prop-participants>>
 |===
 
+
 Property Name:: participationStatus
+
 Context:: Participant
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -458,9 +521,13 @@ Initial Contents::
 | delegated | <<prop-participants>>
 |===
 
+
 Property Name:: privacy
+
 Context:: Event, Task
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -472,9 +539,13 @@ Initial Contents::
 | secret | <<prop-privacy>>
 |===
 
+
 Property Name:: progress
+
 Context:: Task, Participant
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -488,9 +559,13 @@ Initial Contents::
 | cancelled | <<prop-progress>>
 |===
 
+
 Property Name:: relation
+
 Context:: Relation
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -503,9 +578,13 @@ Initial Contents::
 | parent | <<type-Relation>>
 |===
 
+
 Property Name:: relativeTo
+
 Context:: OffsetTrigger, Location
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -516,9 +595,13 @@ Initial Contents::
 | end | <<prop-alerts>>
 |===
 
+
 Property Name:: roles
+
 Context:: Participant
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -533,9 +616,13 @@ Initial Contents::
 | contact | <<prop-participants>>
 |===
 
+
 Property Name:: scheduleAgent
+
 Context:: Participant
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]
@@ -547,9 +634,13 @@ Initial Contents::
 | none | <<prop-participants>>
 |===
 
+
 Property Name:: status
+
 Context:: Event
+
 Change Controller:: IETF
+
 Initial Contents::
 +
 [options=header,cols=2]

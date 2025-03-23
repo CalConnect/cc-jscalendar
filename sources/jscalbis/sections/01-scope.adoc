@@ -1,17 +1,5 @@
 == Scope
 
-//This document defines a data model and JSON representation of calendar data that can be used for
-//storage and data exchange in a calendaring and scheduling environment. It aims to be an
-//alternative and, over time, successor to the widely deployed iCalendar data format. It also aims
-//to be unambiguous, extendable, and simple to process.
-
-//The format is designed to be a standalone format that can be used independently of any existing
-//calendar ecosystem, while still maintaining compatibility with the iCalendar data format to
-//facilitate migration and interoperability.
-
-//This document defines:
-
-//* A data model for calendar objects including events, tasks, and groups
-//* A JSON representation of this data model
-//* Semantics and rules for interpreting and processing calendar data
-//* Extensions mechanisms for adding new properties and values
+This document defines a data model for calendar event and task objects, or
+groups of such objects, in electronic calendar applications and systems. The
+format aims to be unambiguous, extendable, and simple to process.

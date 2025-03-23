@@ -1,37 +1,41 @@
 [[icalendar-preprocessing]]
 == iCalendar pre-processing
 
-iCalendar uses a line-folding mechanism to limit lines of data to a maximum line length
-(typically 75 octets) to ensure the maximum likelihood of preserving data integrity as it is
-transported via various means (e.g., email) -- see <<RFC5545,section=3.1>>.
+iCalendar uses a line-folding mechanism to limit lines of data to a maximum line
+length (typically 75 octets) to ensure the maximum likelihood of preserving data
+integrity as it is transported via various means (e.g., email) -- see
+<<RFC5545,section=3.1>>.
 
-iCalendar data uses an "escape" character sequence for text values and property parameter
-values. See <<RFC5545,section=3.1>> and <<RFC5545,section=3.3>> as well as <<RFC6868>>.
+iCalendar data uses an "escape" character sequence for text values and property
+parameter values. See <<RFC5545,section=3.1>> and <<RFC5545,section=3.3>> as
+well as <<RFC6868>>.
 
-There is a subtle difference in the number representations between JSON and iCalendar. While
-in iCalendar, a number may have leading zeros, as well as a leading plus sign; this is not
-the case in JSON. Numbers should be represented in whatever way needed for the underlying
-format.
+There is a subtle difference in the number representations between JSON and
+iCalendar. While in iCalendar, a number may have leading zeros, as well as a
+leading plus sign; this is not the case in JSON. Numbers should be represented
+in whatever way needed for the underlying format.
 
-When converting from iCalendar to JSCalendar: First, iCalendar lines MUST be unfolded.
-Afterwards, any iCalendar escaping MUST be unescaped. Finally, JSON escaping, as described in
-<<RFC8259,section=7>>, MUST be applied. The reverse order applies when converting from
-JSCalendar to iCalendar, which is further described in Section ?.
+When converting from iCalendar to JSCalendar: First, iCalendar lines MUST be
+unfolded. Afterwards, any iCalendar escaping MUST be unescaped. Finally, JSON
+escaping, as described in <<RFC8259,section=7>>, MUST be applied. The reverse
+order applies when converting from JSCalendar to iCalendar, which is further
+described in Section ?.
 
-iCalendar uses a base64 encoding for binary data. However, it does not restrict the encoding
-from being applied to non-binary value types. So, the following rules are applied when
-processing a property with the "ENCODING" property parameter set to "BASE64":
+iCalendar uses a base64 encoding for binary data. However, it does not restrict
+the encoding from being applied to non-binary value types. So, the following
+rules are applied when processing a property with the "ENCODING" property
+parameter set to "BASE64":
 
 * If the property value type is "BINARY", the base64 encoding MUST be preserved.
-* If the value type is not "BINARY", the "ENCODING" property parameter MUST be removed, and
-the value MUST be base64 decoded.
+* If the value type is not "BINARY", the "ENCODING" property parameter MUST be
+removed, and the value MUST be base64 decoded.
 
-When base64 encoding is used, it MUST conform to <<RFC4648,section=4>>, which is the base64
-method used in <<RFC5545>>.
+When base64 encoding is used, it MUST conform to <<RFC4648,section=4>>, which is
+the base64 method used in <<RFC5545>>.
 
-One key difference in the formatting of values used in iCalendar and JSCalendar is that, in
-JSCalendar, the specification uses date/time values aligned with the extended format of
-ISO.8601.2004, which is more commonly used in Internet applications that make use of the
-JSON format. The sections of this document describing the various date and time formats
-contain more information on the use of the complete representation, reduced accuracy, or
-truncated representation.
+One key difference in the formatting of values used in iCalendar and JSCalendar
+is that, in JSCalendar, the specification uses date/time values aligned with the
+extended format of ISO.8601.2004, which is more commonly used in Internet
+applications that make use of the JSON format. The sections of this document
+describing the various date and time formats contain more information on the use
+of the complete representation, reduced accuracy, or truncated representation.

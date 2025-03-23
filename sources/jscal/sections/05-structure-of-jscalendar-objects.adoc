@@ -1,54 +1,62 @@
 [[structure-of-jscalendar-objects]]
 == Structure of JSCalendar Objects
 
-A JSCalendar object is a JSON object <<RFC8259>>, which MUST be valid I-JSON (a stricter
-subset of JSON) <<RFC7493>>. Property names and values are case-sensitive.
+A JSCalendar object is a JSON object <<RFC8259>>, which MUST be valid I-JSON (a
+stricter subset of JSON) <<RFC7493>>. Property names and values are
+case-sensitive.
 
-The object has a collection of properties, as specified in the following sections. Properties
-are specified as being either mandatory or optional. Optional properties may have a default
-value, if explicitly specified in the property definition.
+The object has a collection of properties, as specified in the following
+sections. Properties are specified as being either mandatory or optional.
+Optional properties may have a default value, if explicitly specified in the
+property definition.
 
 [[objecttype]]
 === Object Type
 
-JSCalendar objects MUST name their type in the `@type` property, if not explicitly specified
-otherwise for the respective object type. A notable exception to this rule is the PatchObject
-<<type-PatchObject>>.
+JSCalendar objects MUST name their type in the `@type` property, if not
+explicitly specified otherwise for the respective object type. A notable
+exception to this rule is the PatchObject <<type-PatchObject>>.
 
 [[normalization]]
 === Normalization and Equivalence
 
-JSCalendar aims to provide unambiguous definitions for value types and properties, but does
-not define a general normalization or equivalence method for JSCalendar objects and types.
-This is because the notion of equivalence might range from byte-level equivalence to semantic
-equivalence, depending on the respective use case.
+JSCalendar aims to provide unambiguous definitions for value types and
+properties, but does not define a general normalization or equivalence method
+for JSCalendar objects and types. This is because the notion of equivalence
+might range from byte-level equivalence to semantic equivalence, depending on
+the respective use case.
 
-Normalization of JSCalendar objects is hindered because of the following reasons:
+Normalization of JSCalendar objects is hindered because of the following
+reasons:
 
-* Custom JSCalendar properties may contain arbitrary JSON values, including arrays. However,
-equivalence of arrays might or might not depend on the order of elements, depending on the
-respective property definition.
-* Several JSCalendar property values are defined as URIs and media types, but normalization
-of these types is inherently protocol- and scheme-specific, depending on the use-case of the
-equivalence definition (see <<RFC3986,section=6>>).
+* Custom JSCalendar properties may contain arbitrary JSON values, including
+arrays. However, equivalence of arrays might or might not depend on the order of
+elements, depending on the respective property definition.
 
-Considering this, the definition of equivalence and normalization is left to client and
-server implementations and to be negotiated by a calendar exchange protocol or defined
-elsewhere.
+* Several JSCalendar property values are defined as URIs and media types, but
+normalization of these types is inherently protocol- and scheme-specific,
+depending on the use-case of the equivalence definition (see
+<<RFC3986,section=6>>).
+
+Considering this, the definition of equivalence and normalization is left to
+client and server implementations and to be negotiated by a calendar exchange
+protocol or defined elsewhere.
 
 [[custom-properties]]
 === Vendor-specific Property Extensions, Values and Types
 
-Vendors MAY add additional properties to the calendar object to support their custom
-features. To avoid conflict, the names of these properties MUST be prefixed by a domain name
-controlled by the vendor followed by a colon, e.g., `example.com:customprop`. If the value is
-a new JSCalendar object, it either MUST include a `@type` property or it MUST explicitly be
-specified to not require a type designator. The type name MUST be prefixed with a domain name
+Vendors MAY add additional properties to the calendar object to support their
+custom features. To avoid conflict, the names of these properties MUST be
+prefixed by a domain name controlled by the vendor followed by a colon, e.g.,
+`example.com:customprop`. If the value is a new JSCalendar object, it either
+MUST include a `@type` property or it MUST explicitly be specified to not
+require a type designator. The type name MUST be prefixed with a domain name
 controlled by the vendor.
 
-Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific
-values MUST be prefixed by a domain name controlled by the vendor followed by a colon, e.g.,
-`example.com:customrel`.
+Some JSCalendar properties allow vendor-specific value extensions. Such
+vendor-specific values MUST be prefixed by a domain name controlled by the
+vendor followed by a colon, e.g., `example.com:customrel`.
 
-Vendors are strongly encouraged to register any new property values or extensions that are
-useful to other systems as well, rather than use a vendor-specific prefix.
+Vendors are strongly encouraged to register any new property values or
+extensions that are useful to other systems as well, rather than use a
+vendor-specific prefix.

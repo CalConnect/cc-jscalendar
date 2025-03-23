@@ -3,26 +3,28 @@
 
 === Translating iCalendar Recurrences: Simple objects with overrides
 
-A simple object with overrides will be converted to a jsCalendar master event with the rules,
-recurrence dates and exclusion dates translated appropriately.
+A simple object with overrides will be converted to a jsCalendar master event
+with the rules, recurrence dates and exclusion dates translated appropriately.
 
-Overrides MUST be mapped on to a jsCalendar patch object and added to the "recurrenceOverrides"
-property of the master event with the key being the value of the iCalendar RECURRENCE-ID
-translated to a json format.
+Overrides MUST be mapped on to a jsCalendar patch object and added to the
+"recurrenceOverrides" property of the master event with the key being the value
+of the iCalendar RECURRENCE-ID translated to a json format.
 
-Any override property with the same value as the master SHOULD be ommitted. Remaining properties
-MAY be added in full. Where appropriate, differences SHOULD be expressed as a patch.
+Any override property with the same value as the master SHOULD be ommitted.
+Remaining properties MAY be added in full. Where appropriate, differences SHOULD
+be expressed as a patch.
 
-This can result in a significant reduction in size for objects with small changes to overrides,
-for example changing the participation status of an attendee.
+This can result in a significant reduction in size for objects with small
+changes to overrides, for example changing the participation status of an
+attendee.
 
 === Translating iCalendar Recurrences: Overrides with no master
 
-When inviting an attendee to a single instance of a recurring event, only that override should
-be sent to the attendee. In this case the override should be a complete jsCalendar object with
-the type set to the type of the master.
+When inviting an attendee to a single instance of a recurring event, only that
+override should be sent to the attendee. In this case the override should be a
+complete jsCalendar object with the type set to the type of the master.
 
-Additionally, there MUST be a recurrenceId property set to the value of the recurrence id for
-that override. If the timezone of the start of the instance is different from the master value,
-then there must also be a "recurrenceIdTimeZone" property set to the start timezone of the
-master.
+Additionally, there MUST be a recurrenceId property set to the value of the
+recurrence id for that override. If the timezone of the start of the instance is
+different from the master value, then there must also be a
+"recurrenceIdTimeZone" property set to the start timezone of the master.

@@ -1,10 +1,6 @@
 [[scope]]
 == Scope
 
-//This document defines a data model for calendar event and task objects, or groups of such
-//objects, in electronic calendar applications and systems. It also defines a JSON representation
-//of this data model, which can be used for storage and data exchange in a calendaring and
-//scheduling environment.
-
-//The data model is designed to be unambiguous, extendable and simple to process, addressing many
-//of the issues found in current calendar data formats like iCalendar.
+This specification defines a data model and JSON representation of calendar data
+that can be used for storage and data exchange in a calendaring and scheduling
+environment.

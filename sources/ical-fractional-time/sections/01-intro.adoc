@@ -1,11 +1,13 @@
 [[introduction]]
 == Introduction
 
-There has been an expressed need for the ability to use fractional seconds in iCalendar. With
-the advent of JSCalendar there is a way to do so in that representation. This specification
-provides a - partially backwards compatible - way to represent such times in iCalendar.
+There has been an expressed need for the ability to use fractional seconds in
+iCalendar. With the advent of JSCalendar there is a way to do so in that
+representation. This specification provides a - partially backwards compatible -
+way to represent such times in iCalendar.
 
-It is probable that applications needing fractional seconds require recurrence rules that use
-sub-second intervals.
+It is probable that applications needing fractional seconds require recurrence
+rules that use sub-second intervals.
 
-This specification also shows how values should be mapped to and from JSCalendar.
+This specification also shows how values should be mapped to and from
+JSCalendar.

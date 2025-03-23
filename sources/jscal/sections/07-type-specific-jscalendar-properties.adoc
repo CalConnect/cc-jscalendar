@@ -3,37 +3,40 @@
 
 === Event Properties
 
-In addition to the common JSCalendar object properties <<jscalendar-props>> a Event has the
-following properties:
+In addition to the common JSCalendar object properties <<jscalendar-props>> a
+Event has the following properties:
 
 [[prop-start-jsevent]]
 ==== start
 
 Type: `LocalDateTime` (mandatory).
 
-The date/time the event starts in the event's time zone (as specified in the `timeZone`
-property, see <<prop-timeZone>>).
+The date/time the event starts in the event's time zone (as specified in the
+`timeZone` property, see <<prop-timeZone>>).
 
 [[prop-duration]]
 ==== duration
 
 Type: `Duration` (optional, default: `PT0S`).
 
-The zero or positive duration of the event in the event's start time zone. The end time of an
-event can be found by adding the duration to the event's start time.
+The zero or positive duration of the event in the event's start time zone. The
+end time of an event can be found by adding the duration to the event's start
+time.
 
-A Event MAY involve start and end locations that are in different time zones (e.g., a
-trans-continental flight). This can be expressed using the `relativeTo` and `timeZone`
-properties of the Event's Location objects (see <<prop-locations>>).
+A Event MAY involve start and end locations that are in different time zones
+(e.g., a trans-continental flight). This can be expressed using the `relativeTo`
+and `timeZone` properties of the Event's Location objects (see
+<<prop-locations>>).
 
 [[prop-status-jsevent]]
 ==== status
 
 Type: `String` (optional, default: `confirmed`).
 
-The scheduling status (<<sharing-scheduling-properties>>) of a Event. If set, it MUST be one
-of the following values, another value registered in the IANA JSCalendar Enum Values
-registry, or a vendor-specific value (see <<custom-properties>>):
+The scheduling status (<<sharing-scheduling-properties>>) of a Event. If set, it
+MUST be one of the following values, another value registered in the IANA
+JSCalendar Enum Values registry, or a vendor-specific value (see
+<<custom-properties>>):
 
 * `confirmed`: Indicates the event is definitely happening.
 * `cancelled`: Indicates the event has been cancelled.
@@ -42,7 +45,8 @@ registry, or a vendor-specific value (see <<custom-properties>>):
 [[jstask-props]]
 === Task Properties
 
-In addition to the common JSCalendar object properties <<jscalendar-props>> a Task has the following properties:
+In addition to the common JSCalendar object properties <<jscalendar-props>> a
+Task has the following properties:
 
 [[prop-due]]
 ==== due
@@ -70,8 +74,8 @@ Specifies the estimated positive duration of time the task takes to complete.
 
 Type: `UnsignedInt` (optional).
 
-Represents the percent completion of the task overall. The property value MUST be a positive
-integer between 0 and 100.
+Represents the percent completion of the task overall. The property value MUST
+be a positive integer between 0 and 100.
 
 [[prop-progress]]
 ==== progress
@@ -79,20 +83,33 @@ integer between 0 and 100.
 Type: `String` (optional).
 
 Defines the progress of this task. If omitted, the default progress
-(<<sharing-scheduling-properties>>) of a Task is defined as follows (in order of evaluation):
+(<<sharing-scheduling-properties>>) of a Task is defined as follows (in order of
+evaluation):
 
-* `completed`: if the `progress` property value of all participants is `completed`.
-* `failed`: if at least one `progress` property value of a participant is `failed`.
-* `in-process`: if at least one `progress` property value of a participant is `in-process`.
+* `completed`: if the `progress` property value of all participants is
+`completed`.
+
+* `failed`: if at least one `progress` property value of a participant is
+`failed`.
+
+* `in-process`: if at least one `progress` property value of a participant is
+`in-process`.
+
 * `needs-action`: If none of the other criteria match.
 
-If set, it MUST be one of the following values, another value registered in the IANA
-JSCalendar Enum Values registry, or a vendor-specific value (see <<custom-properties>>):
+If set, it MUST be one of the following values, another value registered in the
+IANA JSCalendar Enum Values registry, or a vendor-specific value (see
+<<custom-properties>>):
+
 
 * `needs-action`: Indicates the task needs action.
+
 * `in-process`: Indicates the task is in process.
+
 * `completed`: Indicates the task is completed.
+
 * `failed`: Indicates the task failed.
+
 * `cancelled`: Indicates the task was cancelled.
 
 [[prop-progressUpdated]]
@@ -101,15 +118,17 @@ JSCalendar Enum Values registry, or a vendor-specific value (see <<custom-proper
 Type: `UTCDateTime` (optional).
 
 Specifies the date/time the `progress` property of either the task overall
-(<<prop-progress>>) or a specific participant (<<prop-participants>>) was last updated.
+(<<prop-progress>>) or a specific participant (<<prop-participants>>) was last
+updated.
 
-If the task is recurring and has future instances, a client may want to keep track of the
-last progress update timestamp of a specific task recurrence, but leave other instances
-unchanged. One way to achieve this is by overriding the progressUpdated property in the task
-`recurrenceOverrides` property. However, this could produce a long list of timestamps for
-regularly recurring tasks. An alternative approach is to split the Task into a current,
-single instance of Task with this instance progress update time and a future recurring
-instance. See also <<prop-relatedTo>> on splitting.
+If the task is recurring and has future instances, a client may want to keep
+track of the last progress update timestamp of a specific task recurrence, but
+leave other instances unchanged. One way to achieve this is by overriding the
+progressUpdated property in the task `recurrenceOverrides` property. However,
+this could produce a long list of timestamps for regularly recurring tasks. An
+alternative approach is to split the Task into a current, single instance of
+Task with this instance progress update time and a future recurring instance.
+See also <<prop-relatedTo>> on splitting.
 
 [[jsgroup-props]]
 === Group Properties
@@ -138,12 +157,13 @@ In addition, the following Group-specific properties are supported:
 
 Type: `(Task|Event)[]` (mandatory).
 
-A collection of group members. Implementations MUST ignore entries of unknown type.
+A collection of group members. Implementations MUST ignore entries of unknown
+type.
 
 [[prop-source]]
 ==== source
 
 Type: `String` (optional).
 
-The source from which updated versions of this group may be retrieved from. The value MUST be
-a URI.
+The source from which updated versions of this group may be retrieved from. The
+value MUST be a URI.

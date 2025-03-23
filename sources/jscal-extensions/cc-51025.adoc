@@ -1,5 +1,5 @@
 = iCalendar Format Extension for JSCalendar
-:docnumber: 51015
+:docnumber: 51025
 :copyright-year: 2022
 :language: en
 :doctype: standard
